@@ -14,6 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.8" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
@@ -35,5 +39,12 @@
     <ProjectReference Include="..\..\Services\FitnessHub.Services\FitnessHub.Services.csproj" />
     <ProjectReference Include="..\FitnessHub.Web.Infrastructure\FitnessHub.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\FitnessHub.Web.ViewModels\FitnessHub.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Chat\" />
+    <Folder Include="Views\Equipments\" />
+    <Folder Include="Views\Suplements\" />
+    <Folder Include="Views\Services\" />
   </ItemGroup>
 </Project>

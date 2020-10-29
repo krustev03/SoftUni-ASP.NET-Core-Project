@@ -11,6 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20191224074400_InitialCreate.cs" />
+    <Compile Remove="Migrations\20191224074400_InitialCreate.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
 
@@ -42,6 +47,10 @@
     <ProjectReference Include="..\..\FitnessHub.Common\FitnessHub.Common.csproj" />
     <ProjectReference Include="..\FitnessHub.Data.Common\FitnessHub.Data.Common.csproj" />
     <ProjectReference Include="..\FitnessHub.Data.Models\FitnessHub.Data.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
