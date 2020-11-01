@@ -1,0 +1,57 @@
+.main__heading {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.info__section--first {
+    text-align: center;
+    margin-top: 72px;
+}
+
+.info__section--first__text h4 {
+    margin-bottom: 20px;
+}
+
+.info__section--first__text p {
+    margin-bottom: 30px;
+}
+
+.info__section--second {
+    margin-top: 80px;
+    text-align: center;
+}
+
+.info__section--second__text {
+    justify-self: flex-end;
+}
+
+.info__section--second__text h4 {
+    margin-bottom: 20px;
+}
+
+.info__section--second__text p {
+    margin-bottom: 30px;
+}
+
+.info__section--first__image {
+    max-width: 400px;
+    max-height: 310px;
+    margin-left: 48px;
+}
+
+.info__section--second__image {
+    max-width: 400px;
+    max-height: 310px;
+    margin-right: 60px;
+    overflow: hidden;
+}
+
+.home__image {
+    width: 100%;
+    height: 100%;
+}
+
+.img__message {
+    width: 75%;
+    height: 75%;
+}

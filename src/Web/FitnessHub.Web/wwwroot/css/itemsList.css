@@ -1,0 +1,43 @@
+.services__content {
+    display: flex;
+    flex-flow: column;
+}
+
+.services__model {
+    border-radius: 8px;
+    min-height: 30px;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.entity {
+    min-width: 95%;
+    border: 3px solid rgb(57, 58, 61);
+    border-radius: 8px;
+    min-height: 50px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.chat__service {
+    text-align: start;
+}
+
+.entity h4 {
+    font-size: 16px;
+}
+
+.item__image__container {
+    max-height: 200px;
+    max-width: 200px;
+}
+
+.item__image {
+    height: 100%;
+    width: 100%;
+}
+
+.chat__header {
+    text-align: center;
+    margin-top: 50px;
+}
