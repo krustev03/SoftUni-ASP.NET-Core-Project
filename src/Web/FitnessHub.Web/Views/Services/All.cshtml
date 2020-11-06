@@ -1,32 +1,30 @@
-﻿@{
+﻿@model FitnessHub.Web.ViewModels.Services.ServicesIndexViewModel
+
+@{
     this.ViewData["Title"] = "All Services";
 }
-<main>
+<main class="d-flex flex-column align-items-center">
     <h1 class="display-2 main__heading">Services</h1>
-    <div class="services__content container">
-        <div class="services__model row">
+    <div class="services__content container d-flex flex-column">
+        <div class="services__model text-center row">
             <h4 class="col">Name:</h4>
             <h4 class="col">Author:</h4>
             <h4 class="col">Published On:</h4>
             <div class="col"></div>
         </div>
         <div class="service__entities">
-            <div class="entity row align-items-center">
-                <h4 class="col">Training Program</h4>
-                <h4 class="col">Georgi Jivkov</h4>
-                <h4 class="col">12.10.2020</h4>
-                <div class="col">
-                    <button class="btn--basic btn--services">View</button>
+            @foreach (var service in Model.Services.OrderByDescending(x => x.CreatedOn))
+            {
+                <div class="entity text-center row align-items-center">
+                    <h4 class="col">@service.Name</h4>
+                    <h4 class="col">@service.Author.UserName</h4>
+                    <h4 class="col">@service.CreatedOn</h4>
+                    <div class="col">
+                        <a class="btn btn-primary" role="button" asp-route-id="@service.Id" asp-controller="Services" asp-action="Details">View</a>
+                    </div>
                 </div>
-            </div>
-            <div class="entity row align-items-center">
-                <h4 class="col">Training Program</h4>
-                <h4 class="col">Georgi Jivkov</h4>
-                <h4 class="col">12.10.2020</h4>
-                <div class="col">
-                    <button class="btn--basic btn--services">View</button>
-                </div>
-            </div>
+            }
         </div>
     </div>
+    <a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Services" asp-action="Add">Add Service</a>
 </main>

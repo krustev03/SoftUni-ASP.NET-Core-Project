@@ -1,13 +1,14 @@
 ﻿@{
-    this.ViewData["Title"] = "All Equipments";
+    this.ViewData["Title"] = "All Suplements";
 }
 
 <main>
-    <h1 class="display-2 main__heading">Equipments</h1>
+    <h1 class="display-2 main__heading">Suplements</h1>
     <div class="services__content container d-flex flex-column">
         <div class="services__model text-center row">
             <div class="col"></div>
             <h4 class="col">Name:</h4>
+            <h4 class="col">Weight:</h4>
             <h4 class="col">Price:</h4>
             <div class="col"></div>
         </div>
@@ -15,22 +16,24 @@
             <div class="col">
                 <img src="~/images/whey-protein.jpg" class="w-100 h-100">
             </div>
-            <h4 class="col">Running machine</h4>
-            <h4 class="col">300 lv.</h4>
+            <h4 class="col">Whey Protein</h4>
+            <h4 class="col">3000 grams</h4>
+            <h4 class="col">100 lv.</h4>
             <div class="col">
-                <a class="btn btn-primary" role="button" asp-area="" asp-controller="Equipments" asp-action="Details">View</a>
+                <a class="btn btn-primary" role="button" asp-area="" asp-controller="Suplements" asp-action="Details">View</a>
             </div>
         </div>
         <div class="entity text-center row align-items-center item__image__container align-self-center">
             <div class="col">
                 <img src="~/images/gym.jpg" class="w-100 h-100">
             </div>
-            <h4 class="col">Dumbell</h4>
+            <h4 class="col">Creatin Creapture</h4>
+            <h4 class="col">500 grams</h4>
             <h4 class="col">30 lv.</h4>
             <div class="col">
-                <a class="btn btn-primary" role="button" asp-area="" asp-controller="Equipments" asp-action="Details">View</a>
+                <a class="btn btn-primary" role="button" asp-area="" asp-controller="Suplements" asp-action="Details">View</a>
             </div>
         </div>
     </div>
-    <a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Equipments" asp-action="Add">Add Equipment</a>
+    <a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Suplements" asp-action="Add">Add Suplement</a>
 </main>

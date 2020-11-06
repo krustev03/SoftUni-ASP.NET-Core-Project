@@ -46,9 +46,4 @@
     <ProjectReference Include="..\FitnessHub.Web.Infrastructure\FitnessHub.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\FitnessHub.Web.ViewModels\FitnessHub.Web.ViewModels.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Chat\" />
-    <Folder Include="Views\Suplements\" />
-  </ItemGroup>
 </Project>

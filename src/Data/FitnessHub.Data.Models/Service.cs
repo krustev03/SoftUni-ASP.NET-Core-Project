@@ -10,8 +10,8 @@
 
         public string Description { get; set; }
 
-        public string SellerId { get; set; }
+        public string AuthorId { get; set; }
 
-        public virtual ApplicationUser Seller { get; set; }
+        public virtual ApplicationUser Author { get; set; }
     }
 }

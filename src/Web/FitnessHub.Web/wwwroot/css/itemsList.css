@@ -1,43 +1,35 @@
 .services__content {
-    display: flex;
-    flex-flow: column;
+    padding: 0;
 }
 
 .services__model {
-    border-radius: 8px;
     min-height: 30px;
+    border-radius: 8px;
     margin-top: 40px;
-    text-align: center;
 }
 
 .entity {
-    min-width: 95%;
+    min-width: 100%;
+    min-height: 50px;
     border: 3px solid rgb(57, 58, 61);
     border-radius: 8px;
-    min-height: 50px;
     margin-top: 20px;
-    text-align: center;
-}
-
-.chat__service {
-    text-align: start;
 }
 
 .entity h4 {
     font-size: 16px;
+    margin-bottom: 0;
 }
 
 .item__image__container {
-    max-height: 200px;
+    max-height: 250px;
     max-width: 200px;
 }
 
-.item__image {
-    height: 100%;
-    width: 100%;
+.chat__header {
+    margin-top: 50px;
 }
 
-.chat__header {
-    text-align: center;
-    margin-top: 50px;
+.add-item {
+    margin-top: 30px;
 }

@@ -2,7 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    public class EquipmentsController : Controller
+    public class SuplementsController : Controller
     {
         public IActionResult All()
         {
