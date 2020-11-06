@@ -1,4 +1,4 @@
-﻿namespace FitnessHub.Web.ViewModels.Services
+﻿namespace FitnessHub.Web.ViewModels.Suplements
 {
     using System.ComponentModel.DataAnnotations;
 

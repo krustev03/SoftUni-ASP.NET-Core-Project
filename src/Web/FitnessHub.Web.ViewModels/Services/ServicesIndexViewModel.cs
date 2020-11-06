@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
 
-    public class ServicesIndexViewModel
+    public class SuplementsIndexViewModel
     {
-        public IEnumerable<ServiceViewModel> Services { get; set; }
+        public IEnumerable<SuplementViewModel> Services { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model FitnessHub.Web.ViewModels.Services.SuplementDetailsViewModel
+
+@{
     this.ViewData["Title"] = "Service Details";
 }
 
@@ -7,14 +9,16 @@
         <h3 class="details__heading"><b>Service Details</b></h3>
         <div class="view__chars d-flex flex-column align-items-center">
             <h6>Name:</h6>
-            <p>Self trainer</p>
+            <p>@Model.Name</p>
             <h6>Price:</h6>
-            <p>19 lv.</p>
+            <p>@Model.Price lv.</p>
             <h6>Description:</h6>
             <div class="details__description">
-                <p class="text-left">This is some of the description.dddddd dddddddd ddddddddd dddddddddd ddd dddddd ddddddd dddddd dddd</p>
+                <p class="text-center">@Model.Description</p>
             </div>
-            <button type="button" class="btn btn-danger">Remove</button>
+            <form method="post" asp-controller="Services" asp-action="Delete" asp-route-id="@Model.Id">
+                <input type="submit" value="Remove" class="btn btn-danger" />
+            </form>
         </div>
     </div>
 </main>

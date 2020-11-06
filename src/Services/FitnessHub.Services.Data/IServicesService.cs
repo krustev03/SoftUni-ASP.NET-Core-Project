@@ -9,6 +9,10 @@
     {
         public IEnumerable<T> GetAllServices<T>();
 
-        public Task AddServiceAsync(AddServiceInputModel serviceInputModel, string authorId);
+        public Task AddServiceAsync(AddSuplementInputModel serviceInputModel, string authorId);
+
+        public T GetServiceDetails<T>(int id);
+
+        public Task DeleteServiceByIdAsync(int id);
     }
 }

@@ -1,11 +1,9 @@
 ﻿namespace FitnessHub.Web.ViewModels.Services
 {
-    using System;
-
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Mapping;
 
-    public class SuplementViewModel : IMapFrom<Service>
+    public class SuplementDetailsViewModel : IMapFrom<Service>
     {
         public int Id { get; set; }
 
@@ -13,8 +11,6 @@
 
         public decimal Price { get; set; }
 
-        public DateTime CreatedOn { get; set; }
-
-        public ApplicationUser Author { get; set; }
+        public string Description { get; set; }
     }
 }

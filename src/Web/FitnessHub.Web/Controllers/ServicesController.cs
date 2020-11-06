@@ -1,5 +1,6 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Data;
@@ -22,8 +23,8 @@
 
         public IActionResult All()
         {
-            var viewModel = new ServicesIndexViewModel();
-            viewModel.Services = this.servicesService.GetAllServices<ServiceViewModel>();
+            var viewModel = new SuplementsIndexViewModel();
+            viewModel.Services = this.servicesService.GetAllServices<SuplementViewModel>();
 
             return this.View(viewModel);
         }
@@ -34,7 +35,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddServiceInputModel model)
+        public async Task<IActionResult> Add(AddSuplementInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -50,7 +51,19 @@
 
         public IActionResult Details()
         {
-            return View();
+            var url = this.HttpContext.Request.Path.Value;
+            var id = Convert.ToInt32(url.Substring(url.LastIndexOf('/') + 1));
+            var serviceModel = this.servicesService.GetServiceDetails<SuplementDetailsViewModel>(id);
+
+            return this.View(serviceModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.servicesService.DeleteServiceByIdAsync(id);
+
+            return this.RedirectToAction(nameof(this.All));
         }
     }
 }

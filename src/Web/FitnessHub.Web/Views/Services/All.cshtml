@@ -20,7 +20,7 @@
                     <h4 class="col">@service.Author.UserName</h4>
                     <h4 class="col">@service.CreatedOn</h4>
                     <div class="col">
-                        <a class="btn btn-primary" role="button" asp-route-id="@service.Id" asp-controller="Services" asp-action="Details">View</a>
+                        <a class="btn btn-primary" role="button" href="/Services/Details/@service.Id">View</a>
                     </div>
                 </div>
             }

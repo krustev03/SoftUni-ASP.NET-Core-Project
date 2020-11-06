@@ -23,17 +23,14 @@
             this.userRepository = userRepository;
         }
 
-        public async Task AddServiceAsync(AddServiceInputModel serviceInputModel, string authorId)
+        public async Task AddServiceAsync(AddSuplementInputModel serviceInputModel, string authorId)
         {
-            var author = this.userRepository.All().Where(x => x.Id == authorId).FirstOrDefault();
-
             var service = new Service()
             {
                 Name = serviceInputModel.Name,
                 Price = decimal.Parse(serviceInputModel.Price, CultureInfo.InvariantCulture),
                 Description = serviceInputModel.Description,
                 AuthorId = authorId,
-                Author = author,
             };
 
             await this.servicesRepository.AddAsync(service);
@@ -43,6 +40,20 @@
         public IEnumerable<T> GetAllServices<T>()
         {
             return this.servicesRepository.All().To<T>();
+        }
+
+        public T GetServiceDetails<T>(int id)
+        {
+            var service = this.servicesRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
+
+            return service;
+        }
+
+        public async Task DeleteServiceByIdAsync(int id)
+        {
+            var service = this.servicesRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            this.servicesRepository.Delete(service);
+            await this.servicesRepository.SaveChangesAsync();
         }
     }
 }
