@@ -2,14 +2,14 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-
+    using FitnessHub.Data.Models;
     using FitnessHub.Web.ViewModels.Suplements;
 
     public interface ISuplementsService
     {
         public IEnumerable<T> GetAllSuplements<T>();
 
-        public Task AddSuplementAsync(AddSuplementInputModel suplementInputModel);
+        public Task AddSuplementAsync(AddSuplementInputModel suplementInputModel, ApplicationUser appUser);
 
         public T GetSuplementDetails<T>(int id);
 

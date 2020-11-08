@@ -2,6 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
+
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Data;
     using FitnessHub.Web.ViewModels.Services;
@@ -23,8 +24,8 @@
 
         public IActionResult All()
         {
-            var viewModel = new SuplementsIndexViewModel();
-            viewModel.Services = this.servicesService.GetAllServices<SuplementViewModel>();
+            var viewModel = new ServicesIndexViewModel();
+            viewModel.Services = this.servicesService.GetAllServices<ServiceViewModel>();
 
             return this.View(viewModel);
         }
@@ -35,7 +36,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddSuplementInputModel model)
+        public async Task<IActionResult> Add(AddServiceInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -53,7 +54,7 @@
         {
             var url = this.HttpContext.Request.Path.Value;
             var id = Convert.ToInt32(url.Substring(url.LastIndexOf('/') + 1));
-            var serviceModel = this.servicesService.GetServiceDetails<SuplementDetailsViewModel>(id);
+            var serviceModel = this.servicesService.GetServiceDetails<ServiceDetailsViewModel>(id);
 
             return this.View(serviceModel);
         }

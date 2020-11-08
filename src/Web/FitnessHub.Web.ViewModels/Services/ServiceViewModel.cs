@@ -5,7 +5,7 @@
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Mapping;
 
-    public class SuplementViewModel : IMapFrom<Service>
+    public class ServiceViewModel : IMapFrom<Service>
     {
         public int Id { get; set; }
 

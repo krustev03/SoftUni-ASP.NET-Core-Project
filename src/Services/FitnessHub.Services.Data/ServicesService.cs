@@ -23,7 +23,7 @@
             this.userRepository = userRepository;
         }
 
-        public async Task AddServiceAsync(AddSuplementInputModel serviceInputModel, string authorId)
+        public async Task AddServiceAsync(AddServiceInputModel serviceInputModel, string authorId)
         {
             var service = new Service()
             {

@@ -46,4 +46,17 @@
     <ProjectReference Include="..\FitnessHub.Web.Infrastructure\FitnessHub.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\FitnessHub.Web.ViewModels\FitnessHub.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\suplementsImages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\suplementsImages\userInstructor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\suplementsImages\userProteinchee.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
