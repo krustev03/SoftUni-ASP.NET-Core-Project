@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using FitnessHub.Data.Models;
@@ -10,6 +11,7 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore.Internal;
 
     public class SuplementsController : BaseController
     {
@@ -48,6 +50,13 @@
                 this.ModelState.AddModelError("Image", "Invalid file type.");
             }
 
+            var allSuplements = this.suplementsService.GetAllSuplements<SuplementViewModel>().ToList();
+
+            if (allSuplements.Any(x => x.Name == model.Name))
+            {
+                this.ModelState.AddModelError("Name", $"Name '{model.Name}' has already been taken.");
+            }
+
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
@@ -56,7 +65,7 @@
             var appUser = await this.userManager.GetUserAsync(this.User);
 
             using (FileStream fs = new FileStream(
-                this.webHostEnvironment.WebRootPath + $"/images/user{model.Name}.jpg", FileMode.Create))
+                this.webHostEnvironment.WebRootPath + $"/suplementsImages/{model.Name}.jpg", FileMode.Create))
             {
                 await model.Image.CopyToAsync(fs);
             }
@@ -81,6 +90,16 @@
             await this.suplementsService.DeleteSuplementByIdAsync(id);
 
             return this.RedirectToAction(nameof(this.All));
+        }
+
+        public IActionResult Return()
+        {
+            return this.RedirectToAction(nameof(this.All));
+        }
+
+        public IActionResult GoToHome()
+        {
+            return this.Redirect("/Home/Index");
         }
     }
 }

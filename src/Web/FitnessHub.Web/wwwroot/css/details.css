@@ -7,6 +7,16 @@
     width: 50%;
 }
 
+.details__form {
+    min-width: 300px;
+}
+
 .view__chars p {
     margin-bottom: 25px;
+}
+
+.item__image__container__details {
+    max-width: 350px;
+    max-height: 350px;
+    margin-bottom: 30px;
 }

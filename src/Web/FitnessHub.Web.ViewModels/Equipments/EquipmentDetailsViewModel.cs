@@ -1,15 +1,13 @@
-﻿namespace FitnessHub.Web.ViewModels.Suplements
+﻿namespace FitnessHub.Web.ViewModels.Equipments
 {
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Mapping;
 
-    public class SuplementDetailsViewModel : IMapFrom<Suplement>
+    public class EquipmentDetailsViewModel : IMapFrom<Equipment>
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
-
-        public int Weight { get; set; }
 
         public decimal Price { get; set; }
 

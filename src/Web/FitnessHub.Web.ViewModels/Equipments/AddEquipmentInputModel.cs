@@ -1,19 +1,16 @@
-﻿namespace FitnessHub.Web.ViewModels.Suplements
+﻿namespace FitnessHub.Web.ViewModels.Equipments
 {
     using System.ComponentModel.DataAnnotations;
 
     using Microsoft.AspNetCore.Http;
 
-    public class AddSuplementInputModel
+    public class AddEquipmentInputModel
     {
         [Required]
         [MinLength(5, ErrorMessage = "The name must be at least 5 characters.")]
         [MaxLength(20)]
         [RegularExpression("^[A-Z].*?$", ErrorMessage = "The name must start with capital letter.")]
         public string Name { get; set; }
-
-        [Required]
-        public string Weight { get; set; }
 
         [Required]
         public string Price { get; set; }
@@ -24,6 +21,6 @@
         [Required]
         public IFormFile Image { get; set; }
 
-        public string ImageUrl => $"~/suplementsImages/{this.Name}.jpg";
+        public string ImageUrl => $"~/equipmentsImages/{this.Name}.jpg";
     }
 }

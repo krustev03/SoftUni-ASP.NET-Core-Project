@@ -1,4 +1,6 @@
-﻿@{
+﻿@model FitnessHub.Web.ViewModels.Equipments.EquipmentsIndexViewModel;
+
+@{
     this.ViewData["Title"] = "All Equipments";
 }
 
@@ -11,26 +13,20 @@
             <h4 class="col">Price:</h4>
             <div class="col"></div>
         </div>
-        <div class="entity text-center row align-items-center item__image__container align-self-center">
-            <div class="col">
-                <img src="~/images/whey-protein.jpg" class="w-100 h-100">
+        @foreach (var equipment in Model.Equipments.OrderByDescending(x => x.CreatedOn))
+        {
+            <div class="entity text-center row align-items-center item__image__container align-self-center">
+                <div class="col">
+                    <img src="@Url.Content(equipment.ImageUrl)" class="w-100 h-100">
+                </div>
+                <h4 class="col">@equipment.Name</h4>
+                <h4 class="col">@equipment.Price lv.</h4>
+                <div class="col">
+                    <a class="btn btn-primary" role="button" href="/Equipments/Details/@equipment.Id">View</a>
+                </div>
             </div>
-            <h4 class="col">Running machine</h4>
-            <h4 class="col">300 lv.</h4>
-            <div class="col">
-                <a class="btn btn-primary" role="button" asp-area="" asp-controller="Equipments" asp-action="Details">View</a>
-            </div>
-        </div>
-        <div class="entity text-center row align-items-center item__image__container align-self-center">
-            <div class="col">
-                <img src="~/images/gym.jpg" class="w-100 h-100">
-            </div>
-            <h4 class="col">Dumbell</h4>
-            <h4 class="col">30 lv.</h4>
-            <div class="col">
-                <a class="btn btn-primary" role="button" asp-area="" asp-controller="Equipments" asp-action="Details">View</a>
-            </div>
-        </div>
+        }
     </div>
     <a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Equipments" asp-action="Add">Add Equipment</a>
+    <a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Equipments" asp-action="GoToHome">Go to home</a>
 </main>

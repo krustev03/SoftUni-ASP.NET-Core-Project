@@ -20,11 +20,12 @@
                     <h4 class="col">@service.Author.UserName</h4>
                     <h4 class="col">@service.CreatedOn</h4>
                     <div class="col">
-                        <a class="btn btn-primary" role="button" href="/Services/Details/@service.Id">View</a>
+                        <a class="btn btn-outline-primary" role="button" href="/Services/Details/@service.Id">View</a>
                     </div>
                 </div>
             }
         </div>
     </div>
     <a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Services" asp-action="Add">Add Service</a>
+    <a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Services" asp-action="GoToHome">Go to home</a>
 </main>

@@ -14,15 +14,12 @@
 
     public class SuplementsService : ISuplementsService
     {
-        private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<Suplement> suplementsRepository;
 
         public SuplementsService(
-            IDeletableEntityRepository<Suplement> suplementsRepository,
-            UserManager<ApplicationUser> userManager)
+            IDeletableEntityRepository<Suplement> suplementsRepository)
         {
             this.suplementsRepository = suplementsRepository;
-            this.userManager = userManager;
         }
 
         public async Task AddSuplementAsync(

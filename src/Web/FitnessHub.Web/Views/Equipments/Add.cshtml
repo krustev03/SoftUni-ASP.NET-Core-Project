@@ -1,31 +1,31 @@
-﻿@{
-    this.ViewData["Title"] = "Add Equipment"; 
-}
+﻿@model FitnessHub.Web.ViewModels.Equipments.AddEquipmentInputModel
+
+@{ this.ViewData["Title"] = "Add Equipment"; }
 
 <main>
     <div class="text-center">
         <h3 class="add__heading"><b>Add Equipment</b></h3>
         <div class="form__inputs">
-            <form action="post" class="d-flex flex-column">
+            <form class="d-flex flex-column" method="post" asp-action="Add" asp-controller="Equipments" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label>Name</label>
-                    <input class="form-control" />
-                    <span class="text-danger"></span>
+                    <label asp-for="@Model.Name"></label>
+                    <input class="form-control" type="text" asp-for="@Model.Name" />
+                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label>Price</label>
-                    <input class="form-control" />
-                    <span class="text-danger"></span>
+                    <label asp-for="@Model.Price"></label>
+                    <input class="form-control" type="number" asp-for="@Model.Price" step="any" />
+                    <span asp-validation-for="@Model.Price" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label>Description</label>
-                    <textarea class="form-control"></textarea>
-                    <span class="text-danger"></span>
+                    <label asp-for="@Model.Image"></label>
+                    <input class="form-control" asp-for="@Model.Image" />
+                    <span asp-validation-for="@Model.Image" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label>Image URL</label>
-                    <input class="form-control" />
-                    <span class="text-danger"></span>
+                    <label asp-for="@Model.Description"></label>
+                    <textarea class="form-control" asp-for="@Model.Description"></textarea>
+                    <span asp-validation-for="@Model.Description" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">Add</button>

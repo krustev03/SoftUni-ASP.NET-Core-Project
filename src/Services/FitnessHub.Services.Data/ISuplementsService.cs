@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+
     using FitnessHub.Data.Models;
     using FitnessHub.Web.ViewModels.Suplements;
 

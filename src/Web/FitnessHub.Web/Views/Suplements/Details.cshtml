@@ -1,4 +1,6 @@
-﻿@{
+﻿@model FitnessHub.Web.ViewModels.Suplements.SuplementDetailsViewModel;
+
+@{
     this.ViewData["Title"] = "Suplement Details";
 }
 
@@ -6,15 +8,28 @@
     <div class="text-center">
         <h3 class="details__heading"><b>Suplement Details</b></h3>
         <div class="view__chars d-flex flex-column align-items-center">
+            <div class="item__image__container__details">
+                <img src="@Url.Content(Model.ImageUrl)" class="w-100 h-100">
+            </div>
             <h6>Name:</h6>
-            <p>Self trainer</p>
+            <p>@Model.Name</p>
+            <h6>Weight:</h6>
+            <p>@Model.Weight grams</p>
             <h6>Price:</h6>
-            <p>19 lv.</p>
+            <p>@Model.Price lv.</p>
             <h6>Description:</h6>
             <div class="details__description">
-                <p class="text-left">This is some of the description.dddddd dddddddd ddddddddd dddddddddd ddd dddddd ddddddd dddddd dddd</p>
+                <p class="text-center">@Model.Description</p>
             </div>
-            <button type="button" class="btn btn-danger">Remove</button>
+            <div class="details__form d-flex justify-content-around">
+                <form method="post" asp-controller="Suplements" asp-action="AddToCart" asp-route-id="@Model.Id">
+                    <input type="submit" value="Add to cart" class="btn btn-outline-primary" />
+                </form>
+                <a class="btn btn-primary w-25" role="button" asp-area="" asp-controller="Suplements" asp-action="Return">Return</a>
+                <form method="post" asp-controller="Suplements" asp-action="Delete" asp-route-id="@Model.Id">
+                    <input type="submit" value="Remove" class="btn btn-outline-danger" />
+                </form>
+            </div>
         </div>
     </div>
 </main>

@@ -18,7 +18,7 @@
         {
             <div class="entity text-center row align-items-center item__image__container align-self-center">
                 <div class="col">
-                    <img src="@suplement.ImageUrl" class="w-100 h-100">
+                    <img src="@Url.Content(suplement.ImageUrl)" class="w-100 h-100">
                 </div>
                 <h4 class="col">@suplement.Name</h4>
                 <h4 class="col">@suplement.Weight grams</h4>
@@ -28,6 +28,7 @@
                 </div>
             </div>
         }
-        </div>
+    </div>
     <a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Suplements" asp-action="Add">Add Suplement</a>
+    <a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Suplements" asp-action="GoToHome">Go to home</a>
 </main>
