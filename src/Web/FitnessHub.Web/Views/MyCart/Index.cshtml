@@ -1,0 +1,41 @@
+﻿@model FitnessHub.Web.ViewModels.MyCart.CartItemsViewModel
+
+@{
+    this.ViewData["Title"] = "My Cart";
+}
+
+<main>
+    <h1 class="display-2 main__heading"><b>My Cart</b></h1>
+    <div class="services__content container d-flex flex-column">
+        @foreach (var equipment in Model.Equipments.OrderBy(x => x.Name))
+        {
+            <div class="entity text-center row align-items-center item__image__container align-self-center">
+                <div class="col">
+                    <img src="@Url.Content(equipment.ImageUrl)" class="w-100 h-100">
+                </div>
+                <h4 class="col">@equipment.Name</h4>
+                <h4 class="col">@equipment.Price lv.</h4>
+                <div class="col">
+                    <a class="btn btn-primary" role="button" href="/Equipments/Details/@equipment.Id">View</a>
+                </div>
+            </div>
+        }
+        @foreach (var suplement in Model.Suplements.OrderBy(x => x.Name))
+        {
+            <div class="entity text-center row align-items-center item__image__container align-self-center">
+                <div class="col">
+                    <img src="@Url.Content(suplement.ImageUrl)" class="w-100 h-100">
+                </div>
+                <h4 class="col">@suplement.Name</h4>
+                <h4 class="col">@suplement.Price lv.</h4>
+                <div class="col">
+                    <form method="post" asp-controller="Users" asp-action="RemoveFromCart">
+                        <input type="submit" value="Remove" class="btn btn-outline-danger" />
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+    <h1>@Model.Equipments.Count()</h1>
+    <a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="MyCart" asp-action="GoToHome">Go to home</a>
+</main>

@@ -15,5 +15,7 @@
         public T GetEquipmentDetails<T>(int id);
 
         public Task DeleteEquipmentByIdAsync(int id);
+
+        public Task AddEquipmentToCart(int id, string userId);
     }
 }

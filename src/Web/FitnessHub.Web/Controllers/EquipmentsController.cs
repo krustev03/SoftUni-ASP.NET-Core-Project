@@ -91,6 +91,17 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(int id)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            string userId = user.Id;
+            await this.equipmentsService.AddEquipmentToCart(id, userId);
+            await this.userManager.UpdateAsync(user);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
+
         public IActionResult Return()
         {
             return this.RedirectToAction(nameof(this.All));

@@ -9,15 +9,19 @@
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Mapping;
     using FitnessHub.Web.ViewModels.Equipments;
+    using Microsoft.AspNetCore.Identity;
 
     public class EquipmentsService : IEquipmentsService
     {
         private readonly IDeletableEntityRepository<Equipment> equipmentsRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
 
         public EquipmentsService(
-            IDeletableEntityRepository<Equipment> equipmentsRepository)
+            IDeletableEntityRepository<Equipment> equipmentsRepository,
+            IDeletableEntityRepository<ApplicationUser> userRepository)
         {
             this.equipmentsRepository = equipmentsRepository;
+            this.userRepository = userRepository;
         }
 
         public async Task AddEquipmentAsync(
@@ -30,8 +34,6 @@
                 Description = equipmentInputModel.Description,
                 ImageUrl = equipmentInputModel.ImageUrl,
             };
-
-            appUser.Equipments.Add(equipment);
 
             await this.equipmentsRepository.AddAsync(equipment);
             await this.equipmentsRepository.SaveChangesAsync();
@@ -54,6 +56,14 @@
             var equipment = this.equipmentsRepository.All().Where(x => x.Id == id).FirstOrDefault();
             this.equipmentsRepository.Delete(equipment);
             await this.equipmentsRepository.SaveChangesAsync();
+        }
+
+        public async Task AddEquipmentToCart(int id, string userId)
+        {
+            var equipment = this.equipmentsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            var appUser = await this.userRepository.GetByIdWithDeletedAsync(userId);
+            appUser.Equipments.Add(equipment);
+            this.userRepository.Update(appUser);
         }
     }
 }
