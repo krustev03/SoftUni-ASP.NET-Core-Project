@@ -1,0 +1,15 @@
+﻿.chat__box {
+    background-color: dodgerblue;
+    color: white;
+    border: none;
+    border-radius: 14px;
+}
+
+.chat__form {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.chat__form-group label {
+    text-align: center;
+}

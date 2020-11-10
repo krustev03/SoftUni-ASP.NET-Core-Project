@@ -25,7 +25,7 @@
                 <form method="post" asp-controller="Suplements" asp-action="AddToCart" asp-route-id="@Model.Id">
                     <input type="submit" value="Add to cart" class="btn btn-outline-primary" />
                 </form>
-                <a class="btn btn-primary w-25" role="button" asp-area="" asp-controller="Suplements" asp-action="Return">Return</a>
+                <a class="btn btn-outline-primary w-25" role="button" asp-area="" asp-controller="Suplements" asp-action="Return">Return</a>
                 <form method="post" asp-controller="Suplements" asp-action="Delete" asp-route-id="@Model.Id">
                     <input type="submit" value="Remove" class="btn btn-outline-danger" />
                 </form>

@@ -18,6 +18,8 @@
         [Required]
         public string Price { get; set; }
 
+        [MaxLength(250)]
+        [MinLength(20, ErrorMessage = "The description must be at least 20 characters.")]
         [Required]
         public string Description { get; set; }
 

@@ -21,6 +21,10 @@
     margin-bottom: 0;
 }
 
+.chat__box h4 {
+    word-wrap: break-word;
+}
+
 .item__image__container {
     max-height: 250px;
     max-width: 200px;

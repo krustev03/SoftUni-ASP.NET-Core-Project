@@ -13,14 +13,11 @@
     public class ServicesService : IServicesService
     {
         private readonly IDeletableEntityRepository<Service> servicesRepository;
-        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
 
         public ServicesService(
-            IDeletableEntityRepository<Service> servicesRepository,
-            IDeletableEntityRepository<ApplicationUser> userRepository)
+            IDeletableEntityRepository<Service> servicesRepository)
         {
             this.servicesRepository = servicesRepository;
-            this.userRepository = userRepository;
         }
 
         public async Task AddServiceAsync(AddServiceInputModel serviceInputModel, string authorId)

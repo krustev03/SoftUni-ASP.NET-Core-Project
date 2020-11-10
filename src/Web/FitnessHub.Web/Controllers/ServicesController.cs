@@ -14,9 +14,7 @@
         private readonly IServicesService servicesService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public ServicesController(
-            IServicesService servicesService,
-            UserManager<ApplicationUser> userManager)
+        public ServicesController(IServicesService servicesService, UserManager<ApplicationUser> userManager)
         {
             this.servicesService = servicesService;
             this.userManager = userManager;
