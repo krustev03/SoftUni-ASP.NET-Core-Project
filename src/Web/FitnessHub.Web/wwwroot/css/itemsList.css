@@ -37,3 +37,17 @@
 .add-item {
     margin-top: 30px;
 }
+
+.proceed__container {
+    min-height: 130px;
+    border: none;
+}
+
+.proceed__link {
+    padding: 0px;
+}
+
+.proceed__link a,
+.proceed__link input {
+    width: 100%;
+}

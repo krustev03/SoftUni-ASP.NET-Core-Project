@@ -24,9 +24,11 @@
 
             var appUser = await this.userManager.GetUserAsync(this.User);
 
-            var viewModel = new CartItemsViewModel();
-            viewModel.Equipments = this.myCartService.GetUserEquipments(appUser);
-            viewModel.Suplements = this.myCartService.GetUserSuplements(appUser);
+            var viewModel = new CartItemsViewModel
+            {
+                Equipments = this.myCartService.GetUserEquipments(appUser),
+                Suplements = this.myCartService.GetUserSuplements(appUser),
+            };
 
             return this.View(viewModel);
         }

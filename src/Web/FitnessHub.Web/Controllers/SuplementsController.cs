@@ -62,15 +62,13 @@
                 return this.View(model);
             }
 
-            var appUser = await this.userManager.GetUserAsync(this.User);
-
             using (FileStream fs = new FileStream(
                 this.webHostEnvironment.WebRootPath + $"/suplementsImages/{model.Name}.jpg", FileMode.Create))
             {
                 await model.Image.CopyToAsync(fs);
             }
 
-            await this.suplementsService.AddSuplementAsync(model, appUser);
+            await this.suplementsService.AddSuplementAsync(model);
 
             return this.RedirectToAction(nameof(this.All));
         }
@@ -82,6 +80,17 @@
             var suplementModel = this.suplementsService.GetSuplementDetails<SuplementDetailsViewModel>(id);
 
             return this.View(suplementModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(int id)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            string userId = user.Id;
+            await this.suplementsService.AddSuplementToCart(id, userId);
+            await this.userManager.UpdateAsync(user);
+
+            return this.RedirectToAction(nameof(this.All));
         }
 
         [HttpPost]

@@ -24,8 +24,7 @@
             this.userRepository = userRepository;
         }
 
-        public async Task AddEquipmentAsync(
-            AddEquipmentInputModel equipmentInputModel, ApplicationUser appUser)
+        public async Task AddEquipmentAsync(AddEquipmentInputModel equipmentInputModel)
         {
             var equipment = new Equipment()
             {
@@ -62,8 +61,14 @@
         {
             var equipment = this.equipmentsRepository.All().Where(x => x.Id == id).FirstOrDefault();
             var appUser = await this.userRepository.GetByIdWithDeletedAsync(userId);
-            appUser.Equipments.Add(equipment);
+            appUser.Equipments.Add(new UserEquipment
+            {
+                Equipment = equipment,
+            });
             this.userRepository.Update(appUser);
+            await this.userRepository.SaveChangesAsync();
+            this.equipmentsRepository.Update(equipment);
+            await this.equipmentsRepository.SaveChangesAsync();
         }
     }
 }

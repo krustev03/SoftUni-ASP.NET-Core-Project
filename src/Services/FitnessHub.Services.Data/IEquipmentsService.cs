@@ -10,7 +10,7 @@
     {
         public IEnumerable<T> GetAllEquipments<T>();
 
-        public Task AddEquipmentAsync(AddEquipmentInputModel equipmentInputModel, ApplicationUser appUser);
+        public Task AddEquipmentAsync(AddEquipmentInputModel equipmentInputModel);
 
         public T GetEquipmentDetails<T>(int id);
 

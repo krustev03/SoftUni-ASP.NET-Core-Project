@@ -15,15 +15,17 @@
     public class SuplementsService : ISuplementsService
     {
         private readonly IDeletableEntityRepository<Suplement> suplementsRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
 
         public SuplementsService(
-            IDeletableEntityRepository<Suplement> suplementsRepository)
+            IDeletableEntityRepository<Suplement> suplementsRepository,
+            IDeletableEntityRepository<ApplicationUser> userRepository)
         {
             this.suplementsRepository = suplementsRepository;
+            this.userRepository = userRepository;
         }
 
-        public async Task AddSuplementAsync(
-            AddSuplementInputModel suplementInputModel, ApplicationUser appUser)
+        public async Task AddSuplementAsync(AddSuplementInputModel suplementInputModel)
         {
             var suplement = new Suplement()
             {
@@ -33,8 +35,6 @@
                 Description = suplementInputModel.Description,
                 ImageUrl = suplementInputModel.ImageUrl,
             };
-
-            appUser.Suplements.Add(suplement);
 
             await this.suplementsRepository.AddAsync(suplement);
             await this.suplementsRepository.SaveChangesAsync();
@@ -56,6 +56,20 @@
         {
             var suplement = this.suplementsRepository.All().Where(x => x.Id == id).FirstOrDefault();
             this.suplementsRepository.Delete(suplement);
+            await this.suplementsRepository.SaveChangesAsync();
+        }
+
+        public async Task AddSuplementToCart(int id, string userId)
+        {
+            var suplement = this.suplementsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            var appUser = await this.userRepository.GetByIdWithDeletedAsync(userId);
+            appUser.Suplements.Add(new UserSuplement
+            {
+                Suplement = suplement,
+            });
+            this.userRepository.Update(appUser);
+            await this.userRepository.SaveChangesAsync();
+            this.suplementsRepository.Update(suplement);
             await this.suplementsRepository.SaveChangesAsync();
         }
     }

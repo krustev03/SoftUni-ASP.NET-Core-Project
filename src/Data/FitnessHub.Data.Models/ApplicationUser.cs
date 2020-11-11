@@ -16,8 +16,8 @@ namespace FitnessHub.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
-            this.Suplements = new HashSet<Suplement>();
-            this.Equipments = new HashSet<Equipment>();
+            this.Suplements = new HashSet<UserSuplement>();
+            this.Equipments = new HashSet<UserEquipment>();
         }
 
         // Audit info
@@ -36,8 +36,8 @@ namespace FitnessHub.Data.Models
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
-        public virtual ICollection<Equipment> Equipments { get; set; }
+        public virtual ICollection<UserEquipment> Equipments { get; set; }
 
-        public virtual ICollection<Suplement> Suplements { get; set; }
+        public virtual ICollection<UserSuplement> Suplements { get; set; }
     }
 }

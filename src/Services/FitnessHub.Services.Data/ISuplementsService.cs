@@ -10,10 +10,12 @@
     {
         public IEnumerable<T> GetAllSuplements<T>();
 
-        public Task AddSuplementAsync(AddSuplementInputModel suplementInputModel, ApplicationUser appUser);
+        public Task AddSuplementAsync(AddSuplementInputModel suplementInputModel);
 
         public T GetSuplementDetails<T>(int id);
 
         public Task DeleteSuplementByIdAsync(int id);
+
+        public Task AddSuplementToCart(int id, string userId);
     }
 }

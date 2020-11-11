@@ -16,7 +16,9 @@
                 <h4 class="col">@equipment.Name</h4>
                 <h4 class="col">@equipment.Price lv.</h4>
                 <div class="col">
-                    <a class="btn btn-primary" role="button" href="/Equipments/Details/@equipment.Id">View</a>
+                    <form method="post" asp-controller="MyCart" asp-action="RemoveFromCart" asp-route-id="@equipment.Id">
+                        <input type="submit" value="Remove" class="btn btn-outline-danger" />
+                    </form>
                 </div>
             </div>
         }
@@ -29,13 +31,23 @@
                 <h4 class="col">@suplement.Name</h4>
                 <h4 class="col">@suplement.Price lv.</h4>
                 <div class="col">
-                    <form method="post" asp-controller="Users" asp-action="RemoveFromCart">
+                    <form method="post" asp-controller="MyCart" asp-action="RemoveFromCart" asp-route-id="@suplement.Id">
                         <input type="submit" value="Remove" class="btn btn-outline-danger" />
                     </form>
                 </div>
             </div>
         }
+        <div class="entity proceed__container text-center row align-items-center item__image__container align-self-center">
+            <div class="col proceed__link">
+                <a class="btn btn-primary" role="button" asp-area="" asp-controller="MyCart" asp-action="GoToHome">Go to home</a>
+            </div>
+            <h4 class="col"></h4>
+            <h2 class="col">Total: 84 lv.</h2>
+            <div class="col proceed__link">
+                <form method="post" asp-controller="MyCart" asp-action="ProceedToCheckout">
+                    <input type="submit" value="Proceed to checkout" class="btn btn-primary" />
+                </form>
+            </div>
+        </div>
     </div>
-    <h1>@Model.Equipments.Count()</h1>
-    <a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="MyCart" asp-action="GoToHome">Go to home</a>
 </main>

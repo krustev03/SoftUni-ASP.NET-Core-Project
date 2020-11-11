@@ -61,15 +61,13 @@
                 return this.View(model);
             }
 
-            var appUser = await this.userManager.GetUserAsync(this.User);
-
             using (FileStream fs = new FileStream(
                 this.webHostEnvironment.WebRootPath + $"/equipmentsImages/{model.Name}.jpg", FileMode.Create))
             {
                 await model.Image.CopyToAsync(fs);
             }
 
-            await this.equipmentsService.AddEquipmentAsync(model, appUser);
+            await this.equipmentsService.AddEquipmentAsync(model);
 
             return this.RedirectToAction(nameof(this.All));
         }
