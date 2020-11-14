@@ -11,5 +11,7 @@
         public int SuplementId { get; set; }
 
         public virtual Suplement Suplement { get; set; }
+
+        public int Quantity { get; set; } = 1;
     }
 }

@@ -1,0 +1,28 @@
+﻿@model FitnessHub.Web.ViewModels.News.AddNewsInputModel
+
+@{ 
+    this.ViewData["Title"] = "Add News";     
+}
+
+<main>
+    <div class="text-center">
+        <h3 class="add__heading"><b>Add News</b></h3>
+        <div class="form__inputs">
+            <form class="d-flex flex-column" method="post" asp-action="Add" asp-controller="News">
+                <div class="form-group">
+                    <label asp-for="@Model.Title"></label>
+                    <input class="form-control" type="text" asp-for="@Model.Title" />
+                    <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Content"></label>
+                    <textarea class="form-control" asp-for="@Model.Content"></textarea>
+                    <span asp-validation-for="@Model.Content" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>

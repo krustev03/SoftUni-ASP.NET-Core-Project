@@ -16,13 +16,16 @@
     {
         private readonly IDeletableEntityRepository<Suplement> suplementsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
+        private readonly IRepository<UserSuplement> userSuplementRepository;
 
         public SuplementsService(
             IDeletableEntityRepository<Suplement> suplementsRepository,
-            IDeletableEntityRepository<ApplicationUser> userRepository)
+            IDeletableEntityRepository<ApplicationUser> userRepository,
+            IRepository<UserSuplement> userSuplementRepository)
         {
             this.suplementsRepository = suplementsRepository;
             this.userRepository = userRepository;
+            this.userSuplementRepository = userSuplementRepository;
         }
 
         public async Task AddSuplementAsync(AddSuplementInputModel suplementInputModel)
@@ -63,14 +66,25 @@
         {
             var suplement = this.suplementsRepository.All().Where(x => x.Id == id).FirstOrDefault();
             var appUser = await this.userRepository.GetByIdWithDeletedAsync(userId);
-            appUser.Suplements.Add(new UserSuplement
+            var userSuplement = this.userSuplementRepository.All().Where(x => x.SuplementId == suplement.Id && x.UserId == userId).FirstOrDefault();
+
+            if (userSuplement == null)
             {
-                Suplement = suplement,
-            });
-            this.userRepository.Update(appUser);
-            await this.userRepository.SaveChangesAsync();
-            this.suplementsRepository.Update(suplement);
-            await this.suplementsRepository.SaveChangesAsync();
+                appUser.Suplements.Add(new UserSuplement
+                {
+                    Suplement = suplement,
+                });
+                this.userRepository.Update(appUser);
+                await this.userRepository.SaveChangesAsync();
+                this.suplementsRepository.Update(suplement);
+                await this.suplementsRepository.SaveChangesAsync();
+            }
+            else
+            {
+                userSuplement.Quantity++;
+                this.userSuplementRepository.Update(userSuplement);
+                await this.userSuplementRepository.SaveChangesAsync();
+            }
         }
     }
 }

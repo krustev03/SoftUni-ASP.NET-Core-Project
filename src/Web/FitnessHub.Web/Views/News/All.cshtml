@@ -1,0 +1,22 @@
+﻿@model FitnessHub.Web.ViewModels.News.NewsIndexViewModel
+
+@{ 
+    this.ViewData["Title"] = "News"; 
+}
+
+<h1 class="display-2 main__heading"><b>News</b></h1>
+@foreach (var news in Model.News.OrderByDescending(x => x.CreatedOn))
+{
+    <div class="card text-center">
+        <div class="card-header"></div>
+        <div class="card-body">
+            <h5 class="card-title">@news.Title</h5>
+            <p class="card-text">@news.Content</p>
+            <form method="post" asp-controller="News" asp-action="Delete" asp-route-id="@news.Id">
+                <input type="submit" value="Delete" class="btn btn-outline-danger" />
+            </form>
+        </div>
+        <div class="card-footer text-muted">@news.CreatedOn</div>
+    </div>
+}
+<a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="News" asp-action="Add">Add News</a>

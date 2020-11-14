@@ -18,6 +18,7 @@ namespace FitnessHub.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Suplements = new HashSet<UserSuplement>();
             this.Equipments = new HashSet<UserEquipment>();
+            this.Orders = new HashSet<Order>();
         }
 
         // Audit info
@@ -39,5 +40,7 @@ namespace FitnessHub.Data.Models
         public virtual ICollection<UserEquipment> Equipments { get; set; }
 
         public virtual ICollection<UserSuplement> Suplements { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

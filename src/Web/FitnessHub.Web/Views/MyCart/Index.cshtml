@@ -7,6 +7,13 @@
 <main>
     <h1 class="display-2 main__heading"><b>My Cart</b></h1>
     <div class="services__content container d-flex flex-column">
+        <div class="services__model text-center row">
+            <div class="col"></div>
+            <h4 class="col">Name:</h4>
+            <h4 class="col">Quantity:</h4>
+            <h4 class="col">Price:</h4>
+            <div class="col"></div>
+        </div>
         @foreach (var equipment in Model.Equipments.OrderBy(x => x.Name))
         {
             <div class="entity text-center row align-items-center item__image__container align-self-center">
@@ -14,9 +21,10 @@
                     <img src="@Url.Content(equipment.ImageUrl)" class="w-100 h-100">
                 </div>
                 <h4 class="col">@equipment.Name</h4>
+                <h4 class="col">@equipment.Quantity</h4>
                 <h4 class="col">@equipment.Price lv.</h4>
                 <div class="col">
-                    <form method="post" asp-controller="MyCart" asp-action="RemoveFromCart" asp-route-id="@equipment.Id">
+                    <form method="post" asp-controller="MyCart" asp-action="RemoveEquipmentFromCart" asp-route-id="@equipment.Id">
                         <input type="submit" value="Remove" class="btn btn-outline-danger" />
                     </form>
                 </div>
@@ -29,9 +37,10 @@
                     <img src="@Url.Content(suplement.ImageUrl)" class="w-100 h-100">
                 </div>
                 <h4 class="col">@suplement.Name</h4>
+                <h4 class="col">@suplement.Quantity</h4>
                 <h4 class="col">@suplement.Price lv.</h4>
                 <div class="col">
-                    <form method="post" asp-controller="MyCart" asp-action="RemoveFromCart" asp-route-id="@suplement.Id">
+                    <form method="post" asp-controller="MyCart" asp-action="RemoveSuplementFromCart" asp-route-id="@suplement.Id">
                         <input type="submit" value="Remove" class="btn btn-outline-danger" />
                     </form>
                 </div>
@@ -42,12 +51,13 @@
                 <a class="btn btn-primary" role="button" asp-area="" asp-controller="MyCart" asp-action="GoToHome">Go to home</a>
             </div>
             <h4 class="col"></h4>
-            <h2 class="col">Total: 84 lv.</h2>
+            <h2 class="col">Total: @Model.TotalPrice lv.</h2>
             <div class="col proceed__link">
-                <form method="post" asp-controller="MyCart" asp-action="ProceedToCheckout">
+                <form method="post" asp-controller="Orders" asp-action="CardDetails">
                     <input type="submit" value="Proceed to checkout" class="btn btn-primary" />
                 </form>
             </div>
         </div>
+        <h1>@Model.Equipments.Count()</h1>
     </div>
 </main>

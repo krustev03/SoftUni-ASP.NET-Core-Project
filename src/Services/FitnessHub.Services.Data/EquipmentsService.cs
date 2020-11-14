@@ -15,13 +15,16 @@
     {
         private readonly IDeletableEntityRepository<Equipment> equipmentsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
+        private readonly IRepository<UserEquipment> userEquipmentRepository;
 
         public EquipmentsService(
             IDeletableEntityRepository<Equipment> equipmentsRepository,
-            IDeletableEntityRepository<ApplicationUser> userRepository)
+            IDeletableEntityRepository<ApplicationUser> userRepository,
+            IRepository<UserEquipment> userEquipmentRepository)
         {
             this.equipmentsRepository = equipmentsRepository;
             this.userRepository = userRepository;
+            this.userEquipmentRepository = userEquipmentRepository;
         }
 
         public async Task AddEquipmentAsync(AddEquipmentInputModel equipmentInputModel)
@@ -61,14 +64,25 @@
         {
             var equipment = this.equipmentsRepository.All().Where(x => x.Id == id).FirstOrDefault();
             var appUser = await this.userRepository.GetByIdWithDeletedAsync(userId);
-            appUser.Equipments.Add(new UserEquipment
+            var userEquipment = this.userEquipmentRepository.All().Where(x => x.EquipmentId == equipment.Id && x.UserId == userId).FirstOrDefault();
+
+            if (userEquipment == null)
             {
-                Equipment = equipment,
-            });
-            this.userRepository.Update(appUser);
-            await this.userRepository.SaveChangesAsync();
-            this.equipmentsRepository.Update(equipment);
-            await this.equipmentsRepository.SaveChangesAsync();
+                appUser.Equipments.Add(new UserEquipment
+                {
+                    Equipment = equipment,
+                });
+                this.userRepository.Update(appUser);
+                await this.userRepository.SaveChangesAsync();
+                this.equipmentsRepository.Update(equipment);
+                await this.equipmentsRepository.SaveChangesAsync();
+            }
+            else
+            {
+                userEquipment.Quantity++;
+                this.userEquipmentRepository.Update(userEquipment);
+                await this.userEquipmentRepository.SaveChangesAsync();
+            }
         }
     }
 }

@@ -34,6 +34,10 @@
 
         public DbSet<Message> Messages { get; set; }
 
+        public DbSet<News> News { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
         public DbSet<UserEquipment> UserEquipments { get; set; }
 
         public DbSet<UserSuplement> UserSuplements { get; set; }

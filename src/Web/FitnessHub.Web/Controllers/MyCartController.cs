@@ -28,9 +28,32 @@
             {
                 Equipments = this.myCartService.GetUserEquipments(appUser),
                 Suplements = this.myCartService.GetUserSuplements(appUser),
+                TotalPrice = this.myCartService.GetTotalPrice(appUser),
             };
 
             return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveEquipmentFromCart(int id)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            string userId = user.Id;
+
+            await this.myCartService.RemoveEquipmentFromCartAsync(id, userId);
+
+            return this.RedirectToAction(nameof(this.Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveSuplementFromCart(int id)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            string userId = user.Id;
+
+            await this.myCartService.RemoveSuplementFromCartAsync(id, userId);
+
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         public IActionResult GoToHome()

@@ -11,5 +11,7 @@
         public int EquipmentId { get; set; }
 
         public virtual Equipment Equipment { get; set; }
+
+        public int Quantity { get; set; } = 1;
     }
 }

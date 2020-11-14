@@ -6,8 +6,10 @@
 
     public class CartItemsViewModel
     {
-        public IEnumerable<Equipment> Equipments { get; set; }
+        public IEnumerable<EquipmentCartViewModel> Equipments { get; set; }
 
-        public IEnumerable<Suplement> Suplements { get; set; }
+        public IEnumerable<SuplementCartViewModel> Suplements { get; set; }
+
+        public decimal TotalPrice { get; set; }
     }
 }
