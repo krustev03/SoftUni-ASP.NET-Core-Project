@@ -1,6 +1,9 @@
 # Fitness Hub Online Platform
 ___
-#### About my web project:![alt text](https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSf_5OAbMQR4QTlOqL_6zDukuF3TJ2OORVcHA&usqp=CAU)
+
+![alt text](https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSf_5OAbMQR4QTlOqL_6zDukuF3TJ2OORVcHA&usqp=CAU)
+
+## About my web project:
 
 ___
 
