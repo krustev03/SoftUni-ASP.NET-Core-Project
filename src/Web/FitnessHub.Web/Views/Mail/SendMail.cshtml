@@ -1,0 +1,26 @@
+﻿@model FitnessHub.Web.ViewModels.Mail.MailRequest
+
+@{ 
+    this.ViewData["Title"] = "Contact"; 
+}
+
+<form class="d-flex flex-column" method="post" asp-action="SendMail" asp-controller="Mail">
+    <div class="form-group">
+        <label asp-for="@Model.ToEmail"></label>
+        <input class="form-control" type="text" asp-for="@Model.ToEmail" />
+        <span asp-validation-for="@Model.ToEmail" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Subject"></label>
+        <input class="form-control" type="text" asp-for="@Model.Subject" step="any" />
+        <span asp-validation-for="@Model.Subject" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Body"></label>
+        <input class="form-control" type="text" asp-for="@Model.Body" step="any" />
+        <span asp-validation-for="@Model.Body" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Add</button>
+    </div>
+</form>

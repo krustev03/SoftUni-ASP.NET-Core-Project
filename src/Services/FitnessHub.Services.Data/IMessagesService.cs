@@ -6,6 +6,6 @@
 
     public interface IMessagesService
     {
-        public Task AddMessageAsync(AddMessageInputModel messageInputModel, string authorId);
+        public Task AddMessageAsync(AddMessageInputModel inputModel, string authorId);
     }
 }

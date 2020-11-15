@@ -13,10 +13,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="2.9.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+    <PackageReference Include="MimeKit" Version="2.9.2" />
     <PackageReference Include="Sendgrid" Version="9.21.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.205" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Web\FitnessHub.Web.Infrastructure\FitnessHub.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Web\FitnessHub.Web.ViewModels\FitnessHub.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

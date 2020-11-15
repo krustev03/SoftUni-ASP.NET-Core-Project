@@ -1,5 +1,6 @@
 ﻿namespace FitnessHub.Web
 {
+    using System;
     using System.Reflection;
 
     using FitnessHub.Data;
@@ -11,8 +12,10 @@
     using FitnessHub.Services.Data;
     using FitnessHub.Services.Mapping;
     using FitnessHub.Services.Messaging;
+    using FitnessHub.Web.Infrastructure.Settings;
     using FitnessHub.Web.ViewModels;
-
+    using Hangfire;
+    using Hangfire.SqlServer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -34,6 +37,22 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(this.configuration.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions
+                {
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    DisableGlobalLocks = true,
+                }));
+
+            services.AddHangfireServer();
+            services.AddMvc();
+
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
@@ -46,6 +65,8 @@
                         options.CheckConsentNeeded = context => true;
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
+
+            services.Configure<MailSettings>(this.configuration.GetSection("MailSettings"));
 
             services.AddControllersWithViews(
                 options =>
@@ -70,10 +91,11 @@
             services.AddTransient<IMessagesService, MessagesService>();
             services.AddTransient<IMyCartService, MyCartService>();
             services.AddTransient<INewsService, NewsService>();
+            services.AddTransient<IMailService, MailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs, IWebHostEnvironment env)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
@@ -96,6 +118,8 @@
                 app.UseHsts();
             }
 
+            app.UseHangfireDashboard();
+            backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
