@@ -1,34 +1,4 @@
-.btn--basic {
-    text-align: center;
-    padding: 11px 15px;
-    min-height: 48px;
-    min-width: 48px;
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 500;
-    border: 1px solid #0071c2;
-    border-radius: 2px;
-    color: #fff;
-    background-color: #0071c2;
-    box-shadow: none !important;
+.thank-you-block {
+    margin-top: 150px;
 }
-
-.btn--basic:hover {
-    background-color: #005c9d;
-    border-color: #005c9d;
-}
-
-.btn--diet {
-    margin-top: 10px;
-    width: 90%;
-}
-
-.btn--services {
-    min-width: 60%;
-    min-height: 0;
-    padding: 5px 4px;
-}
-
-.btn--buy {
-    margin-bottom: 15px;
-}
+ 

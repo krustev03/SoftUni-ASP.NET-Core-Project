@@ -4,12 +4,7 @@
     this.ViewData["Title"] = "Contact"; 
 }
 
-<form class="d-flex flex-column" method="post" asp-action="SendMail" asp-controller="Mail">
-    <div class="form-group">
-        <label asp-for="@Model.ToEmail"></label>
-        <input class="form-control" type="text" asp-for="@Model.ToEmail" />
-        <span asp-validation-for="@Model.ToEmail" class="text-danger"></span>
-    </div>
+<form class="d-flex flex-column" method="post" asp-action="SendEmail" asp-controller="Mail">
     <div class="form-group">
         <label asp-for="@Model.Subject"></label>
         <input class="form-control" type="text" asp-for="@Model.Subject" step="any" />

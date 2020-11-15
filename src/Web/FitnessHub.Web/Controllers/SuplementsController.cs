@@ -105,10 +105,5 @@
         {
             return this.RedirectToAction(nameof(this.All));
         }
-
-        public IActionResult GoToHome()
-        {
-            return this.Redirect("/Home/Index");
-        }
     }
 }

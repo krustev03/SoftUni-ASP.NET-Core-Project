@@ -1,13 +1,28 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
+    using System;
+    using System.Threading.Tasks;
+
+    using FitnessHub.Data.Models;
+    using FitnessHub.Services.Messaging;
     using FitnessHub.Web.ViewModels.Order;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-    public class OrdersController : BaseController
+    public class OrdersController : Controller
     {
+        private readonly IMailService mailService;
+        private readonly UserManager<ApplicationUser> userManager;
+
+        public OrdersController(IMailService mailService, UserManager<ApplicationUser> userManager)
+        {
+            this.mailService = mailService;
+            this.userManager = userManager;
+        }
+
         public IActionResult CardDetails()
         {
-            return View();
+            return this.View();
         }
 
         [HttpPost]
@@ -18,12 +33,26 @@
                 return this.View(model);
             }
 
-            return this.Redirect("/Orders/Buy");
+            return this.Redirect("/Orders/ThankYou");
         }
 
         public IActionResult Buy()
         {
-            return View();
+            return this.View();
+        }
+
+        public async Task<IActionResult> ThankYou()
+        {
+            try
+            {
+                var appUser = await this.userManager.GetUserAsync(this.User);
+                await this.mailService.SendEmailAsync(appUser);
+                return this.View();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }
