@@ -1,7 +1,12 @@
 ﻿namespace FitnessHub.Web.ViewModels.TrainingSchedular
 {
-    public class ExerciseViewModel
+    using FitnessHub.Data.Models;
+    using FitnessHub.Services.Mapping;
+
+    public class ExerciseViewModel : IMapFrom<Exercise>
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public int Sets { get; set; }

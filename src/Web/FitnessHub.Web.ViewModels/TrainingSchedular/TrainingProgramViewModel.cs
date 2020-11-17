@@ -6,7 +6,7 @@
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Mapping;
 
-    public class TrainingProgramViewModel : IMapFrom<TrainingProgram>
+    public class TrainingProgramViewModel
     {
         public int Id { get; set; }
 
@@ -14,6 +14,8 @@
 
         public DateTime CreatedOn { get; set; }
 
-        public IEnumerable<TrainingViewModel> Trainings { get; set; }
+        public ApplicationUser Creator { get; set; }
+
+        public ICollection<Training> Trainings { get; set; }
     }
 }

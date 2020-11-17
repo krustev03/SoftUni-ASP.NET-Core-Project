@@ -38,6 +38,12 @@
 
         public DbSet<Order> Orders { get; set; }
 
+        public DbSet<Exercise> Exercises { get; set; }
+
+        public DbSet<Training> Trainings { get; set; }
+
+        public DbSet<TrainingProgram> TrainingPrograms { get; set; }
+
         public DbSet<UserEquipment> UserEquipments { get; set; }
 
         public DbSet<UserSuplement> UserSuplements { get; set; }

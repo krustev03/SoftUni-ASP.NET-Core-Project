@@ -1,4 +1,5 @@
-﻿@model FitnessHub.Web.ViewModels.TrainingSchedular.TrainingProgramsIndexViewModel;
+﻿@inject FitnessHub.Data.Common.Repositories.IDeletableEntityRepository<TrainingProgram> trainingProgramsRepo
+@using FitnessHub.Data.Models
 @{
     this.ViewData["Title"] = "Training Schedular"; 
 }
@@ -9,15 +10,17 @@
         <h4 class="col">Name:</h4>
         <div class="col"></div>
     </div>
-    @foreach (var trainingProgram in Model.TrainingPrograms.OrderByDescending(x => x.CreatedOn))
+
+    @foreach (var trainingProgram in trainingProgramsRepo.All().ToList().OrderByDescending(x => x.CreatedOn))
     {
         <div class="entity text-center row align-items-center item__image__container align-self-center">
             <h4 class="col">@trainingProgram.Name</h4>
             <div class="col">
-                <a class="btn btn-primary" role="button" href="/Equipments/Details/@trainingProgram.Id">View</a>
+                <a class="btn btn-primary" role="button" href="/Training/Details/@trainingProgram.Id">View</a>
             </div>
         </div>
     }
+
 </div>
-<a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Equipments" asp-action="Add">Add Equipment</a>
 <a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Home" asp-action="GoToHome">Go to home</a>
+<a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="TrainingSchedular" asp-action="AddTrainingProgram">New Training Program</a>

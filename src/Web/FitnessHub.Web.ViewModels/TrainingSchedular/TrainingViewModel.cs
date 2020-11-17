@@ -7,6 +7,8 @@
 
     public class TrainingViewModel : IMapFrom<Training>
     {
+        public int Id { get; set; }
+
         public IEnumerable<TrainingViewModel> Exercises { get; set; }
 
         public string DayOfWeek { get; set; }
