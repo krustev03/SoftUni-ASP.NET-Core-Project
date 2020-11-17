@@ -1,13 +1,14 @@
-﻿@model FitnessHub.Web.ViewModels.Order.CreditCardInputValidationModel
+﻿@model FitnessHub.Web.ViewModels.Orders.CreditCardInputValidationModel
 
 @{
-    this.ViewData["Title"] = "Card Details"; 
+    this.ViewData["Title"] = "Card Details";
+    var totalPrice = ViewContext.HttpContext.Request.Query["price"];
 }
 
 <div class="padding d-flex justify-content-center">
     <div class="row credit-card-margin">
         <div class="col-sm-12">
-            <form method="post" asp-action="ThankYou" asp-controller="Orders">
+            <form method="post" asp-action="CardDetails" asp-controller="Orders" asp-route-price="@totalPrice">
                 <div class="credit-card">
                     <div class="credit-card-header">
                         <strong>Credit Card</strong>

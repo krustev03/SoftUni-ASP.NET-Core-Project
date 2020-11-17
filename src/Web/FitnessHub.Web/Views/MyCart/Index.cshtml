@@ -53,9 +53,7 @@
             <h4 class="col"></h4>
             <h2 class="col">Total: @Model.TotalPrice lv.</h2>
             <div class="col proceed__link">
-                <form method="post" asp-controller="Orders" asp-action="CardDetails">
-                    <input type="submit" value="Proceed to checkout" class="btn btn-primary" />
-                </form>
+                <a class="btn btn-primary" role="button" href="/Orders/CardDetails?price=@Model.TotalPrice">Proceed to chechkout</a>
             </div>
         </div>
         <h1>@Model.Equipments.Count()</h1>

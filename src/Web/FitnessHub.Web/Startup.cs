@@ -92,6 +92,7 @@
             services.AddTransient<IMyCartService, MyCartService>();
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<IMailService, MailService>();
+            services.AddTransient<IOrdersService, OrdersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

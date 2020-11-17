@@ -1,4 +1,4 @@
-﻿namespace FitnessHub.Web.ViewModels.Order
+﻿namespace FitnessHub.Web.ViewModels.Orders
 {
     using System.ComponentModel.DataAnnotations;
 

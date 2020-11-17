@@ -1,23 +1,28 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
-    using System;
     using System.Threading.Tasks;
 
     using FitnessHub.Data.Models;
+    using FitnessHub.Services.Data;
     using FitnessHub.Services.Messaging;
-    using FitnessHub.Web.ViewModels.Order;
+    using FitnessHub.Web.ViewModels.Orders;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class OrdersController : Controller
     {
         private readonly IMailService mailService;
+        private readonly IOrdersService ordersService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public OrdersController(IMailService mailService, UserManager<ApplicationUser> userManager)
+        public OrdersController(
+            IMailService mailService, 
+            UserManager<ApplicationUser> userManager,
+            IOrdersService ordersService)
         {
             this.mailService = mailService;
             this.userManager = userManager;
+            this.ordersService = ordersService;
         }
 
         public IActionResult CardDetails()
@@ -28,31 +33,40 @@
         [HttpPost]
         public IActionResult CardDetails(CreditCardInputValidationModel model)
         {
+            string price = this.HttpContext.Request.Query["price"];
+
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            return this.Redirect("/Orders/ThankYou");
+            return this.RedirectToAction("UserDetails", new { price });
         }
 
-        public IActionResult Buy()
+        public IActionResult UserDetails()
         {
             return this.View();
         }
 
-        public async Task<IActionResult> ThankYou()
+        [HttpPost]
+        public async Task<IActionResult> UserDetails(OrderInputModel model)
         {
-            try
+            if (!this.ModelState.IsValid)
             {
-                var appUser = await this.userManager.GetUserAsync(this.User);
-                await this.mailService.SendEmailAsync(appUser);
-                return this.View();
+                return this.View(model);
             }
-            catch (Exception ex)
-            {
-                throw;
-            }
+
+            var appUser = await this.userManager.GetUserAsync(this.User);
+
+            await this.ordersService.AddOrderAsync(model, appUser);
+            await this.mailService.SendEmailAsync(appUser);
+
+            return this.Redirect("/Orders/ThankYou");
+        }
+
+        public IActionResult ThankYou()
+        {
+            return this.View();
         }
     }
 }

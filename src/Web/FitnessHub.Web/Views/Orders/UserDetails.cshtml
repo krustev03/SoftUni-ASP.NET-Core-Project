@@ -1,0 +1,94 @@
+﻿@model FitnessHub.Web.ViewModels.Orders.OrderInputModel
+@{
+    this.ViewData["Title"] = "User Details";
+    var totalPrice = ViewContext.HttpContext.Request.Query["price"];
+}
+
+<div class="padding d-flex justify-content-center">
+    <div class="row credit-card-margin">
+        <div class="col-sm-12">
+            <form method="post" asp-action="UserDetails" asp-controller="Orders">
+                <div class="credit-card">
+                    <div class="credit-card-header">
+                        <strong>User Details</strong>
+                        <small>enter your user details</small>
+                    </div>
+                    <div class="credit-card-body">
+                        <input asp-for="@Model.Price" type="hidden" value="@totalPrice" />
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.FirstName">First Name</label>
+                                    <input class="form-control" type="text" asp-for="@Model.FirstName" placeholder="Enter your first name" />
+                                    <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label asp-for="@Model.LastName">Last Name</label>
+                                    <input class="form-control" type="text" asp-for="@Model.LastName" placeholder="Enter your last name" />
+                                    <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                <label asp-for="@Model.BirthDay">Day</label>
+                                <select class="form-control" asp-for="@Model.BirthDay">
+                                    @for (int i = 1; i <= 31; i++)
+                                    {
+                                        <option>@i</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label asp-for="@Model.BirthMonth">Month</label>
+                                <select class="form-control" asp-for="@Model.BirthMonth">
+                                    @for (int i = 1; i <= 12; i++)
+                                    {
+                                        <option>@i</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label asp-for="@Model.BirthYear">Year</label>
+                                <select class="form-control" asp-for="@Model.BirthYear">
+                                    @for (int i = 1920; i <= DateTime.Now.Year; i++)
+                                    {
+                                        <option>@i</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label asp-for="@Model.City"></label>
+                                    <input class="form-control" type="text" asp-for="@Model.City" placeholder="Enter your city" />
+                                    <span asp-validation-for="@Model.City" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label asp-for="@Model.CityCode">City Code</label>
+                                    <input class="form-control" type="text" asp-for="@Model.CityCode" placeholder="####" />
+                                    <span asp-validation-for="@Model.CityCode" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Adress"></label>
+                            <input class="form-control" type="text" asp-for="@Model.Adress" placeholder="Enter your adress" />
+                            <span asp-validation-for="@Model.Adress" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-sm btn-success float-right">Purchase</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
