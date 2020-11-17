@@ -1,0 +1,23 @@
+﻿@model FitnessHub.Web.ViewModels.TrainingSchedular.TrainingProgramsIndexViewModel;
+@{
+    this.ViewData["Title"] = "Training Schedular"; 
+}
+
+<h1 class="display-4 main__heading"><b>Training Programs</b></h1>
+<div class="services__content container d-flex flex-column">
+    <div class="services__model text-center row">
+        <h4 class="col">Name:</h4>
+        <div class="col"></div>
+    </div>
+    @foreach (var trainingProgram in Model.TrainingPrograms.OrderByDescending(x => x.CreatedOn))
+    {
+        <div class="entity text-center row align-items-center item__image__container align-self-center">
+            <h4 class="col">@trainingProgram.Name</h4>
+            <div class="col">
+                <a class="btn btn-primary" role="button" href="/Equipments/Details/@trainingProgram.Id">View</a>
+            </div>
+        </div>
+    }
+</div>
+<a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Equipments" asp-action="Add">Add Equipment</a>
+<a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Home" asp-action="GoToHome">Go to home</a>
