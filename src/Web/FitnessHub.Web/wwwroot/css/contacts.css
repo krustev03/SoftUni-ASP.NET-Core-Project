@@ -1,0 +1,14 @@
+﻿#break-line {
+    clear: both;
+}
+
+#contacts-main-div {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#contacts-title {
+    margin-bottom: 25px;
+    text-align: center;
+    font-weight: 700;
+}

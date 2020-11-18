@@ -1,5 +1,6 @@
 ﻿namespace FitnessHub.Services.Data
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using FitnessHub.Data.Common.Repositories;
@@ -24,6 +25,13 @@
             };
 
             await this.messagesRepository.AddAsync(message);
+            await this.messagesRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteMessageByIdAsync(int id)
+        {
+            var message = this.messagesRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            this.messagesRepository.Delete(message);
             await this.messagesRepository.SaveChangesAsync();
         }
     }

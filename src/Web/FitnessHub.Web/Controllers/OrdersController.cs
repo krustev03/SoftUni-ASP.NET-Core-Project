@@ -12,17 +12,20 @@
     public class OrdersController : Controller
     {
         private readonly IMailService mailService;
+        private readonly IEmailSender emailSender;
         private readonly IOrdersService ordersService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public OrdersController(
-            IMailService mailService, 
+            IMailService mailService,
             UserManager<ApplicationUser> userManager,
-            IOrdersService ordersService)
+            IOrdersService ordersService,
+            IEmailSender emailSender)
         {
             this.mailService = mailService;
             this.userManager = userManager;
             this.ordersService = ordersService;
+            this.emailSender = emailSender;
         }
 
         public IActionResult CardDetails()

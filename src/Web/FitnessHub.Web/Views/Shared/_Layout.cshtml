@@ -15,6 +15,7 @@
     <link href="~/css/details.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/chat.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/checkout.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/contacts.css" rel="stylesheet" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -38,7 +39,7 @@
                             <a class="nav-link text-white" asp-area="" asp-controller="TrainingSchedular" asp-action="Index">Training Schedular</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Mail" asp-action="SendMail">Contact</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Contacts" asp-action="Index">Contacts</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -48,14 +49,14 @@
             </div>
         </nav>
     </header>
-    
+
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @this.RenderBody()
         </main>
     </div>
-    
+
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -67,6 +68,7 @@
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script src="~/js/notify.min.js" asp-append-version="true"></script>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

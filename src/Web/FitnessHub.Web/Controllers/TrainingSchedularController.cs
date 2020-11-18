@@ -21,12 +21,12 @@
 
         public IActionResult Index()
         {
-            return View();
+            return this.View();
         }
 
         public IActionResult AddTrainingProgram()
         {
-            return View();
+            return this.View();
         }
 
         [HttpPost]
@@ -46,7 +46,7 @@
 
         public IActionResult AllTrainings()
         {
-            return View();
+            return this.View();
         }
     }
 }

@@ -19,13 +19,13 @@
             this.userManager = userManager;
         }
 
-        public IActionResult All()
+        public IActionResult Index()
         {
             return this.View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> All(AddMessageInputModel model)
+        public async Task<IActionResult> Index(AddMessageInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -37,6 +37,14 @@
             await this.messagesService.AddMessageAsync(model, appUser.Id);
 
             return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.messagesService.DeleteMessageByIdAsync(id);
+
+            return this.RedirectToAction(nameof(this.Index));
         }
     }
 }

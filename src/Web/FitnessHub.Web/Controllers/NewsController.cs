@@ -1,6 +1,7 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
     using System.Threading.Tasks;
+
     using FitnessHub.Services.Data;
     using FitnessHub.Web.ViewModels.News;
     using Microsoft.AspNetCore.Authorization;

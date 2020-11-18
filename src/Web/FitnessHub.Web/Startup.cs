@@ -25,6 +25,8 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
+    using static FitnessHub.Common.GlobalConstants;
+
     public class Startup
     {
         private readonly IConfiguration configuration;
@@ -52,6 +54,7 @@
 
             services.AddHangfireServer();
             services.AddMvc();
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
@@ -83,7 +86,7 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(SendGridKey));
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IServicesService, ServicesService>();
             services.AddTransient<ISuplementsService, SuplementsService>();
@@ -112,7 +115,6 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {

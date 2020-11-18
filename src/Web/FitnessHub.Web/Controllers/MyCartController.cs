@@ -21,7 +21,6 @@
 
         public async Task<IActionResult> Index()
         {
-
             var appUser = await this.userManager.GetUserAsync(this.User);
 
             var viewModel = new CartItemsViewModel
