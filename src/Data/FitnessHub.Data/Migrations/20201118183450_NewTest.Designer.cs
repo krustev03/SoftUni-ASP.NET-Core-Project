@@ -4,14 +4,16 @@ using FitnessHub.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FitnessHub.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201118183450_NewTest")]
+    partial class NewTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,17 +169,12 @@ namespace FitnessHub.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("Equipments");
                 });
@@ -441,9 +438,6 @@ namespace FitnessHub.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -453,8 +447,6 @@ namespace FitnessHub.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("Suplements");
                 });
@@ -684,13 +676,6 @@ namespace FitnessHub.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("FitnessHub.Data.Models.Equipment", b =>
-                {
-                    b.HasOne("FitnessHub.Data.Models.Order", null)
-                        .WithMany("OrderEquipments")
-                        .HasForeignKey("OrderId");
-                });
-
             modelBuilder.Entity("FitnessHub.Data.Models.Exercise", b =>
                 {
                     b.HasOne("FitnessHub.Data.Models.Training", "Training")
@@ -725,13 +710,6 @@ namespace FitnessHub.Data.Migrations
                         .HasForeignKey("AuthorId");
 
                     b.Navigation("Author");
-                });
-
-            modelBuilder.Entity("FitnessHub.Data.Models.Suplement", b =>
-                {
-                    b.HasOne("FitnessHub.Data.Models.Order", null)
-                        .WithMany("OrderSuplements")
-                        .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("FitnessHub.Data.Models.Training", b =>
@@ -855,13 +833,6 @@ namespace FitnessHub.Data.Migrations
             modelBuilder.Entity("FitnessHub.Data.Models.Equipment", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("FitnessHub.Data.Models.Order", b =>
-                {
-                    b.Navigation("OrderEquipments");
-
-                    b.Navigation("OrderSuplements");
                 });
 
             modelBuilder.Entity("FitnessHub.Data.Models.Suplement", b =>

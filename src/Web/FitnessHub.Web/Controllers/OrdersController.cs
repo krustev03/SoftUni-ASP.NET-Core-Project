@@ -63,6 +63,7 @@
 
             await this.ordersService.AddOrderAsync(model, appUser);
             await this.mailService.SendEmailAsync(appUser);
+            await this.userManager.UpdateAsync(appUser);
 
             return this.Redirect("/Orders/ThankYou");
         }

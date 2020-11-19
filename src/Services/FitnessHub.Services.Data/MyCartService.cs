@@ -14,20 +14,17 @@
         private readonly IDeletableEntityRepository<Suplement> suplementsRepository;
         private readonly IRepository<UserEquipment> userEquipmentRepository;
         private readonly IRepository<UserSuplement> userSuplementRepository;
-        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
 
         public MyCartService(
             IDeletableEntityRepository<Equipment> equipmentsRepository,
             IDeletableEntityRepository<Suplement> suplementsRepository,
             IRepository<UserEquipment> userEquipmentRepository,
-            IRepository<UserSuplement> userSuplementRepository,
-            IDeletableEntityRepository<ApplicationUser> userRepository)
+            IRepository<UserSuplement> userSuplementRepository)
         {
             this.equipmentsRepository = equipmentsRepository;
             this.suplementsRepository = suplementsRepository;
             this.userEquipmentRepository = userEquipmentRepository;
             this.userSuplementRepository = userSuplementRepository;
-            this.userRepository = userRepository;
         }
 
         public IEnumerable<EquipmentCartViewModel> GetUserEquipments(ApplicationUser appUser)

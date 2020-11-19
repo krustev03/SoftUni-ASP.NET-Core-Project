@@ -15,7 +15,8 @@
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            if (dbContext.Users.Any())
+
+            if (userManager.Users.Any(x => x.Email == "pepi_krastev@abv.bg"))
             {
                 return;
             }
@@ -25,7 +26,6 @@
                 Email = "pepi_krastev@abv.bg",
                 UserName = "Golbarg200",
                 PhoneNumber = "0885842694",
-                NormalPassword = "123456pepi",
             };
 
             await userManager.CreateAsync(user, "123456pepi");
