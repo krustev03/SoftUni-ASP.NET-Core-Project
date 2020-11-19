@@ -27,7 +27,7 @@
             this.userEquipmentRepository = userEquipmentRepository;
         }
 
-        public async Task AddEquipmentAsync(AddEquipmentInputModel equipmentInputModel)
+        public async Task AddEquipmentAsync(EquipmentInputModel equipmentInputModel)
         {
             var equipment = new Equipment()
             {
@@ -38,6 +38,19 @@
             };
 
             await this.equipmentsRepository.AddAsync(equipment);
+            await this.equipmentsRepository.SaveChangesAsync();
+        }
+
+        public async Task EditEquipment(int id, EquipmentInputModel equipmentInputModel)
+        {
+            var equipment = this.equipmentsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+
+            equipment.Name = equipmentInputModel.Name;
+            equipment.Price = decimal.Parse(equipmentInputModel.Price, CultureInfo.InvariantCulture);
+            equipment.Description = equipmentInputModel.Description;
+            equipment.ImageUrl = equipmentInputModel.ImageUrl;
+
+            this.equipmentsRepository.Update(equipment);
             await this.equipmentsRepository.SaveChangesAsync();
         }
 

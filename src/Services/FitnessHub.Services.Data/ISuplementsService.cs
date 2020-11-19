@@ -10,7 +10,9 @@
     {
         public IEnumerable<T> GetAllSuplements<T>();
 
-        public Task AddSuplementAsync(AddSuplementInputModel suplementInputModel);
+        public Task AddSuplementAsync(SuplementInputModel suplementInputModel);
+
+        public Task EditSuplement(int id, SuplementInputModel suplementInputModel);
 
         public T GetSuplementDetails<T>(int id);
 

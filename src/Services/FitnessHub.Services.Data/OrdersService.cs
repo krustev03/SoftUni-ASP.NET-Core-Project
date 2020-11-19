@@ -1,7 +1,6 @@
 ﻿namespace FitnessHub.Services.Data
 {
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -14,6 +13,8 @@
         private readonly IRepository<Order> ordersRepository;
         private readonly IRepository<UserEquipment> userEquipmentRepository;
         private readonly IRepository<UserSuplement> userSuplementRepository;
+        private readonly IRepository<OrderEquipment> orderEquipmentsRepository;
+        private readonly IRepository<OrderSuplement> orderSuplementsRepository;
         private readonly IDeletableEntityRepository<Equipment> equipmentsRepository;
         private readonly IDeletableEntityRepository<Suplement> suplementsRepository;
 
@@ -21,21 +22,22 @@
             IRepository<Order> ordersRepository,
             IRepository<UserEquipment> userEquipmentRepository,
             IRepository<UserSuplement> userSuplementRepository,
+            IRepository<OrderEquipment> orderEquipmentsRepository,
+            IRepository<OrderSuplement> orderSuplementsRepository,
             IDeletableEntityRepository<Equipment> equipmentsRepository,
             IDeletableEntityRepository<Suplement> suplementsRepository)
         {
             this.ordersRepository = ordersRepository;
             this.userEquipmentRepository = userEquipmentRepository;
             this.userSuplementRepository = userSuplementRepository;
+            this.orderEquipmentsRepository = orderEquipmentsRepository;
+            this.orderSuplementsRepository = orderSuplementsRepository;
             this.equipmentsRepository = equipmentsRepository;
             this.suplementsRepository = suplementsRepository;
         }
 
         public async Task AddOrderAsync(OrderInputModel orderInputModel, ApplicationUser appUser)
         {
-            var equipments = await this.GetEquipmentsInOrder(appUser);
-            var suplements = await this.GetSuplementsInOrder(appUser);
-
             var order = new Order()
             {
                 FirstName = orderInputModel.FirstName,
@@ -47,15 +49,74 @@
                 Adress = orderInputModel.Adress,
                 Price = orderInputModel.Price,
                 UserId = appUser.Id,
-                OrderEquipments = equipments,
-                OrderSuplements = suplements,
             };
 
             await this.ordersRepository.AddAsync(order);
             await this.ordersRepository.SaveChangesAsync();
 
+            var equipments = await this.GetEquipmentsInOrder(appUser);
+            await this.AddEquipmentsToOrder(equipments, order);
+
+            var suplements = await this.GetSuplementsInOrder(appUser);
+            await this.AddSuplementsToOrder(suplements, order);
+
+            this.ordersRepository.Update(order);
+            await this.ordersRepository.SaveChangesAsync();
+
             this.RemoveEquipmentsFromUser(appUser);
             this.RemoveSuplementsFromUser(appUser);
+        }
+
+        private async Task AddEquipmentsToOrder(List<Equipment> equipments, Order order)
+        {
+            foreach (var equipment in equipments)
+            {
+                var orderEquipment = this.orderEquipmentsRepository.All().Where(x => x.EquipmentId == equipment.Id && x.OrderId == order.Id).FirstOrDefault();
+
+                if (orderEquipment == null)
+                {
+                    order.Equipments.Add(new OrderEquipment
+                    {
+                        Equipment = equipment,
+                    });
+                    this.ordersRepository.Update(order);
+                    await this.ordersRepository.SaveChangesAsync();
+                    this.equipmentsRepository.Update(equipment);
+                    await this.equipmentsRepository.SaveChangesAsync();
+                }
+                else
+                {
+                    orderEquipment.Quantity++;
+                    this.orderEquipmentsRepository.Update(orderEquipment);
+                    await this.orderEquipmentsRepository.SaveChangesAsync();
+                }
+            }
+        }
+
+        private async Task AddSuplementsToOrder(List<Suplement> suplements, Order order)
+        {
+            foreach (var suplement in suplements)
+            {
+                var orderSuplement = this.orderSuplementsRepository.All().Where(x => x.SuplementId == suplement.Id && x.OrderId == order.Id).FirstOrDefault();
+
+                if (orderSuplement == null)
+                {
+                    order.Suplements.Add(new OrderSuplement
+                    {
+                        Suplement = suplement,
+                    });
+                    this.ordersRepository.Update(order);
+                    await this.ordersRepository.SaveChangesAsync();
+                    this.suplementsRepository.Update(suplement);
+                    await this.suplementsRepository.SaveChangesAsync();
+                }
+                else
+                {
+                    orderSuplement.Quantity++;
+                    this.orderSuplementsRepository.Update(orderSuplement);
+                    await this.orderSuplementsRepository.SaveChangesAsync();
+                }
+            }
         }
 
         private async Task<List<Equipment>> GetEquipmentsInOrder(ApplicationUser appUser)

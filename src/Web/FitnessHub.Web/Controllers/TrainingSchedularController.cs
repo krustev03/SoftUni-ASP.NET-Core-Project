@@ -44,7 +44,7 @@
             return this.RedirectToAction("Index");
         }
 
-        public IActionResult AllTrainings()
+        public IActionResult AllTrainings(int id)
         {
             return this.View();
         }

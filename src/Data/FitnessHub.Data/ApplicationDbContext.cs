@@ -48,6 +48,10 @@
 
         public DbSet<UserSuplement> UserSuplements { get; set; }
 
+        public DbSet<OrderEquipment> OrderEquipments { get; set; }
+
+        public DbSet<OrderSuplement> OrderSuplements { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -71,9 +75,6 @@
         {
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
-
-            //builder.Entity<UserEquipment>().HasKey(ue => new { ue.UserId, ue.EquipmentId });
-            //builder.Entity<UserSuplement>().HasKey(us => new { us.UserId, us.SuplementId });
 
             this.ConfigureUserIdentityRelations(builder);
 

@@ -1,34 +1,130 @@
-﻿@model FitnessHub.Web.ViewModels.TrainingSchedular.TrainingProgramViewModel;
-@{
-    this.ViewData["Title"] = "Training Program"; 
+﻿@inject FitnessHub.Data.Common.Repositories.IDeletableEntityRepository<Training> trainingsRepo
+@using FitnessHub.Data.Models
+@{ 
+    this.ViewData["Title"] = "Training Program";
+    var programId = ViewContext.HttpContext.Request.Query["programId"];
+    var mondayTraining = trainingsRepo.All().ToList().Where(x => x.DayOfWeek == "Monday" && x.TrainingProgramId == programId).FirstOrDefault();
+    var tuesdayTraining = trainingsRepo.All().ToList().Where(x => x.DayOfWeek == "Tuesday" && x.TrainingProgramId == programId).FirstOrDefault();
+    var wednesdayTraining = trainingsRepo.All().ToList().Where(x => x.DayOfWeek == "Wednesday" && x.TrainingProgramId == programId).FirstOrDefault();
+    var thursdayTraining = trainingsRepo.All().ToList().Where(x => x.DayOfWeek == "Thursday" && x.TrainingProgramId == programId).FirstOrDefault();
+    var fridayTraining = trainingsRepo.All().ToList().Where(x => x.DayOfWeek == "Friday" && x.TrainingProgramId == programId).FirstOrDefault();
+    var saturdayTraining = trainingsRepo.All().ToList().Where(x => x.DayOfWeek == "Saturday" && x.TrainingProgramId == programId).FirstOrDefault();
+    var sundayTraining = trainingsRepo.All().ToList().Where(x => x.DayOfWeek == "Sunday" && x.TrainingProgramId == programId).FirstOrDefault();
 }
 
 <div class="row">
-    <div class="col-md-4">
-        <div class="jumbotron">
-            <h1 class="display-4">Hello, world!</h1>
-            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-            <hr class="my-4">
-            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-        </div>
+    <div class="jumbotron text-center col-md-4">
+        <h1 class="display-4">Monday</h1>
+        <hr class="my-4">
+        @if (mondayTraining == null)
+        {
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" role="button" asp-area="" asp-controller="TrainingSchedular" asp-action="AddTraining">Add Training</a>
+            </p> 
+        }
+        else
+        {
+            <p>Has training</p>
+        }
     </div>
-    <div class="col-md-4">
-        <div class="jumbotron">
-            <h1 class="display-4">Hello, world!</h1>
-            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-            <hr class="my-4">
-            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-        </div>
+    <div class="jumbotron text-center col-md-4">
+        <h1 class="display-4">Tuesday</h1>
+        <hr class="my-4">
+        @if (tuesdayTraining == null)
+        {
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" role="button" asp-area="" asp-controller="TrainingSchedular" asp-action="AddTraining">Add Training</a>
+            </p> 
+        }
+        else
+        {
+            <p>Has training</p>
+        }
     </div>
-    <div class="col-md-4">
-        <div class="jumbotron">
-            <h1 class="display-4">Hello, world!</h1>
-            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-            <hr class="my-4">
-            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-        </div>
+    <div class="jumbotron text-center col-md-4">
+        <h1 class="display-4">Wednesday</h1>
+        <hr class="my-4">
+       @if (wednesdayTraining == null)
+        {
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" role="button" asp-area="" asp-controller="TrainingSchedular" asp-action="AddTraining">Add Training</a>
+            </p> 
+        }
+        else
+        {
+            <p>Has training</p>
+        }
     </div>
+</div>
+<div class="row">
+    <div class="jumbotron text-center col-md-4">
+        <h1 class="display-4">Thursday</h1>
+        <hr class="my-4">
+        @if (thursdayTraining == null)
+        {
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" role="button" asp-area="" asp-controller="TrainingSchedular" asp-action="AddTraining">Add Training</a>
+            </p> 
+        }
+        else
+        {
+            <p>Has training</p>
+        }
+    </div>
+    <div class="jumbotron text-center col-md-4">
+        <h1 class="display-4">Friday</h1>
+        <hr class="my-4">
+        @if (fridayTraining == null)
+        {
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" role="button" asp-area="" asp-controller="TrainingSchedular" asp-action="AddTraining">Add Training</a>
+            </p> 
+        }
+        else
+        {
+            <p>Has training</p>
+        }
+    </div>
+    <div class="jumbotron text-center col-md-4">
+        <h1 class="display-4">Saturday</h1>
+        <hr class="my-4">
+        @if (saturdayTraining == null)
+        {
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" role="button" asp-area="" asp-controller="TrainingSchedular" asp-action="AddTraining">Add Training</a>
+            </p> 
+        }
+        else
+        {
+            <p>Has training</p>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="jumbotron col-md-4 text-center">
+         <h1 class="display-4">Hello, world!</h1>
+         <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+         <hr class="my-4">
+         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+   </div>
+   <div class="jumbotron col-md-4 text-center">
+        <h1 class="display-4">Sunday</h1>
+        <hr class="my-4">
+        @if (sundayTraining == null)
+        {
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" role="button" asp-area="" asp-controller="TrainingSchedular" asp-action="AddTraining">Add Training</a>
+            </p> 
+        }
+        else
+        {
+            <p>Has training</p>
+        }
+    </div>
+     <div class="jumbotron col-md-4 text-center">
+         <h1 class="display-4">Hello, world!</h1>
+         <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+         <hr class="my-4">
+         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+   </div>
 </div>

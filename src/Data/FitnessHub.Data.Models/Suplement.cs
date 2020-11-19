@@ -9,6 +9,7 @@
         public Suplement()
         {
             this.Users = new HashSet<UserSuplement>();
+            this.Orders = new HashSet<OrderSuplement>();
         }
 
         public string Name { get; set; }
@@ -22,5 +23,7 @@
         public string ImageUrl { get; set; }
 
         public virtual ICollection<UserSuplement> Users { get; set; }
+
+        public virtual ICollection<OrderSuplement> Orders { get; set; }
     }
 }

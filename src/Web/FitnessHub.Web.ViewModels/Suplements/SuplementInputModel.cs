@@ -4,11 +4,11 @@
 
     using Microsoft.AspNetCore.Http;
 
-    public class AddSuplementInputModel
+    public class SuplementInputModel
     {
         [Required]
         [MinLength(5, ErrorMessage = "The name must be at least 5 characters.")]
-        [MaxLength(20)]
+        [MaxLength(35)]
         [RegularExpression("^[A-Z].*?$", ErrorMessage = "The name must start with capital letter.")]
         public string Name { get; set; }
 

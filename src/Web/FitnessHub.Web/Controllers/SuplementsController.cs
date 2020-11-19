@@ -8,6 +8,7 @@
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Data;
     using FitnessHub.Web.ViewModels.Suplements;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -43,7 +44,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddSuplementInputModel model)
+        public async Task<IActionResult> Add(SuplementInputModel model)
         {
             if (!model.Image.FileName.EndsWith(".jpg"))
             {
@@ -71,6 +72,38 @@
             await this.suplementsService.AddSuplementAsync(model);
 
             return this.RedirectToAction(nameof(this.All));
+        }
+
+        public IActionResult Edit(int id)
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(int id, SuplementInputModel model)
+        {
+            if (!model.Image.FileName.EndsWith(".jpg"))
+            {
+                this.ModelState.AddModelError("Image", "Invalid file type.");
+            }
+
+            var allSuplements = this.suplementsService.GetAllSuplements<SuplementViewModel>().ToList();
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            using (FileStream fs = new FileStream(
+                this.webHostEnvironment.WebRootPath + $"/suplementsImages/{model.Name}.jpg", FileMode.Create))
+            {
+                await model.Image.CopyToAsync(fs);
+            }
+
+            await this.suplementsService.EditSuplement(id, model);
+
+            return this.RedirectToAction("Details", new { id });
         }
 
         public IActionResult Details()

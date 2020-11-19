@@ -8,6 +8,7 @@
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Data;
     using FitnessHub.Web.ViewModels.Equipments;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -42,7 +43,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(AddEquipmentInputModel model)
+        public async Task<IActionResult> Add(EquipmentInputModel model)
         {
             if (!model.Image.FileName.EndsWith(".jpg"))
             {
@@ -70,6 +71,38 @@
             await this.equipmentsService.AddEquipmentAsync(model);
 
             return this.RedirectToAction(nameof(this.All));
+        }
+
+        public IActionResult Edit(int id)
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(int id, EquipmentInputModel model)
+        {
+            if (!model.Image.FileName.EndsWith(".jpg"))
+            {
+                this.ModelState.AddModelError("Image", "Invalid file type.");
+            }
+
+            var allEquipments = this.equipmentsService.GetAllEquipments<EquipmentViewModel>().ToList();
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            using (FileStream fs = new FileStream(
+                this.webHostEnvironment.WebRootPath + $"/equipmentsImages/{model.Name}.jpg", FileMode.Create))
+            {
+                await model.Image.CopyToAsync(fs);
+            }
+
+            await this.equipmentsService.EditEquipment(id, model);
+
+            return this.RedirectToAction("Details", new { id });
         }
 
         public IActionResult Details()

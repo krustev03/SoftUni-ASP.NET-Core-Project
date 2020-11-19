@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FitnessHub.Data.Models
+﻿namespace FitnessHub.Data.Models
 {
     public class OrderEquipment
     {
@@ -10,7 +6,7 @@ namespace FitnessHub.Data.Models
 
         public virtual Order Order { get; set; }
 
-        public string UserId { get; set; }
+        public int OrderId { get; set; }
 
         public int EquipmentId { get; set; }
 

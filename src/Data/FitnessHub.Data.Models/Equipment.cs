@@ -9,6 +9,7 @@
         public Equipment()
         {
             this.Users = new HashSet<UserEquipment>();
+            this.Orders = new HashSet<OrderEquipment>();
         }
 
         public string Name { get; set; }
@@ -20,5 +21,7 @@
         public string ImageUrl { get; set; }
 
         public virtual ICollection<UserEquipment> Users { get; set; }
+
+        public virtual ICollection<OrderEquipment> Orders { get; set; }
     }
 }

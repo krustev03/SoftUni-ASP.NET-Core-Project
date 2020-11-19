@@ -37,7 +37,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Add(AddServiceInputModel model)
+        public async Task<IActionResult> Add(ServiceInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -46,11 +46,31 @@
 
             var appUser = await this.userManager.GetUserAsync(this.User);
 
-            await this.servicesService.AddServiceAsync(model, appUser.Id);
+            await this.servicesService.AddServiceAsync(model, appUser);
 
             return this.RedirectToAction(nameof(this.All));
         }
 
+        public IActionResult Edit(int id)
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(int id, ServiceInputModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            await this.servicesService.EditService(id, model);
+
+            return this.RedirectToAction("Details", new { id });
+        }
+
+        [Authorize]
         public IActionResult Details()
         {
             var url = this.HttpContext.Request.Path.Value;
@@ -60,6 +80,7 @@
             return this.View(serviceModel);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
@@ -68,6 +89,7 @@
             return this.RedirectToAction(nameof(this.All));
         }
 
+        [Authorize]
         public IActionResult Return()
         {
             return this.RedirectToAction(nameof(this.All));

@@ -20,17 +20,29 @@
             this.servicesRepository = servicesRepository;
         }
 
-        public async Task AddServiceAsync(AddServiceInputModel serviceInputModel, string authorId)
+        public async Task AddServiceAsync(ServiceInputModel serviceInputModel, ApplicationUser appUser)
         {
             var service = new Service()
             {
                 Name = serviceInputModel.Name,
                 Price = decimal.Parse(serviceInputModel.Price, CultureInfo.InvariantCulture),
                 Description = serviceInputModel.Description,
-                AuthorId = authorId,
+                AuthorId = appUser.Id,
             };
 
             await this.servicesRepository.AddAsync(service);
+            await this.servicesRepository.SaveChangesAsync();
+        }
+
+        public async Task EditService(int id, ServiceInputModel serviceInputModel)
+        {
+            var service = this.servicesRepository.All().Where(x => x.Id == id).FirstOrDefault();
+
+            service.Name = serviceInputModel.Name;
+            service.Price = decimal.Parse(serviceInputModel.Price, CultureInfo.InvariantCulture);
+            service.Description = serviceInputModel.Description;
+
+            this.servicesRepository.Update(service);
             await this.servicesRepository.SaveChangesAsync();
         }
 

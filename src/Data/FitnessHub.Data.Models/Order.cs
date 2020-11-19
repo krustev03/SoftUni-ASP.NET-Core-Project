@@ -9,8 +9,8 @@
     {
         public Order()
         {
-            this.OrderEquipments = new HashSet<Equipment>();
-            this.OrderSuplements = new HashSet<Suplement>();
+            this.Equipments = new HashSet<OrderEquipment>();
+            this.Suplements = new HashSet<OrderSuplement>();
         }
 
         public string FirstName { get; set; }
@@ -33,8 +33,8 @@
 
         public ApplicationUser User { get; set; }
 
-        public virtual ICollection<Equipment> OrderEquipments { get; set; }
+        public virtual ICollection<OrderEquipment> Equipments { get; set; }
 
-        public virtual ICollection<Suplement> OrderSuplements { get; set; }
+        public virtual ICollection<OrderSuplement> Suplements { get; set; }
     }
 }

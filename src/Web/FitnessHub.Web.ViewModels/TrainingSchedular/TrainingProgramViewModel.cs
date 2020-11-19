@@ -6,7 +6,7 @@
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Mapping;
 
-    public class TrainingProgramViewModel
+    public class TrainingProgramViewModel : IMapFrom<TrainingProgram>
     {
         public int Id { get; set; }
 

@@ -28,7 +28,7 @@
             this.userSuplementRepository = userSuplementRepository;
         }
 
-        public async Task AddSuplementAsync(AddSuplementInputModel suplementInputModel)
+        public async Task AddSuplementAsync(SuplementInputModel suplementInputModel)
         {
             var suplement = new Suplement()
             {
@@ -40,6 +40,20 @@
             };
 
             await this.suplementsRepository.AddAsync(suplement);
+            await this.suplementsRepository.SaveChangesAsync();
+        }
+
+        public async Task EditSuplement(int id, SuplementInputModel suplementInputModel)
+        {
+            var suplement = this.suplementsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+
+            suplement.Name = suplementInputModel.Name;
+            suplement.Price = decimal.Parse(suplementInputModel.Price, CultureInfo.InvariantCulture);
+            suplement.Weight = int.Parse(suplementInputModel.Weight, CultureInfo.InvariantCulture);
+            suplement.Description = suplementInputModel.Description;
+            suplement.ImageUrl = suplementInputModel.ImageUrl;
+
+            this.suplementsRepository.Update(suplement);
             await this.suplementsRepository.SaveChangesAsync();
         }
 
