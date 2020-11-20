@@ -54,6 +54,20 @@
             await this.equipmentsRepository.SaveChangesAsync();
         }
 
+        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 4)
+        {
+            var equipments = this.equipmentsRepository.AllAsNoTracking()
+                .OrderByDescending(x => x.Id)
+                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                .To<T>().ToList();
+            return equipments;
+        }
+
+        public int GetCount()
+        {
+            return this.equipmentsRepository.All().Count();
+        }
+
         public IEnumerable<T> GetAllEquipments<T>()
         {
             return this.equipmentsRepository.All().To<T>();

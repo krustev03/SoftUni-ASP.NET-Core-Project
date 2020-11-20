@@ -1,14 +1,16 @@
 ﻿@model FitnessHub.Web.ViewModels.Equipments.EquipmentInputModel
 
 @{ 
-    this.ViewData["Title"] = "Edit Equipment"; 
+    this.ViewData["Title"] = "Edit Equipment";
+    int equipmentId = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["equipmentId"]);
+    int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
 }
 
 <main>
     <div class="text-center">
         <h3 class="add__heading"><b>Edit Equipment</b></h3>
         <div class="form__inputs">
-            <form class="d-flex flex-column" method="post" asp-action="Edit" asp-controller="Equipments" enctype="multipart/form-data">
+            <form class="d-flex flex-column" method="post" asp-action="Edit" asp-route-equipmentId="@equipmentId" asp-route-page="@pageNum" asp-controller="Equipments" enctype="multipart/form-data">
                 <div class="form-group">
                     <label asp-for="@Model.Name"></label>
                     <input class="form-control" type="text" asp-for="@Model.Name" />

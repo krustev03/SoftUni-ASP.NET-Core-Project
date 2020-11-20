@@ -29,11 +29,21 @@
             this.webHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult All()
+        public IActionResult All(int id = 1)
         {
-            var viewModel = new EquipmentsIndexViewModel();
-            viewModel.Equipments = this.equipmentsService.GetAllEquipments<EquipmentViewModel>();
+            if (id <= 0)
+            {
+                return this.NotFound();
+            }
 
+            const int ItemsPerPage = 4;
+            var viewModel = new EquipmentsIndexViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                RecipesCount = this.equipmentsService.GetCount(),
+                Equipments = this.equipmentsService.GetAll<EquipmentViewModel>(id, ItemsPerPage),
+            };
             return this.View(viewModel);
         }
 
@@ -50,7 +60,7 @@
                 this.ModelState.AddModelError("Image", "Invalid file type.");
             }
 
-            var allEquipments = this.equipmentsService.GetAllEquipments<EquipmentViewModel>().ToList();
+            var allEquipments = this.equipmentsService.GetAllEquipments<EquipmentViewModel>();
 
             if (allEquipments.Any(x => x.Name == model.Name))
             {
@@ -80,7 +90,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, EquipmentInputModel model)
+        public async Task<IActionResult> Edit(int equipmentId, int page, EquipmentInputModel model)
         {
             if (!model.Image.FileName.EndsWith(".jpg"))
             {
@@ -100,42 +110,40 @@
                 await model.Image.CopyToAsync(fs);
             }
 
-            await this.equipmentsService.EditEquipment(id, model);
+            await this.equipmentsService.EditEquipment(equipmentId, model);
 
-            return this.RedirectToAction("Details", new { id });
+            return this.Redirect($"Details?equipmentId={equipmentId}&&page={page}");
         }
 
-        public IActionResult Details()
+        public IActionResult Details(int equipmentId, int page)
         {
-            var url = this.HttpContext.Request.Path.Value;
-            var id = Convert.ToInt32(url.Substring(url.LastIndexOf('/') + 1));
-            var equipmentModel = this.equipmentsService.GetEquipmentDetails<EquipmentDetailsViewModel>(id);
+            var equipmentModel = this.equipmentsService.GetEquipmentDetails<EquipmentDetailsViewModel>(equipmentId);
 
             return this.View(equipmentModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int equipmentId, int page)
         {
-            await this.equipmentsService.DeleteEquipmentByIdAsync(id);
+            await this.equipmentsService.DeleteEquipmentByIdAsync(equipmentId);
 
-            return this.RedirectToAction(nameof(this.All));
+            return this.Redirect($"/Equipments/All/{page}");
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddToCart(int id)
+        public async Task<IActionResult> AddToCart(int equipmentId, int page)
         {
             var user = await this.userManager.GetUserAsync(this.User);
             string userId = user.Id;
-            await this.equipmentsService.AddEquipmentToCart(id, userId);
+            await this.equipmentsService.AddEquipmentToCart(equipmentId, userId);
             await this.userManager.UpdateAsync(user);
 
-            return this.RedirectToAction(nameof(this.All));
+            return this.Redirect($"/Equipments/All/{page}");
         }
 
-        public IActionResult Return()
+        public IActionResult Return(int page)
         {
-            return this.RedirectToAction(nameof(this.All));
+            return this.Redirect($"/Equipments/All/{page}");
         }
     }
 }

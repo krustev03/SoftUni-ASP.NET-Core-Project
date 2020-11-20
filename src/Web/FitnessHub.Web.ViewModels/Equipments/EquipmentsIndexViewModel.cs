@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class EquipmentsIndexViewModel
+    public class EquipmentsIndexViewModel : PagingViewModel
     {
         public IEnumerable<EquipmentViewModel> Equipments { get; set; }
     }
