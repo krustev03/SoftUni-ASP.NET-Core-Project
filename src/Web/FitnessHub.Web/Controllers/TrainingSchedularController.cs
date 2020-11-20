@@ -1,5 +1,6 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using FitnessHub.Data.Models;
@@ -11,11 +12,16 @@
     public class TrainingSchedularController : Controller
     {
         private readonly ITrainingProgramsService trainingProgramsService;
+        private readonly ITrainingsService trainingsService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public TrainingSchedularController(ITrainingProgramsService trainingProgramsService, UserManager<ApplicationUser> userManager)
+        public TrainingSchedularController(
+            ITrainingProgramsService trainingProgramsService,
+            ITrainingsService trainingsService,
+            UserManager<ApplicationUser> userManager)
         {
             this.trainingProgramsService = trainingProgramsService;
+            this.trainingsService = trainingsService;
             this.userManager = userManager;
         }
 
@@ -47,6 +53,14 @@
         public IActionResult AllTrainings(int id)
         {
             return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddTraining(string dayOfWeek, int programId)
+        {
+            await this.trainingsService.AddTrainingAsync(programId, dayOfWeek);
+
+            return this.RedirectToAction("Index");
         }
     }
 }

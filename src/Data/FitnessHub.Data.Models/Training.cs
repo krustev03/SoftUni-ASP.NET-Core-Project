@@ -13,7 +13,7 @@
 
         public string DayOfWeek { get; set; }
 
-        public string TrainingProgramId { get; set; }
+        public int TrainingProgramId { get; set; }
 
         public virtual TrainingProgram TrainingProgram { get; set; }
 
