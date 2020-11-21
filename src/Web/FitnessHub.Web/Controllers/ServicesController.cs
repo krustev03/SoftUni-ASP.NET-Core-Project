@@ -21,11 +21,21 @@
             this.userManager = userManager;
         }
 
-        public IActionResult All()
+        public IActionResult All(int id = 1)
         {
-            var viewModel = new ServicesIndexViewModel();
-            viewModel.Services = this.servicesService.GetAllServices<ServiceViewModel>();
+            if (id <= 0)
+            {
+                return this.NotFound();
+            }
 
+            const int ItemsPerPage = 8;
+            var viewModel = new ServicesIndexViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                ItemsCount = this.servicesService.GetCount(),
+                Services = this.servicesService.GetAllForPaging<ServiceViewModel>(id, ItemsPerPage),
+            };
             return this.View(viewModel);
         }
 
@@ -58,41 +68,39 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, ServiceInputModel model)
+        public async Task<IActionResult> Edit(int serviceId, int page, ServiceInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            await this.servicesService.EditService(id, model);
+            await this.servicesService.EditService(serviceId, model);
 
-            return this.RedirectToAction("Details", new { id });
+            return this.Redirect($"Details?serviceId={serviceId}&&page={page}");
         }
 
         [Authorize]
-        public IActionResult Details()
+        public IActionResult Details(int serviceId, int page)
         {
-            var url = this.HttpContext.Request.Path.Value;
-            var id = Convert.ToInt32(url.Substring(url.LastIndexOf('/') + 1));
-            var serviceModel = this.servicesService.GetServiceDetails<ServiceDetailsViewModel>(id);
+            var serviceModel = this.servicesService.GetServiceDetails<ServiceDetailsViewModel>(serviceId);
 
             return this.View(serviceModel);
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int serviceId, int page)
         {
-            await this.servicesService.DeleteServiceByIdAsync(id);
+            await this.servicesService.DeleteServiceByIdAsync(serviceId);
 
-            return this.RedirectToAction(nameof(this.All));
+            return this.Redirect($"/Services/All/{page}");
         }
 
         [Authorize]
-        public IActionResult Return()
+        public IActionResult Return(int page)
         {
-            return this.RedirectToAction(nameof(this.All));
+            return this.Redirect($"/Services/All/{page}");
         }
     }
 }

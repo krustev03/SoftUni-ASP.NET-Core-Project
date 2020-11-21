@@ -30,10 +30,21 @@
             this.webHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult All()
+        public IActionResult All(int id = 1)
         {
-            var viewModel = new SuplementsIndexViewModel();
-            viewModel.Suplements = this.suplementsService.GetAllSuplements<SuplementViewModel>();
+            if (id <= 0)
+            {
+                return this.NotFound();
+            }
+
+            const int ItemsPerPage = 4;
+            var viewModel = new SuplementsIndexViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = id,
+                ItemsCount = this.suplementsService.GetCount(),
+                Suplements = this.suplementsService.GetAllForPaging<SuplementViewModel>(id, ItemsPerPage),
+            };
 
             return this.View(viewModel);
         }
@@ -81,7 +92,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, SuplementInputModel model)
+        public async Task<IActionResult> Edit(int suplementId, int page, SuplementInputModel model)
         {
             if (!model.Image.FileName.EndsWith(".jpg"))
             {
@@ -101,42 +112,40 @@
                 await model.Image.CopyToAsync(fs);
             }
 
-            await this.suplementsService.EditSuplement(id, model);
+            await this.suplementsService.EditSuplement(suplementId, model);
 
-            return this.RedirectToAction("Details", new { id });
+            return this.Redirect($"Details?suplementId={suplementId}&&page={page}");
         }
 
-        public IActionResult Details()
+        public IActionResult Details(int suplementId, int page)
         {
-            var url = this.HttpContext.Request.Path.Value;
-            var id = Convert.ToInt32(url.Substring(url.LastIndexOf('/') + 1));
-            var suplementModel = this.suplementsService.GetSuplementDetails<SuplementDetailsViewModel>(id);
+            var suplementModel = this.suplementsService.GetSuplementDetails<SuplementDetailsViewModel>(suplementId);
 
             return this.View(suplementModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddToCart(int id)
+        public async Task<IActionResult> AddToCart(int suplementId, int page)
         {
             var user = await this.userManager.GetUserAsync(this.User);
             string userId = user.Id;
-            await this.suplementsService.AddSuplementToCart(id, userId);
+            await this.suplementsService.AddSuplementToCart(suplementId, userId);
             await this.userManager.UpdateAsync(user);
 
-            return this.RedirectToAction(nameof(this.All));
+            return this.Redirect($"/Suplements/All/{page}");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int suplementId, int page)
         {
-            await this.suplementsService.DeleteSuplementByIdAsync(id);
+            await this.suplementsService.DeleteSuplementByIdAsync(suplementId);
 
-            return this.RedirectToAction(nameof(this.All));
+            return this.Redirect($"/Suplements/All/{page}");
         }
 
-        public IActionResult Return()
+        public IActionResult Return(int page)
         {
-            return this.RedirectToAction(nameof(this.All));
+            return this.Redirect($"/Suplements/All/{page}");
         }
     }
 }

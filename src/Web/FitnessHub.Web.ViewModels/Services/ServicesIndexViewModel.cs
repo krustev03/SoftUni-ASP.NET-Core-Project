@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class ServicesIndexViewModel
+    public class ServicesIndexViewModel : PagingViewModel
     {
         public IEnumerable<ServiceViewModel> Services { get; set; }
     }

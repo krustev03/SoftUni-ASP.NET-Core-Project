@@ -54,7 +54,7 @@
             await this.equipmentsRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 4)
+        public IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 4)
         {
             var equipments = this.equipmentsRepository.AllAsNoTracking()
                 .OrderByDescending(x => x.Id)

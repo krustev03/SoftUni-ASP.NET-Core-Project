@@ -4,31 +4,31 @@
     this.ViewData["Title"] = "All Suplements";
 }
 
-<main>
-    <h1 class="display-2 main__heading"><b>Suplements</b></h1>
-    <div class="services__content container d-flex flex-column">
-        <div class="services__model text-center row">
-            <div class="col"></div>
-            <h4 class="col">Name:</h4>
-            <h4 class="col">Weight:</h4>
-            <h4 class="col">Price:</h4>
-            <div class="col"></div>
-        </div>
-        @foreach (var suplement in Model.Suplements.OrderByDescending(x => x.CreatedOn))
-        {
-            <div class="entity text-center row align-items-center item__image__container align-self-center">
-                <div class="col">
-                    <img src="@Url.Content(suplement.ImageUrl)" class="w-100 h-100">
-                </div>
-                <h4 class="col">@suplement.Name</h4>
-                <h4 class="col">@suplement.Weight grams</h4>
-                <h4 class="col">@suplement.Price lv.</h4>
-                <div class="col">
-                    <a class="btn btn-primary" role="button" href="/Suplements/Details/@suplement.Id">View</a>
-                </div>
-            </div>
-        }
+<h1 class="display-2 main__heading"><b>Suplements Page @Model.PageNumber</b></h1>
+<div class="services__content container d-flex flex-column">
+    <div class="services__model text-center row">
+        <div class="col"></div>
+        <h4 class="col">Name:</h4>
+        <h4 class="col">Weight:</h4>
+        <h4 class="col">Price:</h4>
+        <div class="col"></div>
     </div>
-    <a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Suplements" asp-action="Add">Add Suplement</a>
-    <a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Home" asp-action="GoToHome">Go to home</a>
-</main>
+    @foreach (var suplement in Model.Suplements)
+    {
+        <div class="entity text-center row align-items-center item__image__container align-self-center">
+            <div class="col">
+                <img src="@Url.Content(suplement.ImageUrl)" class="w-100 h-100">
+            </div>
+            <h4 class="col">@suplement.Name</h4>
+            <h4 class="col">@suplement.Weight grams</h4>
+            <h4 class="col">@suplement.Price lv.</h4>
+            <div class="col">
+                <a class="btn btn-primary" role="button" asp-controller="Suplements" asp-action="Details" asp-route-suplementId="@suplement.Id" asp-route-page="@Model.PageNumber">View</a>
+            </div>
+        </div>
+    }
+</div>
+<a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Suplements" asp-action="Add">Add Suplement</a>
+<a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Home" asp-action="GoToHome">Go to home</a>
+
+<partial name="_PagingPartial" model="@Model" />

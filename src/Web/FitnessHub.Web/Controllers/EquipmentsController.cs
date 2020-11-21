@@ -41,8 +41,8 @@
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = id,
-                RecipesCount = this.equipmentsService.GetCount(),
-                Equipments = this.equipmentsService.GetAll<EquipmentViewModel>(id, ItemsPerPage),
+                ItemsCount = this.equipmentsService.GetCount(),
+                Equipments = this.equipmentsService.GetAllForPaging<EquipmentViewModel>(id, ItemsPerPage),
             };
             return this.View(viewModel);
         }
@@ -123,20 +123,20 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int equipmentId, int page)
-        {
-            await this.equipmentsService.DeleteEquipmentByIdAsync(equipmentId);
-
-            return this.Redirect($"/Equipments/All/{page}");
-        }
-
-        [HttpPost]
         public async Task<IActionResult> AddToCart(int equipmentId, int page)
         {
             var user = await this.userManager.GetUserAsync(this.User);
             string userId = user.Id;
             await this.equipmentsService.AddEquipmentToCart(equipmentId, userId);
             await this.userManager.UpdateAsync(user);
+
+            return this.Redirect($"/Equipments/All/{page}");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int equipmentId, int page)
+        {
+            await this.equipmentsService.DeleteEquipmentByIdAsync(equipmentId);
 
             return this.Redirect($"/Equipments/All/{page}");
         }

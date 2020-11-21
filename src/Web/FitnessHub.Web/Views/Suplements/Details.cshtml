@@ -2,6 +2,7 @@
 
 @{
     this.ViewData["Title"] = "Suplement Details";
+    int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
 }
 
 <main>
@@ -22,12 +23,12 @@
                 <p class="text-center">@Model.Description</p>
             </div>
             <div class="details__form d-flex justify-content-around">
-                <form method="post" asp-controller="Suplements" asp-action="AddToCart" asp-route-id="@Model.Id">
+                <form method="post" asp-controller="Suplements" asp-action="AddToCart" asp-route-suplementId="@Model.Id" asp-route-page="@pageNum">
                     <input type="submit" value="Add to cart" class="btn btn-outline-primary" />
                 </form>
-                <a class="btn btn-outline-primary w-25" role="button" asp-area="" asp-controller="Suplements" asp-action="Return">Return</a>
-                <a class="btn btn-outline-info w-25" role="button" asp-area="" asp-controller="Suplements" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-                <form method="post" asp-controller="Suplements" asp-action="Delete" asp-route-id="@Model.Id">
+                <a class="btn btn-outline-primary w-25" role="button" asp-area="" asp-controller="Suplements" asp-action="Return" asp-route-page="@pageNum">Return</a>
+                <a class="btn btn-outline-info w-25" role="button" asp-area="" asp-controller="Suplements" asp-action="Edit" asp-route-suplementId="@Model.Id" asp-route-page="@pageNum">Edit</a>
+                <form method="post" asp-controller="Suplements" asp-action="Delete" asp-route-suplementId="@Model.Id" asp-route-page="@pageNum">
                     <input type="submit" value="Delete" class="btn btn-outline-danger" />
                 </form>
             </div>

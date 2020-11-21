@@ -8,7 +8,11 @@
 
     public interface IServicesService
     {
+        public IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage);
+
         public IEnumerable<T> GetAllServices<T>();
+
+        public int GetCount();
 
         public Task AddServiceAsync(ServiceInputModel serviceInputModel, ApplicationUser appUser);
 

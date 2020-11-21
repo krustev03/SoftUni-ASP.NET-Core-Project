@@ -8,7 +8,7 @@
 
     public interface IEquipmentsService
     {
-        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage);
+        public IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage);
 
         public IEnumerable<T> GetAllEquipments<T>();
 

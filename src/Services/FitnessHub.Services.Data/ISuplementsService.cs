@@ -10,6 +10,10 @@
     {
         public IEnumerable<T> GetAllSuplements<T>();
 
+        public IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage);
+
+        public int GetCount();
+
         public Task AddSuplementAsync(SuplementInputModel suplementInputModel);
 
         public Task EditSuplement(int id, SuplementInputModel suplementInputModel);

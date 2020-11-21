@@ -1,14 +1,16 @@
 ﻿@model FitnessHub.Web.ViewModels.Services.ServiceInputModel
 
 @{ 
-    this.ViewData["Title"] = "Edit Service"; 
+    this.ViewData["Title"] = "Edit Service";
+    int serviceId = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["serviceId"]);
+    int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
 }
 
 <main>
     <div class="text-center">
         <h3 class="add__heading"><b>Edit Service</b></h3>
         <div class="form__inputs">
-            <form class="d-flex flex-column" method="post" asp-action="Edit" asp-controller="Services">
+            <form class="d-flex flex-column" method="post" asp-action="Edit" asp-controller="Services" asp-route-serviceId="@serviceId" asp-route-page="@pageNum">
                 <div class="form-group">
                     <label asp-for="@Model.Name"></label>
                     <input class="form-control" type="text" asp-for="@Model.Name" />

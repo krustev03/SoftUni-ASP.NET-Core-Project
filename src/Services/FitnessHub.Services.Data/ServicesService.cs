@@ -51,6 +51,20 @@
             return this.servicesRepository.All().To<T>();
         }
 
+        public IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 8)
+        {
+            var services = this.servicesRepository.AllAsNoTracking()
+                .OrderByDescending(x => x.Id)
+                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                .To<T>().ToList();
+            return services;
+        }
+
+        public int GetCount()
+        {
+            return this.servicesRepository.All().Count();
+        }
+
         public T GetServiceDetails<T>(int id)
         {
             var service = this.servicesRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
