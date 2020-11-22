@@ -5,6 +5,7 @@
 
     using FitnessHub.Data.Common.Repositories;
     using FitnessHub.Data.Models;
+    using FitnessHub.Services.Mapping;
 
     public class TrainingsService : ITrainingsService
     {
@@ -25,6 +26,13 @@
 
             await this.trainingsRepository.AddAsync(training);
             await this.trainingsRepository.SaveChangesAsync();
+        }
+
+        public T GetTrainingDetails<T>(int id)
+        {
+            var training = this.trainingsRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
+
+            return training;
         }
     }
 }

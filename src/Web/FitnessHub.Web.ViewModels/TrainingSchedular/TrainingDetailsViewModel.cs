@@ -9,7 +9,7 @@
     {
         public int Id { get; set; }
 
-        public IEnumerable<TrainingDetailsViewModel> Exercises { get; set; }
+        public IEnumerable<ExerciseViewModel> Exercises { get; set; }
 
         public string DayOfWeek { get; set; }
     }

@@ -62,5 +62,17 @@
 
             return this.RedirectToAction("Index");
         }
+
+        public IActionResult TrainingDetails(int trainingId)
+        {
+            var trainingModel = this.trainingsService.GetTrainingDetails<TrainingDetailsViewModel>(trainingId);
+
+            return this.View(trainingModel);
+        }
+
+        public IActionResult AddExercise(int trainingId)
+        {
+            return this.View();
+        }
     }
 }

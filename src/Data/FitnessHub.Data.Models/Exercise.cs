@@ -10,7 +10,9 @@
 
         public int Reps { get; set; }
 
-        public string MuscleGroup { get; set; }
+        public int MuscleGroupId { get; set; }
+
+        public MuscleGroup MuscleGroup { get; set; }
 
         public int TrainingId { get; set; }
 

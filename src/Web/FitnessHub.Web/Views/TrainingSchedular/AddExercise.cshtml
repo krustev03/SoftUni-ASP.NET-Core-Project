@@ -1,0 +1,33 @@
+﻿@model FitnessHub.Web.ViewModels.TrainingSchedular.AddExerciseInputModel
+@{
+    this.ViewData["Title"] = "Training Details";
+    int trainingId = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["trainingId"]);
+    var muscleGroupItems = this.Model.MuscleGroupsItems.Select(x => new SelectListItem(x.Value, x.Key));
+}
+
+<h3 class="details__heading text-center"><b>Add Exercise</b></h3>
+<form method="post" asp-action="AddExercise" asp-controller="TrainingSchedular" asp-route-trainingId="@trainingId">
+    <div class="form-group">
+        <label asp-for="@Model.Name"></label>
+        <input class="form-control" type="text" asp-for="@Model.Name" />
+        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Sets"></label>
+        <input class="form-control" type="number" asp-for="@Model.Sets" step="any" />
+        <span asp-validation-for="@Model.Sets" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Reps"></label>
+        <input class="form-control" type="number" asp-for="@Model.Reps" step="any" />
+        <span asp-validation-for="@Model.Reps" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.MuscleGroupId"></label>
+        <select asp-for="@Model.MuscleGroupId" class="form-control" asp-items="muscleGroupItems"></select>
+        <span asp-validation-for="@Model.MuscleGroupId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Add</button>
+    </div>
+</form>

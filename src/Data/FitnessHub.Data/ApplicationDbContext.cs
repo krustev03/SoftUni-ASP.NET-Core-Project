@@ -42,6 +42,8 @@
 
         public DbSet<Training> Trainings { get; set; }
 
+        public DbSet<MuscleGroup> MuscleGroups { get; set; }
+
         public DbSet<TrainingProgram> TrainingPrograms { get; set; }
 
         public DbSet<UserEquipment> UserEquipments { get; set; }

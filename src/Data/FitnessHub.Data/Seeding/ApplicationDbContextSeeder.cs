@@ -27,6 +27,7 @@
                           {
                               new AdminSeeder(),
                               new RolesSeeder(),
+                              new MuscleGroupsSeeder(),
                               new SettingsSeeder(),
                           };
 

@@ -1,0 +1,15 @@
+﻿@model FitnessHub.Web.ViewModels.TrainingSchedular.TrainingDetailsViewModel
+@{ 
+    this.ViewData["Title"] = "Training Details";
+    int trainingId = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["trainingId"]);
+}
+
+<h3 class="details__heading text-center"><b>@Model.DayOfWeek</b></h3>
+
+@foreach (var exercise in Model.Exercises)
+{
+    <p>@exercise.Name - @exercise.Sets sets | @exercise.Reps reps (@exercise.MuscleGroup)</p>
+}
+<div class="details__form d-flex justify-content-around">
+    <a class="btn btn-primary text-center" role="button" asp-controller="TrainingSchedular" asp-action="AddExercise" asp-route-trainingId="@trainingId">Add Exercise</a>
+</div>
