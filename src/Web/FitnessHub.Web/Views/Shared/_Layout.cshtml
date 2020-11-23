@@ -18,10 +18,26 @@
     <link href="~/css/contacts.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/paging.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/training.css" rel="stylesheet" asp-append-version="true" />
+
+    @*Theme CSS*@
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="themeCss/bootstrap.min.css" type="text/css">
+    @*<link rel="stylesheet" href="themeCss/font-awesome.min.css" type="text/css">*@
+    <link rel="stylesheet" href="themeCss/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="themeCss/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="themeCss/barfiller.css" type="text/css">
+    <link rel="stylesheet" href="themeCss/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="themeCss/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="themeCss/style.css" type="text/css">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark box-shadow">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -52,25 +68,70 @@
         </nav>
     </header>
 
-    <div class="container">
+    <div>
         <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
+        <main role="main">
             @this.RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <!-- Footer Section Begin -->
+    <div class="gettouch-section">
         <div class="container">
-            &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="gt-text">
+                        <i class="fa fa-map-marker"></i>
+                        <p>bul. Treti Mart 78 <br />Montana, Bulgaria</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="gt-text">
+                        <i class="fa fa-mobile"></i>
+                        <ul>
+                            <li>0885840923</li>
+                            <li>0882444323</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="gt-text email">
+                        <i class="fa fa-envelope"></i>
+                        <p>fitnesshubofficial2020@gmail.com</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
+    <section class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="copyright-text">
+                        <p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer Section End -->
 
     <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
-    <script src="~/js/notify.min.js" asp-append-version="true"></script>
+    <script src="js/jquery.magnific-popup.min.js" asp-append-version="true"></script>
+    <script src="js/masonry.pkgd.min.js" asp-append-version="true"></script>
+    <script src="js/jquery.barfiller.js" asp-append-version="true"></script>
+    <script src="js/jquery.slicknav.js" asp-append-version="true"></script>
+    <script src="js/owl.carousel.min.js" asp-append-version="true"></script>
+    <script src="js/main.js" asp-append-version="true"></script>
     @await this.RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

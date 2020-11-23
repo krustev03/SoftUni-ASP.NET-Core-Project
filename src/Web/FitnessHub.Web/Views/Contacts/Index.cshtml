@@ -1,68 +1,77 @@
-﻿@using static FitnessHub.Common.GlobalConstants
-@using System.Text
-@model FitnessHub.Web.ViewModels.Contacts.ContactsInputModel
+﻿@model FitnessHub.Web.ViewModels.Contacts.ContactsInputModel
 
 @{
     this.ViewData["Title"] = "Contact Us";
-    var maxLength = MessageMaxLength;
 }
 
-<div class="row">
-    <div class="container justify-content-center">
-        <div class="col-md-6" id="contacts-main-div">
-            <div class="form-area">
-                <form asp-action="Index" asp-controller="Contacts" method="post">
-                    <br id="break-line">
-                    <h6 class="text-purple text-sm-center">GOT A QUESTION?</h6>
-                    <h2 id="contacts-title">Contact FitnessHub</h2>
-                    <div class="form-group">
-                        <input asp-for="Name" type="text" class="form-control" id="name" name="name" placeholder="Name" required>
-                        <span asp-validation-for="@Model.Name" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input asp-for="Email" class="form-control" placeholder="Email" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input asp-for="Subject" type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
-                        <span asp-validation-for="@Model.Subject" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <textarea asp-for="Message" class="form-control" type="textarea" id="message" placeholder="Message" rows="7">
-                        </textarea>
-                        <span asp-validation-for="@Model.Message" class="text-danger"></span>
-                        <span class="help-block"><p id="characterLeft" class="help-block ">You have reached the limit</p></span>
-                    </div>
+<div id="preloder">
+    <div class="loader"></div>
+</div>
 
-                    <button type="submit" id="submit" name="submit" class="btn btn-primary">
-                        <i class="fas fa-paper-plane pr-1"></i>Submit
-                    </button>
-                </form>
+<section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb-bg.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb-text">
+                    <h2>Contact Us</h2>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-@section Scripts{
-    @*<partial name="_ValidationScriptsPartial" />*@
-    <script>
-    $(document).ready(function(){
-        $('#characterLeft').text('@maxLength characters left');
-        $('#message').keydown(function () {
-            var max = @maxLength;
-            var len = $(this).val().length;
-            if (len >= max) {
-                $('#characterLeft').text('You have reached the limit');
-                $('#characterLeft').addClass('red');
-                $('#btnSubmit').addClass('disabled');
-            }
-            else {
-                var ch = max - len;
-                $('#characterLeft').text(ch + ' characters left');
-                $('#btnSubmit').removeClass('disabled');
-                $('#characterLeft').removeClass('red');
-            }
-        });
-    });
-    </script>
-}
+</section>
+<section class="contact-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-title contact-title">
+                    <span>Contact Us</span>
+                    <h2>GET IN TOUCH</h2>
+                </div>
+                <div class="contact-widget">
+                    <div class="cw-text">
+                        <i class="fa fa-map-marker"></i>
+                        <p>bul. Treti Mart 78 <br />Montana, Bulgaria</p>
+                    </div>
+                    <div class="cw-text">
+                        <i class="fa fa-mobile"></i>
+                        <ul>
+                            <li>0885840923</li>
+                            <li>0882444323</li>
+                        </ul>
+                    </div>
+                    <div class="cw-text email">
+                        <i class="fa fa-envelope"></i>
+                        <p>fitnesshubofficial2020@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="leave-comment">
+                    <form asp-action="Index" asp-controller="Contacts" method="post">
+                        <div>
+                            <input asp-for="@Model.Name" type="text" placeholder="Name" required>
+                            <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <input asp-for="@Model.Email" placeholder="Email" />
+                            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <input asp-for="@Model.Subject" type="text" placeholder="Subject" required>
+                            <span asp-validation-for="@Model.Subject" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <textarea asp-for="@Model.Message" type="textarea" placeholder="Message"></textarea>
+                            <span asp-validation-for="@Model.Message" class="text-danger"></span>
+                        </div>
+                        <button type="submit" id="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12087.069761554938!2d-74.2175599360452!3d40.767139456514954!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c254b5958982c3%3A0xb6ab3931055a2612!2sEast%20Orange%2C%20NJ%2C%20USA!5e0!3m2!1sen!2sbd!4v1581710470843!5m2!1sen!2sbd"
+                    height="550" style="border:0;" allowfullscreen=""></iframe>
+        </div>
+    </div>
+</section>
