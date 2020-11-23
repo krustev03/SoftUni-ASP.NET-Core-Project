@@ -1,0 +1,21 @@
+﻿@model FitnessHub.Web.ViewModels.TrainingSchedular.AddTrainingProgramInputModel
+@{ 
+    this.ViewData["Title"] = "Change Program Name";
+    var programId = Convert.ToInt32(ViewContext.HttpContext.Request.Query["programId"]);
+}
+
+<div class="text-center">
+    <h3 class="add__heading"><b>Change name</b></h3>
+    <div class="form__inputs">
+        <form class="d-flex flex-column" method="post" asp-action="ChangeProgramName" asp-controller="TrainingSchedular" asp-route-programId="@programId">
+            <div class="form-group">
+                <label asp-for="@Model.Name"></label>
+                <input class="form-control" type="text" asp-for="@Model.Name" />
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

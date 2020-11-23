@@ -1,0 +1,11 @@
+﻿.exercise__container {
+    margin-bottom: 40px;
+}
+
+.exercise__container a {
+    margin-right: 20px;
+}
+
+.exercise__container form {
+    margin-left: 20px;
+}

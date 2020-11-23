@@ -1,8 +1,10 @@
 ﻿@inject FitnessHub.Data.Common.Repositories.IDeletableEntityRepository<Training> trainingsRepo
+@inject FitnessHub.Data.Common.Repositories.IDeletableEntityRepository<TrainingProgram> trainingProgramsRepo
 @using FitnessHub.Data.Models
 @{ 
     this.ViewData["Title"] = "Training Program";
     var programId = Convert.ToInt32(ViewContext.HttpContext.Request.Query["programId"]);
+    var trainingProgram = trainingProgramsRepo.All().ToList().FirstOrDefault(tp => tp.Id == programId);
     var mondayTraining = trainingsRepo.All().ToList().FirstOrDefault(t => t.TrainingProgramId == programId && t.DayOfWeek == "Monday");
     var tuesdayTraining = trainingsRepo.All().ToList().FirstOrDefault(t => t.TrainingProgramId == programId && t.DayOfWeek == "Tuesday");
     var wednesdayTraining = trainingsRepo.All().ToList().FirstOrDefault(t => t.TrainingProgramId == programId && t.DayOfWeek == "Wednesday");
@@ -12,6 +14,7 @@
     var sundayTraining = trainingsRepo.All().ToList().FirstOrDefault(t => t.TrainingProgramId == programId && t.DayOfWeek == "Sunday");
 }
 
+<h1 class="display-1 text-center">@trainingProgram.Name</h1>
 <div class="row">
     <div class="jumbotron text-center col-md-4">
         <h1 class="display-4">Monday</h1>
@@ -24,7 +27,7 @@
         }
         else
         {
-            <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-trainingId="@mondayTraining.Id">
+            <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@mondayTraining.Id">
                 <input type="submit" value="View Training" class="btn btn-primary btn-lg" />
             </form>
         }
@@ -40,7 +43,7 @@
         }
         else
         {
-             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-trainingId="@tuesdayTraining.Id">
+             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@tuesdayTraining.Id">
                 <input type="submit" value="View Training" class="btn btn-primary btn-lg" />
             </form>
         }
@@ -56,7 +59,7 @@
         }
         else
         {
-             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-trainingId="@wednesdayTraining.Id">
+             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@wednesdayTraining.Id">
                 <input type="submit" value="View Training" class="btn btn-primary btn-lg" />
             </form>
         }
@@ -74,7 +77,7 @@
         }
         else
         {
-             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-trainingId="@thursdayTraining.Id">
+             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@thursdayTraining.Id">
                 <input type="submit" value="View Training" class="btn btn-primary btn-lg" />
             </form>
         }
@@ -90,7 +93,7 @@
         }
         else
         {
-             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-trainingId="@fridayTraining.Id">
+             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@fridayTraining.Id">
                 <input type="submit" value="View Training" class="btn btn-primary btn-lg" />
             </form>
         }
@@ -106,7 +109,7 @@
         }
         else
         {
-             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-trainingId="@saturdayTraining.Id">
+             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@saturdayTraining.Id">
                 <input type="submit" value="View Training" class="btn btn-primary btn-lg" />
             </form>
         }
@@ -114,12 +117,11 @@
 </div>
 <div class="row">
     <div class="jumbotron col-md-4 text-center">
-         <h1 class="display-4">Hello!</h1>
-         <p class="lead">In this page you can add or remove  your trainings.</p>
-         <hr class="my-4">
-         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-   </div>
-   <div class="jumbotron col-md-4 text-center">
+        <h2>Change name</h2>
+        <hr class="my-4">
+        <a class="btn btn-warning btn-lg" role="button" asp-controller="TrainingSchedular" asp-action="ChangeProgramName" asp-route-programId="@programId">Change name</a>
+    </div>
+    <div class="jumbotron col-md-4 text-center">
         <h1 class="display-4">Sunday</h1>
         <hr class="my-4">
         @if (sundayTraining == null)
@@ -130,15 +132,17 @@
         }
         else
         {
-             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-trainingId="@sundayTraining.Id">
+             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@sundayTraining.Id">
                 <input type="submit" value="View Training" class="btn btn-primary btn-lg" />
             </form>
         }
     </div>
-     <div class="jumbotron col-md-4 text-center">
-         <h1 class="display-4">Hello, world!</h1>
-         <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <div class="jumbotron col-md-4 text-center">
+         <h2>Delete</h2>
          <hr class="my-4">
-         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-   </div>
+         <form method="post" asp-controller="TrainingSchedular" asp-action="DeleteProgram" asp-route-programId="@programId">
+             <input type="submit" value="Delete" class="btn btn-danger btn-lg" />
+         </form>
+    </div>
 </div>
+<a class="btn btn-primary w-25" role="button" asp-controller="TrainingSchedular" asp-action="ReturnToAllPrograms">Return</a>

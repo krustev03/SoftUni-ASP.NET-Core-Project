@@ -17,6 +17,7 @@
         private readonly IRepository<OrderSuplement> orderSuplementsRepository;
         private readonly IDeletableEntityRepository<Equipment> equipmentsRepository;
         private readonly IDeletableEntityRepository<Suplement> suplementsRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
 
         public OrdersService(
             IRepository<Order> ordersRepository,
@@ -25,7 +26,8 @@
             IRepository<OrderEquipment> orderEquipmentsRepository,
             IRepository<OrderSuplement> orderSuplementsRepository,
             IDeletableEntityRepository<Equipment> equipmentsRepository,
-            IDeletableEntityRepository<Suplement> suplementsRepository)
+            IDeletableEntityRepository<Suplement> suplementsRepository,
+            IDeletableEntityRepository<ApplicationUser> userRepository)
         {
             this.ordersRepository = ordersRepository;
             this.userEquipmentRepository = userEquipmentRepository;
@@ -34,10 +36,13 @@
             this.orderSuplementsRepository = orderSuplementsRepository;
             this.equipmentsRepository = equipmentsRepository;
             this.suplementsRepository = suplementsRepository;
+            this.userRepository = userRepository;
         }
 
-        public async Task AddOrderAsync(OrderInputModel orderInputModel, ApplicationUser appUser)
+        public async Task AddOrderAsync(OrderInputModel orderInputModel, string userId)
         {
+            var appUser = await this.userRepository.GetByIdWithDeletedAsync(userId);
+
             var order = new Order()
             {
                 FirstName = orderInputModel.FirstName,
@@ -65,6 +70,10 @@
 
             this.RemoveEquipmentsFromUser(appUser);
             this.RemoveSuplementsFromUser(appUser);
+
+            appUser.Orders.Add(order);
+            this.userRepository.Update(appUser);
+            await this.userRepository.SaveChangesAsync();
         }
 
         private async Task AddEquipmentsToOrder(List<Equipment> equipments, Order order)

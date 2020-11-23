@@ -1,5 +1,6 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using FitnessHub.Data.Models;
@@ -61,7 +62,7 @@
 
             var appUser = await this.userManager.GetUserAsync(this.User);
 
-            await this.ordersService.AddOrderAsync(model, appUser);
+            await this.ordersService.AddOrderAsync(model, appUser.Id);
             await this.mailService.SendEmailAsync(appUser);
             await this.userManager.UpdateAsync(appUser);
 

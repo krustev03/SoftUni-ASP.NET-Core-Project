@@ -8,5 +8,9 @@
     public interface ITrainingProgramsService
     {
         public Task AddTrainingProgramAsync(AddTrainingProgramInputModel programModel, ApplicationUser appUser);
+
+        public Task ChangeName(int id, AddTrainingProgramInputModel model);
+
+        public Task DeleteProgramByIdAsync(int id);
     }
 }

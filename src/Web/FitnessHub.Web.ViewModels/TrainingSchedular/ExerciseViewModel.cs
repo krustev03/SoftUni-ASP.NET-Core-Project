@@ -13,6 +13,6 @@
 
         public int Reps { get; set; }
 
-        public string MuscleGroup { get; set; }
+        public MuscleGroup MuscleGroup { get; set; }
     }
 }

@@ -10,10 +10,12 @@
         [MaxLength(30)]
         public string Name { get; set; }
 
-        [Range(1, 30)]
+        [Required]
+        [Range(1, 30, ErrorMessage = "The sets should be between 1 and 30")]
         public int Sets { get; set; }
 
-        [Range(1, 100)]
+        [Required]
+        [Range(1, 100, ErrorMessage = "The reps should be between 1 and 100")]
         public int Reps { get; set; }
 
         public int MuscleGroupId { get; set; }

@@ -7,6 +7,6 @@
 
     public interface IOrdersService
     {
-        public Task AddOrderAsync(OrderInputModel orderInputModel, ApplicationUser appUser);
+        public Task AddOrderAsync(OrderInputModel orderInputModel, string userId);
     }
 }

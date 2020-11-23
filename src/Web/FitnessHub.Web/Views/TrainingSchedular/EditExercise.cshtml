@@ -1,13 +1,14 @@
 ﻿@model FitnessHub.Web.ViewModels.TrainingSchedular.AddExerciseInputModel
 @{
-    this.ViewData["Title"] = "Add Exercise";
+    this.ViewData["Title"] = "Edit Exercise";
+    int exerciseId = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["exerciseId"]);
     int trainingId = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["trainingId"]);
     int programId = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["programId"]);
     var muscleGroupItems = this.Model.MuscleGroupsItems.Select(x => new SelectListItem(x.Value, x.Key));
 }
 
-<h3 class="details__heading text-center"><b>Add Exercise</b></h3>
-<form method="post" asp-action="AddExercise" asp-controller="TrainingSchedular" asp-route-programId="@programId" asp-route-trainingId="@trainingId">
+<h3 class="details__heading text-center"><b>Edit Exercise</b></h3>
+<form method="post" asp-action="EditExercise" asp-controller="TrainingSchedular" asp-route-programId="@programId" asp-route-trainingId="@trainingId" asp-route-exerciseId="@exerciseId">
     <div class="form-group">
         <label asp-for="@Model.Name"></label>
         <input class="form-control" type="text" asp-for="@Model.Name" />
@@ -29,6 +30,6 @@
         <span asp-validation-for="@Model.MuscleGroupId" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Add</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
