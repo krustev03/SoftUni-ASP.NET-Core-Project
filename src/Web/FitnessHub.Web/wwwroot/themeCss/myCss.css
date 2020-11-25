@@ -93,7 +93,7 @@
     margin-top: 0;
 }
 
-.active span {
+.active .paging-number {
     background-color: #f36100 !important;
     border-color: #f36100 !important;
 }
@@ -101,4 +101,16 @@
 .paging-number,
 .paging-number:hover {
     color: black;
+}
+
+.privacy-info {
+    padding-top: 100px;
+}
+
+.privacy-info a {
+    color: #f36100;
+}
+
+.privacy-info h3 {
+    margin-top: 40px;
 }

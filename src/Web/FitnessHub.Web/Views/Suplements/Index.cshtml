@@ -5,7 +5,7 @@
     int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
 }
 
-<section class="breadcrumb-section set-bg" data-setbg="img/equipments-banner.jpg">
+<section class="breadcrumb-section set-bg" data-setbg="img/suplements-banner.jpg">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -52,13 +52,13 @@
                                     </div>
                                 </div>
                                 <div class="leave-comment">
-                                    <form method="post" class="shop-item-button" asp-controller="Suplements" asp-action="AddToCart" asp-route-equipmentId="@suplement.Id" asp-route-page="@pageNum">
+                                    <form method="post" class="shop-item-button" asp-controller="Suplements" asp-action="AddToCart" asp-route-suplementId="@suplement.Id" asp-route-page="@pageNum">
                                         <button type="submit" id="submit">Add to cart</button>
                                     </form>
-                                    <form method="post" class="shop-item-button" asp-controller="Suplements" asp-action="Delete" asp-route-equipmentId="@suplement.Id" asp-route-page="@pageNum">
+                                    <form method="post" class="shop-item-button" asp-controller="Suplements" asp-action="Delete" asp-route-suplementId="@suplement.Id" asp-route-page="@pageNum">
                                         <button type="submit" id="submit">Delete</button>
                                     </form>
-                                    <a class="shop-item-link" role="button" asp-area="" asp-controller="Suplements" asp-action="Edit" asp-route-equipmentId="@suplement.Id" asp-route-page="@pageNum"><b>Edit</b></a>
+                                    <a class="shop-item-link" role="button" asp-area="" asp-controller="Suplements" asp-action="Edit" asp-route-suplementId="@suplement.Id" asp-route-page="@pageNum"><b>Edit</b></a>
                                 </div>
                             </div>
                         </div>

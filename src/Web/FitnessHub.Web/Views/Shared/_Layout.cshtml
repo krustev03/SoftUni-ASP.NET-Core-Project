@@ -66,10 +66,10 @@
                     <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 </li>
                 <li>
-                    <a href="">Shop</a>
+                    <a href="" onclick="return false;">Shop</a>
                     <ul class="dropdown">
-                        <li><a href="./about-us.html">Suplements</a></li>
-                        <li><a href="./class-timetable.html">Equipments</a></li>
+                        <li><a asp-area="" asp-controller="Suplements" asp-action="Index" asp-route-page="1">Suplements</a></li>
+                        <li><a asp-area="" asp-controller="Equipments" asp-action="Index" asp-route-page="1">Equipments</a></li>
                     </ul>
                 </li>
                 <li>
@@ -108,7 +108,7 @@
                                 <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                             </li>
                             <li>
-                                <a href="">Shop</a>
+                                <a href="" onclick="return false;">Shop</a>
                                 <ul class="dropdown">
                                     <li><a asp-area="" asp-controller="Suplements" asp-action="Index" asp-route-page="1">Suplements</a></li>
                                     <li><a asp-area="" asp-controller="Equipments" asp-action="Index" asp-route-page="1">Equipments</a></li>

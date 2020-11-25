@@ -51,7 +51,7 @@
             return this.servicesRepository.All().To<T>();
         }
 
-        public IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 8)
+        public IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
         {
             var services = this.servicesRepository.AllAsNoTracking()
                 .OrderByDescending(x => x.Id)

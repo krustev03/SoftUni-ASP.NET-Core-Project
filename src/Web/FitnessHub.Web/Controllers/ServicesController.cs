@@ -21,32 +21,33 @@
             this.userManager = userManager;
         }
 
-        public IActionResult All(int id = 1)
+        [Authorize]
+        public IActionResult Index(int page = 1)
         {
-            if (id <= 0)
+            if (page <= 0)
             {
                 return this.NotFound();
             }
 
-            const int ItemsPerPage = 8;
+            const int ItemsPerPage = 3;
             var viewModel = new ServicesIndexViewModel
             {
                 ItemsPerPage = ItemsPerPage,
-                PageNumber = id,
+                PageNumber = page,
                 ItemsCount = this.servicesService.GetCount(),
-                Services = this.servicesService.GetAllForPaging<ServiceViewModel>(id, ItemsPerPage),
+                Services = this.servicesService.GetAllForPaging<ServiceViewModel>(page, ItemsPerPage),
             };
             return this.View(viewModel);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public IActionResult Add()
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Add(ServiceInputModel model)
         {
             if (!this.ModelState.IsValid)
@@ -58,16 +59,19 @@
 
             await this.servicesService.AddServiceAsync(model, appUser);
 
-            return this.RedirectToAction(nameof(this.All));
+            var page = 1;
+
+            return this.RedirectToAction("Index", new { page });
         }
 
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(int id)
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int serviceId, int page, ServiceInputModel model)
         {
             if (!this.ModelState.IsValid)
@@ -77,30 +81,22 @@
 
             await this.servicesService.EditService(serviceId, model);
 
-            return this.Redirect($"Details?serviceId={serviceId}&&page={page}");
+            return this.RedirectToAction("Index", new { page });
         }
 
-        [Authorize]
-        public IActionResult Details(int serviceId, int page)
-        {
-            var serviceModel = this.servicesService.GetServiceDetails<ServiceDetailsViewModel>(serviceId);
-
-            return this.View(serviceModel);
-        }
-
-        [Authorize]
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int serviceId, int page)
         {
             await this.servicesService.DeleteServiceByIdAsync(serviceId);
 
-            return this.Redirect($"/Services/All/{page}");
+            return this.RedirectToAction("Index", new { page });
         }
 
         [Authorize]
         public IActionResult Return(int page)
         {
-            return this.Redirect($"/Services/All/{page}");
+            return this.RedirectToAction("Index", new { page });
         }
     }
 }

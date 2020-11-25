@@ -1,16 +1,16 @@
-﻿@model FitnessHub.Web.ViewModels.Equipments.EquipmentsIndexViewModel;
+﻿@model FitnessHub.Web.ViewModels.Services.ServicesIndexViewModel
 
 @{
-    this.ViewData["Title"] = "All Equipments";
+    this.ViewData["Title"] = "All Services";
     int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
 }
 
-<section class="breadcrumb-section set-bg" data-setbg="img/equipments-banner.jpg">
+<section class="breadcrumb-section set-bg" data-setbg="img/services-banner.jpg">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb-text">
-                    <h2>Equipments</h2>
+                    <h2>Services</h2>
                 </div>
             </div>
         </div>
@@ -20,40 +20,35 @@
 <section class="contact-section spad items-section">
     <h3 class="display-4 text-white text-center m-5"><b>Page @Model.PageNumber of @Model.PagesCount</b></h3>
     <div class="services__content container d-flex flex-column">
-        @foreach (var equipment in Model.Equipments)
+        @foreach (var service in Model.Services)
         {
             <section class="aboutus-section item-section">
                 <div class="container-fluid">
                     <div class="row text-center">
-                        <div class="col-lg-6 p-0">
-                            <div class="about-video set-bg" data-setbg="img/about-us.jpg">
-                                <img src="@Url.Content(equipment.ImageUrl)" class="w-100 h-100">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 p-0">
+                        <div class="col-lg-12 p-0">
                             <div class="about-text d-flex flex-column">
                                 <div class="section-title text-center item-about">
                                     <span>About</span>
-                                    <h2>@equipment.Name</h2>
+                                    <h2>@service.Name</h2>
                                 </div>
                                 <div class="at-desc">
                                     <p>
-                                        @equipment.Description
+                                        @service.Author.UserName
                                     </p>
                                 </div>
                                 <div class="about-bar">
                                     <div class="ab-item">
-                                        <h4 class="text-white">Price: @equipment.Price lv.</h4>
+                                        <h4 class="text-white">Price: @service.Price lv.</h4>
+                                    </div>
+                                    <div class="ab-item">
+                                        <h4 class="text-white">Created: @service.CreatedOn lv.</h4>
                                     </div>
                                 </div>
                                 <div class="leave-comment">
-                                    <form method="post" class="shop-item-button" asp-controller="Equipments" asp-action="AddToCart" asp-route-equipmentId="@equipment.Id" asp-route-page="@pageNum">
-                                        <button type="submit" id="submit">Add to cart</button>
-                                    </form>
-                                    <form method="post" class="shop-item-button" asp-controller="Equipments" asp-action="Delete" asp-route-equipmentId="@equipment.Id" asp-route-page="@pageNum">
+                                    <form method="post" class="shop-item-button" asp-controller="Services" asp-action="Delete" asp-route-equipmentId="@service.Id" asp-route-page="@pageNum">
                                         <button type="submit" id="submit">Delete</button>
                                     </form>
-                                    <a class="shop-item-link" role="button" asp-area="" asp-controller="Equipments" asp-action="Edit" asp-route-equipmentId="@equipment.Id" asp-route-page="@pageNum"><b>Edit</b></a>
+                                    <a class="shop-item-link" role="button" asp-area="" asp-controller="Services" asp-action="Edit" asp-route-equipmentId="@service.Id" asp-route-page="@pageNum"><b>Edit</b></a>
                                 </div>
                             </div>
                         </div>
