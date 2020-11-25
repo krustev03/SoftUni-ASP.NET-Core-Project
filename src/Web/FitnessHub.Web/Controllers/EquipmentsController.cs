@@ -29,20 +29,20 @@
             this.webHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult All(int id = 1)
+        public IActionResult Index(int page = 1)
         {
-            if (id <= 0)
+            if (page <= 0)
             {
                 return this.NotFound();
             }
 
-            const int ItemsPerPage = 4;
+            const int ItemsPerPage = 3;
             var viewModel = new EquipmentsIndexViewModel
             {
                 ItemsPerPage = ItemsPerPage,
-                PageNumber = id,
+                PageNumber = page,
                 ItemsCount = this.equipmentsService.GetCount(),
-                Equipments = this.equipmentsService.GetAllForPaging<EquipmentViewModel>(id, ItemsPerPage),
+                Equipments = this.equipmentsService.GetAllForPaging<EquipmentViewModel>(page, ItemsPerPage),
             };
             return this.View(viewModel);
         }
@@ -79,8 +79,9 @@
             }
 
             await this.equipmentsService.AddEquipmentAsync(model);
+            var page = 1;
 
-            return this.RedirectToAction(nameof(this.All));
+            return this.RedirectToAction("Index", new { page });
         }
 
         public IActionResult Edit(int id)
@@ -112,14 +113,7 @@
 
             await this.equipmentsService.EditEquipment(equipmentId, model);
 
-            return this.Redirect($"Details?equipmentId={equipmentId}&&page={page}");
-        }
-
-        public IActionResult Details(int equipmentId, int page)
-        {
-            var equipmentModel = this.equipmentsService.GetEquipmentDetails<EquipmentDetailsViewModel>(equipmentId);
-
-            return this.View(equipmentModel);
+            return this.RedirectToAction("Index", new { page });
         }
 
         [HttpPost]
@@ -130,7 +124,7 @@
             await this.equipmentsService.AddEquipmentToCart(equipmentId, userId);
             await this.userManager.UpdateAsync(user);
 
-            return this.Redirect($"/Equipments/All/{page}");
+            return this.RedirectToAction(nameof(this.Index), new { page });
         }
 
         [HttpPost]
@@ -138,12 +132,7 @@
         {
             await this.equipmentsService.DeleteEquipmentByIdAsync(equipmentId);
 
-            return this.Redirect($"/Equipments/All/{page}");
-        }
-
-        public IActionResult Return(int page)
-        {
-            return this.Redirect($"/Equipments/All/{page}");
+            return this.RedirectToAction("Index", new { page });
         }
     }
 }

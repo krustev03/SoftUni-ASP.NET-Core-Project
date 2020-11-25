@@ -1,6 +1,5 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
-    using System;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -12,7 +11,6 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore.Internal;
 
     public class SuplementsController : BaseController
     {
@@ -30,9 +28,9 @@
             this.webHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult All(int id = 1)
+        public IActionResult Index(int page = 1)
         {
-            if (id <= 0)
+            if (page <= 0)
             {
                 return this.NotFound();
             }
@@ -41,9 +39,9 @@
             var viewModel = new SuplementsIndexViewModel
             {
                 ItemsPerPage = ItemsPerPage,
-                PageNumber = id,
+                PageNumber = page,
                 ItemsCount = this.suplementsService.GetCount(),
-                Suplements = this.suplementsService.GetAllForPaging<SuplementViewModel>(id, ItemsPerPage),
+                Suplements = this.suplementsService.GetAllForPaging<SuplementViewModel>(page, ItemsPerPage),
             };
 
             return this.View(viewModel);
@@ -81,8 +79,9 @@
             }
 
             await this.suplementsService.AddSuplementAsync(model);
+            var page = 1;
 
-            return this.RedirectToAction(nameof(this.All));
+            return this.RedirectToAction("Index", new { page });
         }
 
         public IActionResult Edit(int id)
@@ -140,12 +139,7 @@
         {
             await this.suplementsService.DeleteSuplementByIdAsync(suplementId);
 
-            return this.Redirect($"/Suplements/All/{page}");
-        }
-
-        public IActionResult Return(int page)
-        {
-            return this.Redirect($"/Suplements/All/{page}");
+            return this.RedirectToAction("Index", new { page });
         }
     }
 }

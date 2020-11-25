@@ -27,7 +27,7 @@
 
         public IActionResult GoToHome()
         {
-            return this.Redirect(nameof(this.Index));
+            return this.RedirectToAction(nameof(this.Index));
         }
     }
 }
