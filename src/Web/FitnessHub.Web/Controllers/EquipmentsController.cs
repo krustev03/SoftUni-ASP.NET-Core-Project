@@ -1,6 +1,5 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
-    using System;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -29,6 +28,7 @@
             this.webHostEnvironment = webHostEnvironment;
         }
 
+        [Authorize]
         public IActionResult Index(int page = 1)
         {
             if (page <= 0)
@@ -47,12 +47,14 @@
             return this.View(viewModel);
         }
 
+        [Authorize(Roles = "Administrator")]
         public IActionResult Add()
         {
             return this.View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Add(EquipmentInputModel model)
         {
             if (!model.Image.FileName.EndsWith(".jpg"))
@@ -84,13 +86,14 @@
             return this.RedirectToAction("Index", new { page });
         }
 
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(int id)
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int equipmentId, int page, EquipmentInputModel model)
         {
             if (!model.Image.FileName.EndsWith(".jpg"))
@@ -117,6 +120,15 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Delete(int equipmentId, int page)
+        {
+            await this.equipmentsService.DeleteEquipmentByIdAsync(equipmentId);
+
+            return this.RedirectToAction("Index", new { page });
+        }
+
+        [HttpPost]
         public async Task<IActionResult> AddToCart(int equipmentId, int page)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -125,14 +137,6 @@
             await this.userManager.UpdateAsync(user);
 
             return this.RedirectToAction(nameof(this.Index), new { page });
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(int equipmentId, int page)
-        {
-            await this.equipmentsService.DeleteEquipmentByIdAsync(equipmentId);
-
-            return this.RedirectToAction("Index", new { page });
         }
     }
 }

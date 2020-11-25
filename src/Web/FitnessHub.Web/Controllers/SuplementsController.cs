@@ -28,6 +28,7 @@
             this.webHostEnvironment = webHostEnvironment;
         }
 
+        [Authorize]
         public IActionResult Index(int page = 1)
         {
             if (page <= 0)
@@ -35,7 +36,7 @@
                 return this.NotFound();
             }
 
-            const int ItemsPerPage = 4;
+            const int ItemsPerPage = 3;
             var viewModel = new SuplementsIndexViewModel
             {
                 ItemsPerPage = ItemsPerPage,
@@ -47,12 +48,14 @@
             return this.View(viewModel);
         }
 
+        [Authorize(Roles = "Administrator")]
         public IActionResult Add()
         {
             return this.View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Add(SuplementInputModel model)
         {
             if (!model.Image.FileName.EndsWith(".jpg"))
@@ -90,7 +93,7 @@
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int suplementId, int page, SuplementInputModel model)
         {
             if (!model.Image.FileName.EndsWith(".jpg"))
@@ -113,17 +116,20 @@
 
             await this.suplementsService.EditSuplement(suplementId, model);
 
-            return this.Redirect($"Details?suplementId={suplementId}&&page={page}");
-        }
-
-        public IActionResult Details(int suplementId, int page)
-        {
-            var suplementModel = this.suplementsService.GetSuplementDetails<SuplementDetailsViewModel>(suplementId);
-
-            return this.View(suplementModel);
+            return this.RedirectToAction("Index", new { page });
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Delete(int suplementId, int page)
+        {
+            await this.suplementsService.DeleteSuplementByIdAsync(suplementId);
+
+            return this.RedirectToAction("Index", new { page });
+        }
+
+        [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddToCart(int suplementId, int page)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -131,15 +137,7 @@
             await this.suplementsService.AddSuplementToCart(suplementId, userId);
             await this.userManager.UpdateAsync(user);
 
-            return this.Redirect($"/Suplements/All/{page}");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(int suplementId, int page)
-        {
-            await this.suplementsService.DeleteSuplementByIdAsync(suplementId);
-
-            return this.RedirectToAction("Index", new { page });
+            return this.RedirectToAction(nameof(this.Index), new { page });
         }
     }
 }

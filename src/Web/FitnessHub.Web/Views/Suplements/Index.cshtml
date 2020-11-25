@@ -2,33 +2,76 @@
 
 @{
     this.ViewData["Title"] = "All Suplements";
+    int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
 }
 
-<h1 class="display-2 main__heading"><b>Suplements Page @Model.PageNumber</b></h1>
-<div class="services__content container d-flex flex-column">
-    <div class="services__model text-center row">
-        <div class="col"></div>
-        <h4 class="col">Name:</h4>
-        <h4 class="col">Weight:</h4>
-        <h4 class="col">Price:</h4>
-        <div class="col"></div>
-    </div>
-    @foreach (var suplement in Model.Suplements)
-    {
-        <div class="entity text-center row align-items-center item__image__container align-self-center">
-            <div class="col">
-                <img src="@Url.Content(suplement.ImageUrl)" class="w-100 h-100">
-            </div>
-            <h4 class="col">@suplement.Name</h4>
-            <h4 class="col">@suplement.Weight grams</h4>
-            <h4 class="col">@suplement.Price lv.</h4>
-            <div class="col">
-                <a class="btn btn-primary" role="button" asp-controller="Suplements" asp-action="Details" asp-route-suplementId="@suplement.Id" asp-route-page="@Model.PageNumber">View</a>
+<section class="breadcrumb-section set-bg" data-setbg="img/equipments-banner.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb-text">
+                    <h2>Suplements</h2>
+                </div>
             </div>
         </div>
-    }
-</div>
-<a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Suplements" asp-action="Add">Add Suplement</a>
-<a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Home" asp-action="GoToHome">Go to home</a>
+    </div>
+</section>
+
+<section class="contact-section spad items-section">
+    <h3 class="display-4 text-white text-center m-5"><b>Page @Model.PageNumber of @Model.PagesCount</b></h3>
+    <div class="services__content container d-flex flex-column">
+        @foreach (var suplement in Model.Suplements)
+        {
+            <section class="aboutus-section item-section">
+                <div class="container-fluid">
+                    <div class="row text-center">
+                        <div class="col-lg-6 p-0">
+                            <div class="about-video set-bg" data-setbg="img/about-us.jpg">
+                                <img src="@Url.Content(suplement.ImageUrl)" class="w-100 h-100">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 p-0">
+                            <div class="about-text d-flex flex-column">
+                                <div class="section-title text-center item-about">
+                                    <span>About</span>
+                                    <h2>@suplement.Name</h2>
+                                </div>
+                                <div class="at-desc">
+                                    <p>
+                                        @suplement.Description
+                                    </p>
+                                </div>
+                                <div class="about-bar">
+                                    <div class="ab-item">
+                                        <h4 class="text-white">Weight: @suplement.Weight lv.</h4>
+                                    </div>
+                                </div>
+                                <div class="about-bar">
+                                    <div class="ab-item">
+                                        <h4 class="text-white">Price: @suplement.Price lv.</h4>
+                                    </div>
+                                </div>
+                                <div class="leave-comment">
+                                    <form method="post" class="shop-item-button" asp-controller="Suplements" asp-action="AddToCart" asp-route-equipmentId="@suplement.Id" asp-route-page="@pageNum">
+                                        <button type="submit" id="submit">Add to cart</button>
+                                    </form>
+                                    <form method="post" class="shop-item-button" asp-controller="Suplements" asp-action="Delete" asp-route-equipmentId="@suplement.Id" asp-route-page="@pageNum">
+                                        <button type="submit" id="submit">Delete</button>
+                                    </form>
+                                    <a class="shop-item-link" role="button" asp-area="" asp-controller="Suplements" asp-action="Edit" asp-route-equipmentId="@suplement.Id" asp-route-page="@pageNum"><b>Edit</b></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- About US Section End -->
+        }
+    </div>
+    <div class="d-flex justify-content-around">
+        <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="Home" asp-action="GoToHome">Go to home</a>
+        <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="Suplements" asp-action="Add">Add Suplement</a>
+    </div>
+</section>
 
 <partial name="_PagingPartial" model="@Model" />

@@ -57,7 +57,7 @@
             await this.suplementsRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 4)
+        public IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
         {
             var suplements = this.suplementsRepository.AllAsNoTracking()
                 .OrderByDescending(x => x.Id)
