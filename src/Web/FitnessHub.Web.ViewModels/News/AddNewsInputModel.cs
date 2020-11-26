@@ -12,6 +12,7 @@
 
         [Required]
         [MinLength(20, ErrorMessage = "The content must be at least 20 characters.")]
+        [MaxLength(900)]
         public string Content { get; set; }
     }
 }

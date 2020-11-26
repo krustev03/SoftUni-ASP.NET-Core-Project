@@ -1,7 +1,7 @@
 ﻿@model FitnessHub.Web.ViewModels.Equipments.EquipmentsIndexViewModel;
 
 @{
-    this.ViewData["Title"] = "All Equipments";
+    this.ViewData["Title"] = "Equipments";
     int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
 }
 
@@ -18,7 +18,18 @@
 </section>
 
 <section class="contact-section spad items-section">
-    <h3 class="display-4 text-white text-center m-5"><b>Page @Model.PageNumber of @Model.PagesCount</b></h3>
+    @if (Model.PagesCount == 0)
+    {
+        <h3 class="display-4 text-white text-center m-5"><b>No Equipments Available</b></h3>
+    }
+    else if (Model.PagesCount < Model.PageNumber)
+    {
+        <h3 class="display-4 text-white text-center m-5"><b>No items in this page</b></h3>
+    }
+    else
+    {
+        <h3 class="display-4 text-white text-center m-5"><b>Page @Model.PageNumber of @Model.PagesCount</b></h3>
+    }
     <div class="services__content container d-flex flex-column">
         @foreach (var equipment in Model.Equipments)
         {

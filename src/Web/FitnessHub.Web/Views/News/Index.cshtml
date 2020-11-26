@@ -18,7 +18,18 @@
 </section>
 
 <section class="contact-section spad items-section">
-    <h3 class="display-4 text-white text-center m-5"><b>Page @Model.PageNumber of @Model.PagesCount</b></h3>
+    @if (Model.PagesCount == 0)
+    {
+        <h3 class="display-4 text-white text-center m-5"><b>No News</b></h3>
+    }
+    else if (Model.PagesCount < Model.PageNumber)
+    {
+        <h3 class="display-4 text-white text-center m-5"><b>No items in this page</b></h3>
+    }
+    else
+    {
+        <h3 class="display-4 text-white text-center m-5"><b>Page @Model.PageNumber of @Model.PagesCount</b></h3>
+    }
     <div class="services__content container w-50 d-flex flex-column">
         @foreach (var news in Model.News)
         {
@@ -31,7 +42,7 @@
                                     <span>About</span>
                                     <h2>@news.Title</h2>
                                 </div>
-                                <div class="at-desc">
+                                <div class="at-desc item_description">
                                     <p>
                                         @news.Content
                                     </p>

@@ -1,7 +1,9 @@
 ﻿@model FitnessHub.Web.ViewModels.News.AddNewsInputModel
 
 @{ 
-    this.ViewData["Title"] = "Add News";     
+    this.ViewData["Title"] = "Edit News";
+    int newsId = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["newsId"]);
+    int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
 }
 
 <section class="contact-section spad">
@@ -9,8 +11,8 @@
         <div class="row">
             <div class="col-lg-6 form-section text-center">
                 <div class="leave-comment">
-                    <h2 class="text-white form-heading-2">Add News</h2>
-                    <form method="post" asp-action="Add" asp-controller="News">
+                    <h2 class="text-white form-heading-2">Edit Equipment</h2>
+                    <form method="post" asp-action="Edit" asp-route-newsId="@newsId" asp-route-page="@pageNum" asp-controller="News">
                         <div>
                             <input asp-for="@Model.Title" type="text" placeholder="Name" required>
                             <span asp-validation-for="@Model.Title" class="text-danger"></span>
