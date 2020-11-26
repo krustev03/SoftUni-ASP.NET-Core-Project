@@ -1,7 +1,7 @@
-﻿@model FitnessHub.Web.ViewModels.Suplements.SuplementInputModel
+﻿@model FitnessHub.Web.ViewModels.Services.ServiceInputModel
 
 @{
-    this.ViewData["Title"] = "Edit Suplement";
+    this.ViewData["Title"] = "Edit Service";
     int serviceId = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["serviceId"]);
     int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
 }

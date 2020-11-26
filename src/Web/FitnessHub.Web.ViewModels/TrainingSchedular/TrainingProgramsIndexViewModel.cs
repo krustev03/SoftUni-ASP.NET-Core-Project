@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class TrainingProgramsIndexViewModel
+    public class TrainingProgramsIndexViewModel : PagingViewModel
     {
         public IEnumerable<TrainingProgramViewModel> TrainingPrograms { get; set; }
     }

@@ -2,20 +2,24 @@
 @{ 
     this.ViewData["Title"] = "Change Program Name";
     var programId = Convert.ToInt32(ViewContext.HttpContext.Request.Query["programId"]);
+    int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
 }
 
-<div class="text-center">
-    <h3 class="add__heading"><b>Change name</b></h3>
-    <div class="form__inputs">
-        <form class="d-flex flex-column" method="post" asp-action="ChangeProgramName" asp-controller="TrainingSchedular" asp-route-programId="@programId">
-            <div class="form-group">
-                <label asp-for="@Model.Name"></label>
-                <input class="form-control" type="text" asp-for="@Model.Name" />
-                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+<section class="contact-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 form-section text-center">
+                <div class="leave-comment">
+                    <h2 class="text-white form-heading-2">Change Program Name</h2>
+                    <form method="post" asp-action="ChangeProgramName" asp-route-programId="@programId" asp-route-page="@pageNum" asp-controller="TrainingSchedular">
+                        <div>
+                            <input asp-for="@Model.Name" type="text" placeholder="Name" required>
+                            <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                        </div>
+                        <button type="submit" id="submit">Submit</button>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+</section>

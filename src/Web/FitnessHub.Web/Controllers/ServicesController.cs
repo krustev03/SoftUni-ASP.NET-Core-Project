@@ -65,7 +65,7 @@
         }
 
         [Authorize(Roles = "Administrator")]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int serviceId)
         {
             return this.View();
         }

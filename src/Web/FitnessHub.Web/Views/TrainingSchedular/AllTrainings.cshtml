@@ -3,6 +3,7 @@
 @using FitnessHub.Data.Models
 @{ 
     this.ViewData["Title"] = "Training Program";
+    int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
     var programId = Convert.ToInt32(ViewContext.HttpContext.Request.Query["programId"]);
     var trainingProgram = trainingProgramsRepo.All().ToList().FirstOrDefault(tp => tp.Id == programId);
     var mondayTraining = trainingsRepo.All().ToList().FirstOrDefault(t => t.TrainingProgramId == programId && t.DayOfWeek == "Monday");
@@ -14,135 +15,139 @@
     var sundayTraining = trainingsRepo.All().ToList().FirstOrDefault(t => t.TrainingProgramId == programId && t.DayOfWeek == "Sunday");
 }
 
-<h1 class="display-1 text-center">@trainingProgram.Name</h1>
-<div class="row">
-    <div class="jumbotron text-center col-md-4">
-        <h1 class="display-4">Monday</h1>
-        <hr class="my-4">
-        @if (mondayTraining == null)
-        {
-            <form method="post" asp-controller="TrainingSchedular" asp-action="AddTraining" asp-route-dayOfWeek="Monday" asp-route-programId="@programId">
-                <input type="submit" value="Add Training" class="btn btn-primary btn-lg" />
-            </form>
-        }
-        else
-        {
-            <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@mondayTraining.Id">
-                <input type="submit" value="View Training" class="btn btn-primary btn-lg" />
-            </form>
-        }
+<section class="contact-section spad items-section">
+    <div class="container all-trainings text-center">
+        <h3 class="display-4 text-white text-center m-5"><b>@trainingProgram.Name</b></h3>
+        <div class="row justify-content-between">
+            <div class="jumbotron text-center col-sm-3 text-white">
+                <h1 class="display-4">Monday</h1>
+                <hr class="my-4">
+                @if (mondayTraining == null)
+                {
+                    <form method="post" asp-controller="TrainingSchedular" asp-action="AddTraining" asp-route-dayOfWeek="Monday" asp-route-programId="@programId" asp-route-page="@pageNum">
+                        <button  type="submit" class="btn btn-orange btn-lg">Add Training</button>
+                    </form>
+                }
+                else
+                {
+                    <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@mondayTraining.Id" asp-route-page="@pageNum">
+                        <button type="submit" class="btn btn-orange btn-lg">View Training</button>
+                    </form>
+                }
+            </div>
+            <div class="jumbotron text-center col-md-3">
+                <h1 class="display-4">Tuesday</h1>
+                <hr class="my-4">
+                @if (tuesdayTraining == null)
+                {
+                    <form method="post" asp-controller="TrainingSchedular" asp-action="AddTraining" asp-route-dayOfWeek="Tuesday" asp-route-programId="@programId" asp-route-page="@pageNum">
+                        <button type="submit" class="btn btn-orange btn-lg">Add Training</button>
+                    </form>
+                }
+                else
+                {
+                    <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@tuesdayTraining.Id" asp-route-page="@pageNum">
+                        <button type="submit" class="btn btn-orange btn-lg">View Training</button>
+                    </form>
+                }
+            </div>
+            <div class="jumbotron text-center col-md-3">
+                <h1 class="display-4">Wednesday</h1>
+                <hr class="my-4">
+                @if (wednesdayTraining == null)
+                {
+                    <form method="post" asp-controller="TrainingSchedular" asp-action="AddTraining" asp-route-dayOfWeek="Wednesday" asp-route-programId="@programId" asp-route-page="@pageNum">
+                        <button type="submit" class="btn btn-orange btn-lg">Add Training</button>
+                    </form>
+                }
+                else
+                {
+                    <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@wednesdayTraining.Id" asp-route-page="@pageNum">
+                        <button type="submit" class="btn btn-orange btn-lg">View Training</button>
+                    </form>
+                }
+            </div>
+        </div>
+        <div class="row justify-content-between">
+            <div class="jumbotron text-center col-md-3">
+                <h1 class="display-4">Thursday</h1>
+                <hr class="my-4">
+                @if (thursdayTraining == null)
+                {
+                    <form method="post" asp-controller="TrainingSchedular" asp-action="AddTraining" asp-route-dayOfWeek="Thursday" asp-route-programId="@programId" asp-route-page="@pageNum">
+                        <button type="submit" class="btn btn-orange btn-lg">Add Training</button>
+                    </form>
+                }
+                else
+                {
+                    <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@thursdayTraining.Id" asp-route-page="@pageNum">
+                        <button type="submit" class="btn btn-orange btn-lg">View Training</button>
+                    </form>
+                }
+            </div>
+            <div class="jumbotron text-center col-md-3">
+                <h1 class="display-4">Friday</h1>
+                <hr class="my-4">
+                @if (fridayTraining == null)
+                {
+                    <form method="post" asp-controller="TrainingSchedular" asp-action="AddTraining" asp-route-dayOfWeek="Friday" asp-route-programId="@programId" asp-route-page="@pageNum">
+                        <button type="submit" class="btn btn-orange btn-lg">Add Training</button>
+                    </form>
+                }
+                else
+                {
+                    <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@fridayTraining.Id" asp-route-page="@pageNum">
+                        <button type="submit" class="btn btn-orange btn-lg">View Training</button>
+                    </form>
+                }
+            </div>
+            <div class="jumbotron text-center col-md-3">
+                <h1 class="display-4">Saturday</h1>
+                <hr class="my-4">
+                @if (saturdayTraining == null)
+                {
+                    <form method="post" asp-controller="TrainingSchedular" asp-action="AddTraining" asp-route-dayOfWeek="Saturday" asp-route-programId="@programId" asp-route-page="@pageNum">
+                        <button type="submit" class="btn btn-orange btn-lg">Add Training</button>
+                    </form>
+                }
+                else
+                {
+                    <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@saturdayTraining.Id" asp-route-page="@pageNum">
+                        <button type="submit" class="btn btn-orange btn-lg">View Training</button>
+                    </form>
+                }
+            </div>
+        </div>
+        <div class="row justify-content-between">
+            <div class="jumbotron col-md-3 text-center">
+                <h2>Change name</h2>
+                <hr class="my-4">
+                <a class="btn btn-warning btn-lg" role="button" asp-controller="TrainingSchedular" asp-action="ChangeProgramName" asp-route-programId="@programId" asp-route-page="@pageNum">Change name</a>
+            </div>
+            <div class="jumbotron col-md-3 text-center">
+                <h1 class="display-4">Sunday</h1>
+                <hr class="my-4">
+                @if (sundayTraining == null)
+                {
+                    <form method="post" asp-controller="TrainingSchedular" asp-action="AddTraining" asp-route-dayOfWeek="Sunday" asp-route-programId="@programId" asp-route-page="@pageNum">
+                        <button type="submit" class="btn btn-orange btn-lg">Add Training</button>
+                    </form>
+                }
+                else
+                {
+                    <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@sundayTraining.Id" asp-route-page="@pageNum">
+                        <button type="submit" class="btn btn-orange btn-lg">View Training</button>
+                    </form>
+                }
+            </div>
+            <div class="jumbotron col-md-3 text-center">
+                <h2>Delete</h2>
+                <hr class="my-4">
+                <form method="post" class="shop-item-button training-delete" asp-controller="TrainingSchedular" asp-action="DeleteProgram" asp-route-programId="@trainingProgram.Id" asp-route-page="@pageNum">
+                    <button class="btn btn-danger btn-lg" type="submit" id="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+        <a class="btn btn-orange w-25" role="button" asp-controller="TrainingSchedular" asp-action="ReturnToAllPrograms" asp-route-page="@pageNum">Return</a>
     </div>
-    <div class="jumbotron text-center col-md-4">
-        <h1 class="display-4">Tuesday</h1>
-        <hr class="my-4">
-        @if (tuesdayTraining == null)
-        {
-            <form method="post" asp-controller="TrainingSchedular" asp-action="AddTraining" asp-route-dayOfWeek="Tuesday" asp-route-programId="@programId">
-                <input type="submit" value="Add Training" class="btn btn-primary btn-lg" />
-            </form>
-        }
-        else
-        {
-             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@tuesdayTraining.Id">
-                <input type="submit" value="View Training" class="btn btn-primary btn-lg" />
-            </form>
-        }
-    </div>
-    <div class="jumbotron text-center col-md-4">
-        <h1 class="display-4">Wednesday</h1>
-        <hr class="my-4">
-       @if (wednesdayTraining == null)
-        {
-            <form method="post" asp-controller="TrainingSchedular" asp-action="AddTraining" asp-route-dayOfWeek="Wednesday" asp-route-programId="@programId">
-                <input type="submit" value="Add Training" class="btn btn-primary btn-lg" />
-            </form>
-        }
-        else
-        {
-             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@wednesdayTraining.Id">
-                <input type="submit" value="View Training" class="btn btn-primary btn-lg" />
-            </form>
-        }
-    </div>
-</div>
-<div class="row">
-    <div class="jumbotron text-center col-md-4">
-        <h1 class="display-4">Thursday</h1>
-        <hr class="my-4">
-        @if (thursdayTraining == null)
-        {
-            <form method="post" asp-controller="TrainingSchedular" asp-action="AddTraining" asp-route-dayOfWeek="Thursday" asp-route-programId="@programId">
-                <input type="submit" value="Add Training" class="btn btn-primary btn-lg" />
-            </form>
-        }
-        else
-        {
-             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@thursdayTraining.Id">
-                <input type="submit" value="View Training" class="btn btn-primary btn-lg" />
-            </form>
-        }
-    </div>
-    <div class="jumbotron text-center col-md-4">
-        <h1 class="display-4">Friday</h1>
-        <hr class="my-4">
-        @if (fridayTraining == null)
-        {
-             <form method="post" asp-controller="TrainingSchedular" asp-action="AddTraining" asp-route-dayOfWeek="Friday" asp-route-programId="@programId">
-                <input type="submit" value="Add Training" class="btn btn-primary btn-lg" />
-             </form>
-        }
-        else
-        {
-             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@fridayTraining.Id">
-                <input type="submit" value="View Training" class="btn btn-primary btn-lg" />
-            </form>
-        }
-    </div>
-    <div class="jumbotron text-center col-md-4">
-        <h1 class="display-4">Saturday</h1>
-        <hr class="my-4">
-        @if (saturdayTraining == null)
-        {
-            <form method="post" asp-controller="TrainingSchedular" asp-action="AddTraining" asp-route-dayOfWeek="Saturday" asp-route-programId="@programId">
-                <input type="submit" value="Add Training" class="btn btn-primary btn-lg" />
-            </form>
-        }
-        else
-        {
-             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@saturdayTraining.Id">
-                <input type="submit" value="View Training" class="btn btn-primary btn-lg" />
-            </form>
-        }
-    </div>
-</div>
-<div class="row">
-    <div class="jumbotron col-md-4 text-center">
-        <h2>Change name</h2>
-        <hr class="my-4">
-        <a class="btn btn-warning btn-lg" role="button" asp-controller="TrainingSchedular" asp-action="ChangeProgramName" asp-route-programId="@programId">Change name</a>
-    </div>
-    <div class="jumbotron col-md-4 text-center">
-        <h1 class="display-4">Sunday</h1>
-        <hr class="my-4">
-        @if (sundayTraining == null)
-        {
-            <form method="post" asp-controller="TrainingSchedular" asp-action="AddTraining" asp-route-dayOfWeek="Sunday" asp-route-programId="@programId">
-                <input type="submit" value="Add Training" class="btn btn-primary btn-lg" />
-            </form>
-        }
-        else
-        {
-             <form method="post" asp-controller="TrainingSchedular" asp-action="TrainingDetails" asp-route-programId="@programId" asp-route-trainingId="@sundayTraining.Id">
-                <input type="submit" value="View Training" class="btn btn-primary btn-lg" />
-            </form>
-        }
-    </div>
-    <div class="jumbotron col-md-4 text-center">
-         <h2>Delete</h2>
-         <hr class="my-4">
-         <form method="post" asp-controller="TrainingSchedular" asp-action="DeleteProgram" asp-route-programId="@programId">
-             <input type="submit" value="Delete" class="btn btn-danger btn-lg" />
-         </form>
-    </div>
-</div>
-<a class="btn btn-primary w-25" role="button" asp-controller="TrainingSchedular" asp-action="ReturnToAllPrograms">Return</a>
+</section>

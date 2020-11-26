@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity;
-@using FitnessHub.Data.Common.Repositories
-@inject IDeletableEntityRepository<TrainingProgram> trainingProgramsRepo
+@*@using FitnessHub.Data.Common.Repositories
+@inject IDeletableEntityRepository<TrainingProgram> trainingProgramsRepo*@
+@model FitnessHub.Web.ViewModels.TrainingSchedular.TrainingProgramsIndexViewModel
 @inject UserManager<ApplicationUser> userManager
 @using FitnessHub.Data.Models
 @{
@@ -9,33 +10,12 @@
     int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
 }
 
-@*<h1 class="display-4 main__heading"><b>Training Programs</b></h1>
-    <div class="services__content container d-flex flex-column">
-        <div class="services__model text-center row">
-            <h4 class="col">Name:</h4>
-            <div class="col"></div>
-        </div>
-
-        @foreach (var trainingProgram in trainingProgramsRepo.All().ToList().OrderByDescending(x => x.CreatedOn))
-        {
-            <div class="entity text-center row align-items-center item__image__container align-self-center">
-                <h4 class="col">@trainingProgram.Name</h4>
-                <div class="col">
-                    <a class="btn btn-primary" role="button" href="/TrainingSchedular/AllTrainings?programId=@trainingProgram.Id">View</a>
-                </div>
-            </div>
-        }
-
-    </div>
-    <a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="Home" asp-action="GoToHome">Go to home</a>
-    <a class="btn btn-primary w-25 add-item" role="button" asp-area="" asp-controller="TrainingSchedular" asp-action="AddTrainingProgram">New Training Program</a>*@
-
-<section class="breadcrumb-section set-bg" data-setbg="img/services-banner.jpg">
+<section class="breadcrumb-section set-bg" data-setbg="img/trainingSchedular-back.jpg">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb-text">
-                    <h2>Services</h2>
+                    <h2>Training Schedular</h2>
                 </div>
             </div>
         </div>
@@ -45,7 +25,7 @@
 <section class="contact-section spad items-section">
     @if (Model.PagesCount == 0)
     {
-        <h3 class="display-4 text-white text-center m-5"><b>No Training Programs Availabe</b></h3>
+        <h3 class="display-4 text-white text-center m-5"><b>No Training Programs Available</b></h3>
     }
     else if (Model.PagesCount < Model.PageNumber)
     {
@@ -56,13 +36,13 @@
         <h3 class="display-4 text-white text-center m-5"><b>Page @Model.PageNumber of @Model.PagesCount</b></h3>
     }
     <div class="services__content container w-50 d-flex flex-column">
-        @foreach (var trainingProgram in trainingProgramsRepo.All().Where(tp => tp.CreatorId == userId).ToList().OrderByDescending(x => x.CreatedOn))
+        @foreach (var trainingProgram in Model.TrainingPrograms)
         {
             <section class="aboutus-section item-section">
                 <div class="container-fluid">
                     <div class="row text-center">
                         <div class="col-lg-12 p-0">
-                            <div class="about-text text-center shop-item-sizing d-flex flex-column justify-content-center">
+                            <div class="about-text text-center shop-item-sizing d-flex flex-column justify-content-center align-items-center programs-section">
                                 <div class="section-title text-center item-about">
                                     <span>About</span>
                                     <h2>@trainingProgram.Name</h2>
@@ -72,11 +52,8 @@
                                         <h4 class="text-white">Created: @trainingProgram.CreatedOn.ToString("dd'/'MM'/'yyyy HH:mm")</h4>
                                     </div>
                                 </div>
-                                <div class="leave-comment">
-                                    <form method="post" class="shop-item-button" asp-controller="TrainingSchedular" asp-action="Delete" asp-route-programId="@trainingProgram.Id" asp-route-page="@pageNum">
-                                        <button type="submit" id="submit">Delete</button>
-                                    </form>
-                                    <a class="shop-item-link" role="button" asp-area="" asp-controller="TrainingSchedular" asp-action="Edit" asp-route-programId="@trainingProgram.Id" asp-route-page="@pageNum"><b>Edit</b></a>
+                                <div class="leave-comment see-program-div">
+                                    <a class="see-program-link shop-item-link" role="button" asp-area="" asp-controller="TrainingSchedular" asp-action="AllTrainings" asp-route-programId="@trainingProgram.Id" asp-route-page="@pageNum">See</a>
                                 </div>
                             </div>
                         </div>

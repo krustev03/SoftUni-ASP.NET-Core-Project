@@ -1,7 +1,6 @@
 ﻿namespace FitnessHub.Web.ViewModels.TrainingSchedular
 {
     using System;
-    using System.Collections.Generic;
 
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Mapping;
@@ -15,7 +14,5 @@
         public DateTime CreatedOn { get; set; }
 
         public ApplicationUser Creator { get; set; }
-
-        public ICollection<Training> Trainings { get; set; }
     }
 }

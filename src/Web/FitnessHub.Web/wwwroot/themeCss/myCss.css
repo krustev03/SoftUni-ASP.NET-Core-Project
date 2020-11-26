@@ -127,3 +127,43 @@
 .about-text .about-bar .ab-item {
     margin-bottom: 20px;
 }
+
+.training-delete {
+    margin-top: 20px;
+}
+
+.all-trainings {
+    padding-top: 160px;
+}
+
+.jumbotron {
+    background-color: black;
+}
+
+.jumbotron h1, h2 {
+    color: white;
+}
+
+.jumbotron hr {
+    border-top: 1px solid white;
+}
+
+.see-program-div {
+    margin-top: 20px;
+    background-color: #f36100;
+    width: 50%;
+}
+
+.see-program-link {
+    font-size: 36px;
+    padding: 14px 12px;
+    color: white;
+}
+
+.see-program-link:hover {
+    color: white;
+}
+
+.programs-section {
+    height: 350px;
+}
