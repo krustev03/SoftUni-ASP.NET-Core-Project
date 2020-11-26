@@ -30,14 +30,39 @@
             await this.newsRepository.SaveChangesAsync();
         }
 
+        public async Task EditNews(int newsId, AddNewsInputModel model)
+        {
+            var news = this.newsRepository.All().Where(x => x.Id == newsId).FirstOrDefault();
+
+            news.Title = model.Title;
+            news.Content = model.Content;
+
+            this.newsRepository.Update(news);
+            await this.newsRepository.SaveChangesAsync();
+        }
+
         public IEnumerable<T> GetAllNews<T>()
         {
             return this.newsRepository.All().To<T>();
         }
 
-        public async Task DeleteNewsByIdAsync(int id)
+        public IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
         {
-            var news = this.newsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            var news = this.newsRepository.AllAsNoTracking()
+                .OrderByDescending(x => x.Id)
+                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                .To<T>().ToList();
+            return news;
+        }
+
+        public int GetCount()
+        {
+            return this.newsRepository.All().Count();
+        }
+
+        public async Task DeleteNewsByIdAsync(int newsId)
+        {
+            var news = this.newsRepository.All().Where(x => x.Id == newsId).FirstOrDefault();
             this.newsRepository.Delete(news);
             await this.newsRepository.SaveChangesAsync();
         }

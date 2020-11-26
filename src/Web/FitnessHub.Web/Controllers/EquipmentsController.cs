@@ -129,6 +129,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddToCart(int equipmentId, int page)
         {
             var user = await this.userManager.GetUserAsync(this.User);

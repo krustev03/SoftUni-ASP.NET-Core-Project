@@ -9,8 +9,14 @@
     {
         public Task AddNewsAsync(AddNewsInputModel serviceInputModel);
 
+        public Task EditNews(int newsId, AddNewsInputModel model);
+
         public IEnumerable<T> GetAllNews<T>();
 
-        public Task DeleteNewsByIdAsync(int id);
+        public IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3);
+
+        public int GetCount();
+
+        public Task DeleteNewsByIdAsync(int newsId);
     }
 }

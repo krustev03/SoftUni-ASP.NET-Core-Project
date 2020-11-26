@@ -4,6 +4,7 @@
 
     using FitnessHub.Services.Messaging;
     using FitnessHub.Web.ViewModels.Contacts;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using static FitnessHub.Common.GlobalConstants;
@@ -18,11 +19,13 @@
             this.emailSender = emailSender;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return this.View();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Index(ContactsInputModel model)
         {

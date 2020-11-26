@@ -92,11 +92,5 @@
 
             return this.RedirectToAction("Index", new { page });
         }
-
-        [Authorize]
-        public IActionResult Return(int page)
-        {
-            return this.RedirectToAction("Index", new { page });
-        }
     }
 }

@@ -114,3 +114,16 @@
 .privacy-info h3 {
     margin-top: 40px;
 }
+
+.shop-item-sizing {
+    padding: 0 70px 0 60px;
+}
+
+.item_description {
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.about-text .about-bar .ab-item {
+    margin-bottom: 20px;
+}

@@ -34,9 +34,9 @@
             await this.servicesRepository.SaveChangesAsync();
         }
 
-        public async Task EditService(int id, ServiceInputModel serviceInputModel)
+        public async Task EditService(int serviceId, ServiceInputModel serviceInputModel)
         {
-            var service = this.servicesRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            var service = this.servicesRepository.All().Where(x => x.Id == serviceId).FirstOrDefault();
 
             service.Name = serviceInputModel.Name;
             service.Price = decimal.Parse(serviceInputModel.Price, CultureInfo.InvariantCulture);
@@ -65,16 +65,9 @@
             return this.servicesRepository.All().Count();
         }
 
-        public T GetServiceDetails<T>(int id)
+        public async Task DeleteServiceByIdAsync(int serviceId)
         {
-            var service = this.servicesRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
-
-            return service;
-        }
-
-        public async Task DeleteServiceByIdAsync(int id)
-        {
-            var service = this.servicesRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            var service = this.servicesRepository.All().Where(x => x.Id == serviceId).FirstOrDefault();
             this.servicesRepository.Delete(service);
             await this.servicesRepository.SaveChangesAsync();
         }

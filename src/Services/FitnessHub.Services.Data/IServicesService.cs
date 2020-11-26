@@ -18,8 +18,6 @@
 
         public Task EditService(int id, ServiceInputModel serviceInputModel);
 
-        public T GetServiceDetails<T>(int id);
-
         public Task DeleteServiceByIdAsync(int id);
     }
 }
