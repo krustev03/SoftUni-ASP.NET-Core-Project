@@ -167,3 +167,28 @@
 .programs-section {
     height: 350px;
 }
+
+.training-details {
+    padding-top: 120px;
+}
+
+.details__heading {
+    margin-bottom: 50px;
+}
+
+.details__form {
+    margin-top: 50px;
+}
+
+.dropdown-exercise {
+    margin-bottom: 20px;
+}
+
+.exercise-item {
+    margin-bottom: 30px;
+    width: 70%;
+}
+
+.chat__box {
+    background-color: #f36100;
+}

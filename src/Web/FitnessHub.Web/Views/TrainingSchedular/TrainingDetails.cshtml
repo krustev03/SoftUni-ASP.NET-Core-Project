@@ -1,26 +1,31 @@
 ﻿@model FitnessHub.Web.ViewModels.TrainingSchedular.TrainingDetailsViewModel
 @{
     this.ViewData["Title"] = "Training Details";
+    int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
     int programId = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["programId"]);
     int trainingId = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["trainingId"]);
 }
 
-<h3 class="details__heading text-center"><b>@Model.DayOfWeek</b></h3>
+<section class="contact-section spad">
+    <div class="container training-details text-center d-flex flex-column align-items-center">
+        <h3 class="details__heading text-center text-white"><b>@Model.DayOfWeek</b></h3>
 
-@foreach (var exercise in Model.Exercises)
-{
-<div class="row d-flex justify-content-center exercise__container">
-    <a class="btn btn-warning" role="button" asp-controller="TrainingSchedular" asp-action="EditExercise" asp-route-programId="@programId" asp-route-trainingId="@trainingId" asp-route-exerciseId="@exercise.Id">Edit</a>
-    <p class="text-center">@exercise.Name - @exercise.Sets sets | @exercise.Reps reps (@exercise.MuscleGroup.Name)</p>
-    <form method="post" asp-controller="TrainingSchedular" asp-action="DeleteExercise" asp-route-programId="@programId" asp-route-trainingId="@trainingId" asp-route-exerciseId="@exercise.Id">
-        <input type="submit" value="Delete Exercise" class="btn btn-danger" />
-    </form>
-</div>
-}
-<div class="details__form d-flex justify-content-around">
-    <a class="btn btn-primary w-25 text-center" role="button" asp-controller="TrainingSchedular" asp-action="AddExercise" asp-route-programId="@programId" asp-route-trainingId="@trainingId">Add Exercise</a>
-    <form method="post" asp-controller="TrainingSchedular" asp-action="DeleteTraining" asp-route-programId="@programId" asp-route-trainingId="@trainingId">
-        <input type="submit" value="Delete Training" class="btn btn-danger" />
-    </form>
-    <a class="btn btn-primary w-25 text-center" role="button" asp-controller="TrainingSchedular" asp-action="ReturnToProgram" asp-route-programId="@programId">Return</a>
-</div>
+        @foreach (var exercise in Model.Exercises)
+        {
+            <div class="row justify-content-between align-items-center exercise-item">
+                <a class="btn btn-warning w-25" role="button" asp-controller="TrainingSchedular" asp-action="EditExercise" asp-route-programId="@programId" asp-route-trainingId="@trainingId" asp-route-exerciseId="@exercise.Id" asp-route-page="@pageNum">Edit</a>
+                <p class="text-center m-0">@exercise.Name - @exercise.Sets sets | @exercise.Reps reps (@exercise.MuscleGroup.Name)</p>
+                <form method="post" class="w-25" asp-controller="TrainingSchedular" asp-action="DeleteExercise" asp-route-programId="@programId" asp-route-trainingId="@trainingId" asp-route-exerciseId="@exercise.Id" asp-route-page="@pageNum">
+                    <input type="submit" value="Delete" class="btn btn-danger w-100" />
+                </form>
+            </div>
+        }
+        <div class="details__form d-flex justify-content-around w-100">
+            <a class="btn btn-orange w-25 text-center" role="button" asp-controller="TrainingSchedular" asp-action="ReturnToProgram" asp-route-programId="@programId" asp-route-page="@pageNum">Back</a>
+            <a class="btn btn-orange text-center" role="button" asp-controller="TrainingSchedular" asp-action="AddExercise" asp-route-programId="@programId" asp-route-trainingId="@trainingId" asp-route-page="@pageNum">Add Exercise</a>
+            <form method="post" class="w-25" asp-controller="TrainingSchedular" asp-action="DeleteTraining" asp-route-programId="@programId" asp-route-trainingId="@trainingId" asp-route-page="@pageNum">
+                <button type="submit" class="btn btn-danger w-100">Delete Training</button>
+            </form>
+        </div>
+    </div>
+</section>

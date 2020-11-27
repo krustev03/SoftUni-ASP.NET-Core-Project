@@ -1,35 +1,40 @@
 ﻿@model FitnessHub.Web.ViewModels.TrainingSchedular.AddExerciseInputModel
 @{
     this.ViewData["Title"] = "Edit Exercise";
+    int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
     int exerciseId = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["exerciseId"]);
     int trainingId = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["trainingId"]);
     int programId = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["programId"]);
     var muscleGroupItems = this.Model.MuscleGroupsItems.Select(x => new SelectListItem(x.Value, x.Key));
 }
 
-<h3 class="details__heading text-center"><b>Edit Exercise</b></h3>
-<form method="post" asp-action="EditExercise" asp-controller="TrainingSchedular" asp-route-programId="@programId" asp-route-trainingId="@trainingId" asp-route-exerciseId="@exerciseId">
-    <div class="form-group">
-        <label asp-for="@Model.Name"></label>
-        <input class="form-control" type="text" asp-for="@Model.Name" />
-        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+<section class="contact-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 form-section text-center">
+                <div class="leave-comment">
+                    <h2 class="text-white form-heading-2">Edit Exercise</h2>
+                    <form method="post" asp-action="EditExercise" asp-controller="TrainingSchedular" asp-route-programId="@programId" asp-route-trainingId="@trainingId" asp-route-exerciseId="@exerciseId" asp-route-page="@pageNum">
+                        <div>
+                            <input asp-for="@Model.Name" type="text" placeholder="Name" required>
+                            <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <input asp-for="@Model.Sets" type="number" placeholder="Sets">
+                            <span asp-validation-for="@Model.Sets" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <input asp-for="@Model.Reps" type="number" placeholder="Reps" required>
+                            <span asp-validation-for="@Model.Reps" class="text-danger"></span>
+                        </div>
+                        <div class="dropdown-exercise">
+                            <select asp-for="@Model.MuscleGroupId" class="form-control" asp-items="muscleGroupItems"></select>
+                            <span asp-validation-for="@Model.MuscleGroupId" class="text-danger"></span>
+                        </div>
+                        <button type="submit" id="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="@Model.Sets"></label>
-        <input class="form-control" type="number" asp-for="@Model.Sets" step="any" />
-        <span asp-validation-for="@Model.Sets" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.Reps"></label>
-        <input class="form-control" type="number" asp-for="@Model.Reps" step="any" />
-        <span asp-validation-for="@Model.Reps" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="@Model.MuscleGroupId"></label>
-        <select asp-for="@Model.MuscleGroupId" class="form-control" asp-items="muscleGroupItems"></select>
-        <span asp-validation-for="@Model.MuscleGroupId" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-</form>
+</section>

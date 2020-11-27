@@ -5,22 +5,39 @@
     this.ViewData["Title"] = "Chat";
 }
 
-<main>
-    <h1 class="display-2 main__heading"><b>Chat</b></h1>
-    <h4 class="col chat__header text-center">Newest messages:</h4>
+<section class="breadcrumb-section set-bg" data-setbg="img/chat-banner.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb-text">
+                    <h2>Chat</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="contact-section spad items-section">
+    <h4 class="col chat__header text-center text-white">Newest messages:</h4>
     <div class="services__content container d-flex flex-column" id="view-all">
         @await Html.PartialAsync("_ViewAll")
     </div>
-    <div class="form__inputs chat__form">
-        <form class="d-flex flex-column chat-form" method="post" asp-action="Index" asp-controller="Chat">
-            <div class="chat__form-group form-group">
-                <label asp-for="@Model.Content">Message:</label>
-                <textarea class="form-control" asp-for="@Model.Content"></textarea>
-                <span asp-validation-for="@Model.Content" class="text-danger"></span>
+    <section class="contact-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 form-section text-center">
+                    <div class="leave-comment">
+                        <form method="post" asp-action="Index" asp-controller="Chat">
+                            <div>
+                                <textarea asp-for="@Model.Content" type="textarea" placeholder="Content"></textarea>
+                                <span asp-validation-for="@Model.Content" class="text-danger"></span>
+                            </div>
+                            <div>
+                                <button type="submit" class="btn btn-orange">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Send</button>
-            </div>
-        </form>
-    </div>
-</main>
+        </div>
+    </section>

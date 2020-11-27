@@ -119,7 +119,7 @@
         }
 
         [Authorize]
-        public IActionResult TrainingDetails(int programId, int trainingId)
+        public IActionResult TrainingDetails(int programId, int trainingId, int page)
         {
             var trainingModel = this.trainingsService.GetTrainingDetails<TrainingDetailsViewModel>(trainingId);
 
@@ -128,41 +128,45 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> DeleteTraining(int programId, int trainingId)
+        public async Task<IActionResult> DeleteTraining(int programId, int trainingId, int page)
         {
             await this.trainingsService.DeleteTrainingByIdAsync(trainingId);
 
-            return this.Redirect($"AllTrainings?programId={programId}");
+            return this.RedirectToAction("AllTrainings", new { programId, page });
         }
 
         [Authorize]
-        public IActionResult AddExercise(int programId, int trainingId)
+        public IActionResult AddExercise(int programId, int trainingId, int page)
         {
-            var viewModel = new AddExerciseInputModel();
-            viewModel.MuscleGroupsItems = this.muscleGroupsService.GetAllAsKeyValuePairs();
+            var viewModel = new AddExerciseInputModel
+            {
+                MuscleGroupsItems = this.muscleGroupsService.GetAllAsKeyValuePairs(),
+            };
             return this.View(viewModel);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> AddExercise(int programId, int trainingId, AddExerciseInputModel model)
+        public async Task<IActionResult> AddExercise(int programId, int trainingId, int page, AddExerciseInputModel model)
         {
             await this.trainingsService.AddExerciseToTrainingAsync(trainingId, model);
 
-            return this.Redirect($"TrainingDetails?programId={programId}&&trainingId={trainingId}");
+            return this.RedirectToAction("TrainingDetails", new { programId, trainingId, page });
         }
 
         [Authorize]
-        public IActionResult EditExercise(int programId, int trainingId, int exerciseId)
+        public IActionResult EditExercise(int programId, int trainingId, int exerciseId, int page)
         {
-            var viewModel = new AddExerciseInputModel();
-            viewModel.MuscleGroupsItems = this.muscleGroupsService.GetAllAsKeyValuePairs();
+            var viewModel = new AddExerciseInputModel
+            {
+                MuscleGroupsItems = this.muscleGroupsService.GetAllAsKeyValuePairs(),
+            };
             return this.View(viewModel);
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> EditExercise(int programId, int trainingId, int exerciseId, AddExerciseInputModel model)
+        public async Task<IActionResult> EditExercise(int programId, int trainingId, int exerciseId, int page, AddExerciseInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -171,22 +175,22 @@
 
             await this.trainingsService.EditExercise(exerciseId, model);
 
-            return this.Redirect($"TrainingDetails?programId={programId}&&trainingId={trainingId}");
+            return this.RedirectToAction("TrainingDetails", new { programId, trainingId, page });
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> DeleteExercise(int programId, int trainingId, int exerciseId)
+        public async Task<IActionResult> DeleteExercise(int programId, int trainingId, int exerciseId, int page)
         {
             await this.trainingsService.DeleteExerciseByIdAsync(exerciseId);
 
-            return this.Redirect($"TrainingDetails?programId={programId}&&trainingId={trainingId}");
+            return this.RedirectToAction("TrainingDetails", new { programId, trainingId, page });
         }
 
         [Authorize]
-        public IActionResult ReturnToProgram(int programId)
+        public IActionResult ReturnToProgram(int programId, int page)
         {
-            return this.Redirect($"AllTrainings?programId={programId}");
+            return this.RedirectToAction("AllTrainings", new { programId, page });
         }
 
         [Authorize]
