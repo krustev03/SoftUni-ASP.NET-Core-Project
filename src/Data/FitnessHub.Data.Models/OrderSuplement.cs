@@ -1,9 +1,9 @@
 ﻿namespace FitnessHub.Data.Models
 {
-    public class OrderSuplement
-    {
-        public int Id { get; set; }
+    using FitnessHub.Data.Common.Models;
 
+    public class OrderSuplement : BaseDeletableModel<int>
+    {
         public virtual Order Order { get; set; }
 
         public int OrderId { get; set; }

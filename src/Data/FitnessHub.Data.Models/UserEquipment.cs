@@ -1,9 +1,9 @@
 ﻿namespace FitnessHub.Data.Models
 {
-    public class UserEquipment
-    {
-        public int Id { get; set; }
+    using FitnessHub.Data.Common.Models;
 
+    public class UserEquipment : BaseDeletableModel<int>
+    {
         public virtual ApplicationUser User { get; set; }
 
         public string UserId { get; set; }

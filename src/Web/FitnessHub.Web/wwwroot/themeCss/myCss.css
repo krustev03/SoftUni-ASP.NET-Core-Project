@@ -4,6 +4,10 @@
     font-size: 12px;
 }
 
+.leave-comment form .btn-purchase {
+    background-color: #28a745;
+}
+
 .btn-logout:hover {
     background-color: #fd7c22;
 }

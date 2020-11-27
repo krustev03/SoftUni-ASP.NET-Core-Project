@@ -2,96 +2,101 @@
 
 @{
     this.ViewData["Title"] = "Card Details";
-    var totalPrice = ViewContext.HttpContext.Request.Query["price"];
+    var totalPrice = Convert.ToDecimal(this.ViewContext.HttpContext.Request.Query["price"]);
 }
 
-<div class="padding d-flex justify-content-center">
-    <div class="row credit-card-margin">
-        <div class="col-sm-12">
-            <form method="post" asp-action="CardDetails" asp-controller="Orders" asp-route-price="@totalPrice">
-                <div class="credit-card">
-                    <div class="credit-card-header">
-                        <strong>Credit Card</strong>
-                        <small>enter your card details</small>
-                    </div>
-                    <div class="credit-card-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label asp-for="@Model.Name"></label>
-                                    <input class="form-control" type="text" asp-for="@Model.Name" placeholder="Enter your name" />
-                                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
-                                </div>
+<section class="contact-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 form-section text-center">
+                <div class="leave-comment">
+                    <h2 class="text-white form-heading-2">Card Details</h2>
+                    <form method="post" asp-action="CardDetails" asp-controller="Orders" asp-route-price="@totalPrice">
+                        <div class="credit-card">
+                            <div class="credit-card-header">
+                                <strong>Credit Card</strong>
+                                <small>enter your card details</small>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label for="ccnumber">Credit Card Number</label>
-                                    <div class="input-group">
-                                        <input class="form-control" type="text" asp-for="@Model.CardNumber" placeholder="0000 0000 0000 0000" autocomplete="email">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="far fa-credit-card"></i>
-                                            </span>
+                            <div class="credit-card-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label asp-for="@Model.Name"></label>
+                                            <input class="form-control" type="text" asp-for="@Model.Name" placeholder="Enter your name" />
+                                            <span asp-validation-for="@Model.Name" class="text-danger"></span>
                                         </div>
                                     </div>
-                                    <span asp-validation-for="@Model.CardNumber" class="text-danger"></span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="ccnumber">Credit Card Number</label>
+                                            <div class="input-group">
+                                                <input class="form-control" type="text" asp-for="@Model.CardNumber" placeholder="0000 0000 0000 0000" autocomplete="email">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                        <i class="far fa-credit-card"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <span asp-validation-for="@Model.CardNumber" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        <label for="ccmonth">Month</label>
+                                        <select class="form-control" id="ccmonth">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                            <option>11</option>
+                                            <option>12</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="ccyear">Year</label>
+                                        <select class="form-control" id="ccyear">
+                                            <option>2014</option>
+                                            <option>2015</option>
+                                            <option>2016</option>
+                                            <option>2017</option>
+                                            <option>2018</option>
+                                            <option>2019</option>
+                                            <option>2020</option>
+                                            <option>2021</option>
+                                            <option>2022</option>
+                                            <option>2023</option>
+                                            <option>2024</option>
+                                            <option>2025</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="cvv">CVV/CVC</label>
+                                            <input class="form-control" id="cvv" type="text" asp-for="@Model.SecurityCode" placeholder="123">
+                                            <span asp-validation-for="@Model.SecurityCode" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="form-group d-flex align-items-center justify-content-between m-0">
+                                    <a class="btn btn-danger float-left" role="button" asp-area="" asp-controller="Orders" asp-action="CardDetails" asp-route-price="@totalPrice">Reset</a>
+                                    <button type="submit" class="btn btn-orange float-right w-25">Countinue</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="form-group col-sm-4">
-                                <label for="ccmonth">Month</label>
-                                <select class="form-control" id="ccmonth">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                    <option>11</option>
-                                    <option>12</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-sm-4">
-                                <label for="ccyear">Year</label>
-                                <select class="form-control" id="ccyear">
-                                    <option>2014</option>
-                                    <option>2015</option>
-                                    <option>2016</option>
-                                    <option>2017</option>
-                                    <option>2018</option>
-                                    <option>2019</option>
-                                    <option>2020</option>
-                                    <option>2021</option>
-                                    <option>2022</option>
-                                    <option>2023</option>
-                                    <option>2024</option>
-                                    <option>2025</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="cvv">CVV/CVC</label>
-                                    <input class="form-control" id="cvv" type="text" asp-for="@Model.SecurityCode" placeholder="123">
-                                    <span asp-validation-for="@Model.SecurityCode" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-sm btn-success float-right">Countinue</button>
-                            <a class="btn btn-sm btn-danger float-left" role="button" asp-area="" asp-controller="Orders" asp-action="CardDetails">Reset</a>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
-</div>
+ </section>

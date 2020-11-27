@@ -7,6 +7,7 @@
     using FitnessHub.Services.Data;
     using FitnessHub.Services.Messaging;
     using FitnessHub.Web.ViewModels.Orders;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -29,16 +30,16 @@
             this.emailSender = emailSender;
         }
 
-        public IActionResult CardDetails()
+        [Authorize]
+        public IActionResult CardDetails(decimal price)
         {
             return this.View();
         }
 
         [HttpPost]
-        public IActionResult CardDetails(CreditCardInputValidationModel model)
+        [Authorize]
+        public IActionResult CardDetails(decimal price, CreditCardInputValidationModel model)
         {
-            string price = this.HttpContext.Request.Query["price"];
-
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
@@ -47,12 +48,13 @@
             return this.RedirectToAction("UserDetails", new { price });
         }
 
-        public IActionResult UserDetails()
+        public IActionResult UserDetails(decimal price)
         {
             return this.View();
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> UserDetails(OrderInputModel model)
         {
             if (!this.ModelState.IsValid)
@@ -66,9 +68,10 @@
             await this.mailService.SendEmailAsync(appUser);
             await this.userManager.UpdateAsync(appUser);
 
-            return this.Redirect("/Orders/ThankYou");
+            return this.RedirectToAction("ThankYou");
         }
 
+        [Authorize]
         public IActionResult ThankYou()
         {
             return this.View();
