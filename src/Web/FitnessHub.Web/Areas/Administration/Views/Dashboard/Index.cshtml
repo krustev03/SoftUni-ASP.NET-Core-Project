@@ -2,26 +2,6 @@
 @model FitnessHub.Web.ViewModels.Administration.Dashboard.DashboardIndexViewModel
 @{ this.ViewData["Title"] = "Admin dashboard"; }
 
-@*<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Username</th>
-            <th scope="col">Orders</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model.Users.OrderByDescending(x => x.CreatedOn))
-        {
-            <tr>
-                <th scope="row">@user.Id</th>
-                <td>@user.UserName</td>
-                <td>@user.Orders.ToList().Count</td>
-            </tr>
-        }
-    </tbody>
-</table>*@
-
 <section class="class-timetable-section spad admin-dashboard">
     <div class="container">
         <div class="row">

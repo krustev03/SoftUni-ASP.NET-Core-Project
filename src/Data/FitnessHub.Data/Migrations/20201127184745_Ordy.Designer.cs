@@ -4,14 +4,16 @@ using FitnessHub.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FitnessHub.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201127184745_Ordy")]
+    partial class Ordy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -309,61 +311,6 @@ namespace FitnessHub.Data.Migrations
                     b.ToTable("News");
                 });
 
-            modelBuilder.Entity("FitnessHub.Data.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Adress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CityCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Orders");
-                });
-
             modelBuilder.Entity("FitnessHub.Data.Models.OrderEquipment", b =>
                 {
                     b.Property<int>("Id")
@@ -397,8 +344,6 @@ namespace FitnessHub.Data.Migrations
                     b.HasIndex("EquipmentId");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("OrderEquipments");
                 });
@@ -434,8 +379,6 @@ namespace FitnessHub.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("OrderId");
 
                     b.HasIndex("SuplementId");
 
@@ -833,15 +776,6 @@ namespace FitnessHub.Data.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("FitnessHub.Data.Models.Order", b =>
-                {
-                    b.HasOne("FitnessHub.Data.Models.ApplicationUser", "User")
-                        .WithMany("Orders")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("FitnessHub.Data.Models.OrderEquipment", b =>
                 {
                     b.HasOne("FitnessHub.Data.Models.Equipment", "Equipment")
@@ -850,32 +784,16 @@ namespace FitnessHub.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("FitnessHub.Data.Models.Order", "Order")
-                        .WithMany("Equipments")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Equipment");
-
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("FitnessHub.Data.Models.OrderSuplement", b =>
                 {
-                    b.HasOne("FitnessHub.Data.Models.Order", "Order")
-                        .WithMany("Suplements")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("FitnessHub.Data.Models.Suplement", "Suplement")
                         .WithMany("Orders")
                         .HasForeignKey("SuplementId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Order");
 
                     b.Navigation("Suplement");
                 });
@@ -1002,8 +920,6 @@ namespace FitnessHub.Data.Migrations
 
                     b.Navigation("Logins");
 
-                    b.Navigation("Orders");
-
                     b.Navigation("Roles");
 
                     b.Navigation("Suplements");
@@ -1021,13 +937,6 @@ namespace FitnessHub.Data.Migrations
             modelBuilder.Entity("FitnessHub.Data.Models.MuscleGroup", b =>
                 {
                     b.Navigation("Exercises");
-                });
-
-            modelBuilder.Entity("FitnessHub.Data.Models.Order", b =>
-                {
-                    b.Navigation("Equipments");
-
-                    b.Navigation("Suplements");
                 });
 
             modelBuilder.Entity("FitnessHub.Data.Models.Suplement", b =>

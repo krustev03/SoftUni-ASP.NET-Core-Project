@@ -10,7 +10,7 @@
 
     public class OrdersService : IOrdersService
     {
-        private readonly IRepository<Order> ordersRepository;
+        private readonly IDeletableEntityRepository<Order> ordersRepository;
         private readonly IRepository<UserEquipment> userEquipmentRepository;
         private readonly IRepository<UserSuplement> userSuplementRepository;
         private readonly IRepository<OrderEquipment> orderEquipmentsRepository;
@@ -20,7 +20,7 @@
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
 
         public OrdersService(
-            IRepository<Order> ordersRepository,
+            IDeletableEntityRepository<Order> ordersRepository,
             IRepository<UserEquipment> userEquipmentRepository,
             IRepository<UserSuplement> userSuplementRepository,
             IRepository<OrderEquipment> orderEquipmentsRepository,

@@ -2,10 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Text;
 
     using FitnessHub.Data.Common.Models;
 
-    public class Order : BaseModel<int>
+    public class Order : BaseDeletableModel<int>
     {
         public Order()
         {
