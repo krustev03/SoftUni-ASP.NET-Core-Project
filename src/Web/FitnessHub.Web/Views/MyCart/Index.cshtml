@@ -4,60 +4,166 @@
     this.ViewData["Title"] = "My Cart";
 }
 
-<main>
-    <h1 class="display-2 main__heading"><b>My Cart</b></h1>
-    <div class="services__content container d-flex flex-column">
-        <div class="services__model text-center row">
-            <div class="col"></div>
-            <h4 class="col">Name:</h4>
-            <h4 class="col">Quantity:</h4>
-            <h4 class="col">Price:</h4>
-            <div class="col"></div>
-        </div>
-        @foreach (var equipment in Model.Equipments.OrderBy(x => x.Name))
-        {
-            <div class="entity text-center row align-items-center item__image__container align-self-center">
-                <div class="col">
-                    <img src="@Url.Content(equipment.ImageUrl)" class="w-100 h-100">
+@*<main>
+        <h1 class="display-2 main__heading"><b>My Cart</b></h1>
+        <div class="services__content container d-flex flex-column">
+            <div class="services__model text-center row">
+                <div class="col"></div>
+                <h4 class="col">Name:</h4>
+                <h4 class="col">Quantity:</h4>
+                <h4 class="col">Price:</h4>
+                <div class="col"></div>
+            </div>
+            @foreach (var equipment in Model.Equipments.OrderBy(x => x.Name))
+            {
+                <div class="entity text-center row align-items-center item__image__container align-self-center">
+                    <div class="col">
+                        <img src="@Url.Content(equipment.ImageUrl)" class="w-100 h-100">
+                    </div>
+                    <h4 class="col">@equipment.Name</h4>
+                    <h4 class="col">@equipment.Quantity</h4>
+                    <h4 class="col">@equipment.Price lv.</h4>
+                    <div class="col">
+                        <form method="post" asp-controller="MyCart" asp-action="RemoveEquipmentFromCart" asp-route-id="@equipment.Id">
+                            <input type="submit" value="Remove" class="btn btn-outline-danger" />
+                        </form>
+                    </div>
                 </div>
-                <h4 class="col">@equipment.Name</h4>
-                <h4 class="col">@equipment.Quantity</h4>
-                <h4 class="col">@equipment.Price lv.</h4>
-                <div class="col">
-                    <form method="post" asp-controller="MyCart" asp-action="RemoveEquipmentFromCart" asp-route-id="@equipment.Id">
-                        <input type="submit" value="Remove" class="btn btn-outline-danger" />
-                    </form>
+            }
+            @foreach (var suplement in Model.Suplements.OrderBy(x => x.Name))
+            {
+                <div class="entity text-center row align-items-center item__image__container align-self-center">
+                    <div class="col">
+                        <img src="@Url.Content(suplement.ImageUrl)" class="w-100 h-100">
+                    </div>
+                    <h4 class="col">@suplement.Name</h4>
+                    <h4 class="col">@suplement.Quantity</h4>
+                    <h4 class="col">@suplement.Price lv.</h4>
+                    <div class="col">
+                        <form method="post" asp-controller="MyCart" asp-action="RemoveSuplementFromCart" asp-route-id="@suplement.Id">
+                            <input type="submit" value="Remove" class="btn btn-outline-danger" />
+                        </form>
+                    </div>
+                </div>
+            }
+            <div class="entity proceed__container text-center row align-items-center item__image__container align-self-center">
+                <div class="col proceed__link">
+                    <a class="btn btn-primary" role="button" asp-area="" asp-controller="MyCart" asp-action="GoToHome">Go to home</a>
+                </div>
+                <h4 class="col"></h4>
+                <h2 class="col">Total: @Model.TotalPrice lv.</h2>
+                @if(Model.TotalPrice > 0)
+                {
+                    <div class="col proceed__link">
+                    <a class="btn btn-primary" role="button" href="/Orders/CardDetails?price=@Model.TotalPrice">Proceed to chechkout</a>
+                </div>
+                }
+            </div>
+        </div>
+    </main>*@
+
+<section class="breadcrumb-section set-bg" data-setbg="img/mycart-banner.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb-text">
+                    <h2>My Cart</h2>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="contact-section spad items-section mycart-section">
+    <div class="services__content container d-flex flex-column">
+        @foreach (var equipment in Model.Equipments.OrderBy(x => x.Name))
+        {
+            <section class="aboutus-section item-section">
+                <div class="container-fluid">
+                    <div class="row text-center">
+                        <div class="col-lg-6 p-0">
+                            <div class="about-video set-bg" data-setbg="img/about-us.jpg">
+                                <img src="@Url.Content(equipment.ImageUrl)" class="w-100 h-100">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 p-0">
+                            <div class="about-text d-flex flex-column shop-item-sizing justify-content-center">
+                                <div class="section-title text-center item-about">
+                                    <span>About</span>
+                                    <h2>@equipment.Name</h2>
+                                </div>
+                                <div class="at-desc item_description">
+                                    <p>
+                                        @equipment.Description
+                                    </p>
+                                </div>
+                                <div class="about-bar">
+                                    <div class="ab-item">
+                                        <h4 class="text-white">Price: @equipment.Price lv.</h4>
+                                    </div>
+                                    <div class="ab-item">
+                                        <h4 class="text-white">Quantity: @equipment.Quantity</h4>
+                                    </div>
+                                </div>
+                                <div class="leave-comment">
+                                    <form method="post" class="shop-item-button" asp-controller="MyCart" asp-action="RemoveEquipmentFromCart" asp-route-equipmentId="@equipment.Id">
+                                        <button type="submit" id="submit">Remove</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         }
         @foreach (var suplement in Model.Suplements.OrderBy(x => x.Name))
         {
-            <div class="entity text-center row align-items-center item__image__container align-self-center">
-                <div class="col">
-                    <img src="@Url.Content(suplement.ImageUrl)" class="w-100 h-100">
+            <section class="aboutus-section item-section">
+                <div class="container-fluid">
+                    <div class="row text-center">
+                        <div class="col-lg-6 p-0">
+                            <div class="about-video set-bg" data-setbg="img/about-us.jpg">
+                                <img src="@Url.Content(suplement.ImageUrl)" class="w-100 h-100">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 p-0">
+                            <div class="about-text d-flex flex-column shop-item-sizing justify-content-center">
+                                <div class="section-title text-center item-about">
+                                    <span>About</span>
+                                    <h2>@suplement.Name</h2>
+                                </div>
+                                <div class="at-desc item_description">
+                                    <p>
+                                        @suplement.Description
+                                    </p>
+                                </div>
+                                <div class="about-bar">
+                                    <div class="ab-item">
+                                        <h4 class="text-white">Price: @suplement.Price lv.</h4>
+                                    </div>
+                                    <div class="ab-item">
+                                        <h4 class="text-white">Weight: @suplement.Weight grams</h4>
+                                    </div>
+                                    <div class="ab-item">
+                                        <h4 class="text-white">Quantity: @suplement.Quantity</h4>
+                                    </div>
+                                </div>
+                                <div class="leave-comment">
+                                    <form method="post" class="shop-item-button" asp-controller="MyCart" asp-action="RemoveSuplementFromCart" asp-route-suplementId="@suplement.Id">
+                                        <button type="submit" id="submit">Remove</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <h4 class="col">@suplement.Name</h4>
-                <h4 class="col">@suplement.Quantity</h4>
-                <h4 class="col">@suplement.Price lv.</h4>
-                <div class="col">
-                    <form method="post" asp-controller="MyCart" asp-action="RemoveSuplementFromCart" asp-route-id="@suplement.Id">
-                        <input type="submit" value="Remove" class="btn btn-outline-danger" />
-                    </form>
-                </div>
-            </div>
+            </section>
         }
-        <div class="entity proceed__container text-center row align-items-center item__image__container align-self-center">
-            <div class="col proceed__link">
-                <a class="btn btn-primary" role="button" asp-area="" asp-controller="MyCart" asp-action="GoToHome">Go to home</a>
-            </div>
-            <h4 class="col"></h4>
-            <h2 class="col">Total: @Model.TotalPrice lv.</h2>
-            @if(Model.TotalPrice > 0)
-            {
-                <div class="col proceed__link">
-                <a class="btn btn-primary" role="button" href="/Orders/CardDetails?price=@Model.TotalPrice">Proceed to chechkout</a>
-            </div>
-            }
-        </div>
+        <h2 class="text-right">Total: @Model.TotalPrice lv.</h2>
     </div>
-</main>
+    <div class="d-flex justify-content-around">
+        <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="Home" asp-action="GoToHome">Go to home</a>
+
+        <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="Orders" asp-action="CardDetails" asp-route-price="@Model.TotalPrice">Proceed to chechkout</a>
+    </div>
+</section>

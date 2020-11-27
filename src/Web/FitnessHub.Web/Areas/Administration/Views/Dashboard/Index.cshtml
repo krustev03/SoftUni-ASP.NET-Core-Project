@@ -1,8 +1,8 @@
-﻿@model FitnessHub.Web.ViewModels.Administration.Dashboard.DashboardIndexViewModel
+﻿
+@model FitnessHub.Web.ViewModels.Administration.Dashboard.DashboardIndexViewModel
 @{ this.ViewData["Title"] = "Admin dashboard"; }
 
-<h1 class="text-center">@this.ViewData["Title"]</h1>
-<table class="table">
+@*<table class="table">
     <thead>
         <tr>
             <th scope="col">#</th>
@@ -20,4 +20,47 @@
             </tr>
         }
     </tbody>
-</table>
+</table>*@
+
+<section class="class-timetable-section spad admin-dashboard">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2 class="text-center">Admin Dashboard</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="class-timetable d-flex flex-column justify-content-center">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Username</th>
+                                <th>Orders</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model.Users.OrderByDescending(x => x.CreatedOn))
+                            {
+                                <tr>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="workout">
+                                        <p>@user.Id</p>
+                                    </td>
+                                    <td class="hover-bg ts-meta" data-tsmeta="fitness">
+                                        <p>@user.UserName</p>
+                                    </td>
+                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="workout">
+                                        <p>@user.Orders.ToList().Count</p>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

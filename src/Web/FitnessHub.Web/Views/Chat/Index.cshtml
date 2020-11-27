@@ -22,22 +22,21 @@
     <div class="services__content container d-flex flex-column" id="view-all">
         @await Html.PartialAsync("_ViewAll")
     </div>
-    <section class="contact-section spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 form-section text-center">
-                    <div class="leave-comment">
-                        <form method="post" asp-action="Index" asp-controller="Chat">
-                            <div>
-                                <textarea asp-for="@Model.Content" type="textarea" placeholder="Content"></textarea>
-                                <span asp-validation-for="@Model.Content" class="text-danger"></span>
-                            </div>
-                            <div>
-                                <button type="submit" class="btn btn-orange">Send</button>
-                            </div>
-                        </form>
-                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 form-section text-center">
+                <div class="leave-comment">
+                    <form method="post" asp-action="Index" asp-controller="Chat">
+                        <div>
+                            <textarea asp-for="@Model.Content" type="textarea" placeholder="Content"></textarea>
+                            <span asp-validation-for="@Model.Content" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-orange">Send</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>

@@ -39,6 +39,7 @@
                     Id = equipment.Id,
                     Name = equipment.Name,
                     Price = equipment.Price,
+                    Description = equipment.Description,
                     ImageUrl = equipment.ImageUrl,
                     Quantity = item.Quantity,
                 });
@@ -59,6 +60,8 @@
                     Id = suplement.Id,
                     Name = suplement.Name,
                     Price = suplement.Price,
+                    Weight = suplement.Weight,
+                    Description = suplement.Description,
                     ImageUrl = suplement.ImageUrl,
                     Quantity = item.Quantity,
                 });

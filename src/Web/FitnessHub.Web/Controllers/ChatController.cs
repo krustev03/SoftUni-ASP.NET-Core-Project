@@ -5,6 +5,7 @@
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Data;
     using FitnessHub.Web.ViewModels.Chat;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -19,12 +20,14 @@
             this.userManager = userManager;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             return this.View();
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Index(AddMessageInputModel model)
         {
             if (!this.ModelState.IsValid)
@@ -40,6 +43,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int id)
         {
             await this.messagesService.DeleteMessageByIdAsync(id);
