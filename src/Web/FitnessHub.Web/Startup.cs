@@ -12,7 +12,6 @@
     using FitnessHub.Services.Data;
     using FitnessHub.Services.Mapping;
     using FitnessHub.Services.Messaging;
-    using FitnessHub.Web.Infrastructure.Settings;
     using FitnessHub.Web.ViewModels;
     using Hangfire;
     using Hangfire.SqlServer;

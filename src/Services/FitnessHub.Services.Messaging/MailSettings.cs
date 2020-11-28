@@ -1,4 +1,4 @@
-﻿namespace FitnessHub.Web.Infrastructure.Settings
+﻿namespace FitnessHub.Services.Messaging
 {
     public class MailSettings
     {

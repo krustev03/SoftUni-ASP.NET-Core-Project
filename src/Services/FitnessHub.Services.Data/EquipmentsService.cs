@@ -1,7 +1,9 @@
 ﻿namespace FitnessHub.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -13,42 +15,79 @@
 
     public class EquipmentsService : IEquipmentsService
     {
+        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif" };
         private readonly IDeletableEntityRepository<Equipment> equipmentsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IRepository<UserEquipment> userEquipmentRepository;
+        private readonly IRepository<Image> imagesRepository;
 
         public EquipmentsService(
             IDeletableEntityRepository<Equipment> equipmentsRepository,
             IDeletableEntityRepository<ApplicationUser> userRepository,
-            IRepository<UserEquipment> userEquipmentRepository)
+            IRepository<UserEquipment> userEquipmentRepository,
+            IRepository<Image> imagesRepository)
         {
             this.equipmentsRepository = equipmentsRepository;
             this.userRepository = userRepository;
             this.userEquipmentRepository = userEquipmentRepository;
+            this.imagesRepository = imagesRepository;
         }
 
-        public async Task AddEquipmentAsync(EquipmentInputModel equipmentInputModel)
+        public async Task AddEquipmentAsync(EquipmentInputModel model, string userId, string imagePath)
         {
             var equipment = new Equipment()
             {
-                Name = equipmentInputModel.Name,
-                Price = decimal.Parse(equipmentInputModel.Price, CultureInfo.InvariantCulture),
-                Description = equipmentInputModel.Description,
-                ImageUrl = equipmentInputModel.ImageUrl,
+                Name = model.Name,
+                Price = decimal.Parse(model.Price, CultureInfo.InvariantCulture),
+                Description = model.Description,
             };
+
+            Directory.CreateDirectory($"{imagePath}/equipments/");
+
+            var extension = Path.GetExtension(model.Image.FileName).TrimStart('.');
+            if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
+            {
+                throw new Exception($"Invalid image extension {extension}");
+            }
+
+            var dbImage = new Image
+            {
+                AddedByUserId = userId,
+                Extension = extension,
+            };
+            equipment.Image = dbImage;
+
+            var physicalPath = $"{imagePath}/equipments/{dbImage.Id}.{extension}";
+            using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
+            await model.Image.CopyToAsync(fileStream);
 
             await this.equipmentsRepository.AddAsync(equipment);
             await this.equipmentsRepository.SaveChangesAsync();
         }
 
-        public async Task EditEquipment(int id, EquipmentInputModel equipmentInputModel)
+        public async Task EditEquipment(EquipmentInputModel model, int equipmentId, string userId, string imagePath)
         {
-            var equipment = this.equipmentsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            var equipment = this.equipmentsRepository.All().Where(x => x.Id == equipmentId).FirstOrDefault();
 
-            equipment.Name = equipmentInputModel.Name;
-            equipment.Price = decimal.Parse(equipmentInputModel.Price, CultureInfo.InvariantCulture);
-            equipment.Description = equipmentInputModel.Description;
-            equipment.ImageUrl = equipmentInputModel.ImageUrl;
+            equipment.Name = model.Name;
+            equipment.Price = decimal.Parse(model.Price, CultureInfo.InvariantCulture);
+            equipment.Description = model.Description;
+
+            var extension = Path.GetExtension(model.Image.FileName).TrimStart('.');
+            if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
+            {
+                throw new Exception($"Invalid image extension {extension}");
+            }
+
+            var image = this.imagesRepository.All().Where(x => x.EquipmentId == equipment.Id).FirstOrDefault();
+            image.AddedByUserId = userId;
+            image.Extension = extension;
+
+            equipment.Image = image;
+
+            var physicalPath = $"{imagePath}/equipments/{equipment.Image.Id}.{extension}";
+            using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
+            await model.Image.CopyToAsync(fileStream);
 
             this.equipmentsRepository.Update(equipment);
             await this.equipmentsRepository.SaveChangesAsync();

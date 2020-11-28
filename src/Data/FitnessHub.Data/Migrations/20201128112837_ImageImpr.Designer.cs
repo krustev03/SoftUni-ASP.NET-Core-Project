@@ -4,14 +4,16 @@ using FitnessHub.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FitnessHub.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201128112837_ImageImpr")]
+    partial class ImageImpr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -256,9 +258,7 @@ namespace FitnessHub.Data.Migrations
                         .IsUnique()
                         .HasFilter("[EquipmentId] IS NOT NULL");
 
-                    b.HasIndex("SuplementId")
-                        .IsUnique()
-                        .HasFilter("[SuplementId] IS NOT NULL");
+                    b.HasIndex("SuplementId");
 
                     b.ToTable("Images");
                 });
@@ -571,7 +571,7 @@ namespace FitnessHub.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageId")
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -876,8 +876,8 @@ namespace FitnessHub.Data.Migrations
                         .HasForeignKey("FitnessHub.Data.Models.Image", "EquipmentId");
 
                     b.HasOne("FitnessHub.Data.Models.Suplement", "Suplement")
-                        .WithOne("Image")
-                        .HasForeignKey("FitnessHub.Data.Models.Image", "SuplementId");
+                        .WithMany()
+                        .HasForeignKey("SuplementId");
 
                     b.Navigation("AddedByUser");
 
@@ -1096,8 +1096,6 @@ namespace FitnessHub.Data.Migrations
 
             modelBuilder.Entity("FitnessHub.Data.Models.Suplement", b =>
                 {
-                    b.Navigation("Image");
-
                     b.Navigation("Orders");
 
                     b.Navigation("Users");

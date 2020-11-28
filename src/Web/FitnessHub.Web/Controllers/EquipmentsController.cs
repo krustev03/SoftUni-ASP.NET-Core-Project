@@ -1,5 +1,6 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
+    using System;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -16,16 +17,16 @@
     {
         private readonly IEquipmentsService equipmentsService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IWebHostEnvironment environment;
 
         public EquipmentsController(
             IEquipmentsService equipmentsService,
             UserManager<ApplicationUser> userManager,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment environment)
         {
             this.equipmentsService = equipmentsService;
             this.userManager = userManager;
-            this.webHostEnvironment = webHostEnvironment;
+            this.environment = environment;
         }
 
         [Authorize]
@@ -57,30 +58,23 @@
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Add(EquipmentInputModel model)
         {
-            if (!model.Image.FileName.EndsWith(".jpg"))
-            {
-                this.ModelState.AddModelError("Image", "Invalid file type.");
-            }
-
-            var allEquipments = this.equipmentsService.GetAllEquipments<EquipmentViewModel>();
-
-            if (allEquipments.Any(x => x.Name == model.Name))
-            {
-                this.ModelState.AddModelError("Name", $"Name '{model.Name}' has already been taken.");
-            }
-
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            using (FileStream fs = new FileStream(
-                this.webHostEnvironment.WebRootPath + $"/equipmentsImages/{model.Name}.jpg", FileMode.Create))
+            var appUser = await this.userManager.GetUserAsync(this.User);
+
+            try
             {
-                await model.Image.CopyToAsync(fs);
+                await this.equipmentsService.AddEquipmentAsync(model, appUser.Id, $"{this.environment.WebRootPath}/images");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.View(model);
             }
 
-            await this.equipmentsService.AddEquipmentAsync(model);
             var page = 1;
 
             return this.RedirectToAction("Index", new { page });
@@ -96,25 +90,22 @@
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int equipmentId, int page, EquipmentInputModel model)
         {
-            if (!model.Image.FileName.EndsWith(".jpg"))
-            {
-                this.ModelState.AddModelError("Image", "Invalid file type.");
-            }
-
-            var allEquipments = this.equipmentsService.GetAllEquipments<EquipmentViewModel>().ToList();
-
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            using (FileStream fs = new FileStream(
-                this.webHostEnvironment.WebRootPath + $"/equipmentsImages/{model.Name}.jpg", FileMode.Create))
-            {
-                await model.Image.CopyToAsync(fs);
-            }
+            var appUser = await this.userManager.GetUserAsync(this.User);
 
-            await this.equipmentsService.EditEquipment(equipmentId, model);
+            try
+            {
+                await this.equipmentsService.EditEquipment(model, equipmentId, appUser.Id, $"{this.environment.WebRootPath}/images");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.View(model);
+            }
 
             return this.RedirectToAction("Index", new { page });
         }

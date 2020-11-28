@@ -44,6 +44,8 @@
 
         public DbSet<MuscleGroup> MuscleGroups { get; set; }
 
+        public DbSet<Image> Images { get; set; }
+
         public DbSet<TrainingProgram> TrainingPrograms { get; set; }
 
         public DbSet<UserEquipment> UserEquipments { get; set; }
@@ -75,6 +77,16 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Equipment>()
+            .HasOne(e => e.Image)
+            .WithOne(i => i.Equipment)
+            .HasForeignKey<Image>(e => e.EquipmentId);
+
+            builder.Entity<Suplement>()
+            .HasOne(e => e.Image)
+            .WithOne(i => i.Suplement)
+            .HasForeignKey<Image>(e => e.SuplementId);
+
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 

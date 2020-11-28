@@ -6,6 +6,7 @@
 
     using FitnessHub.Data.Common.Repositories;
     using FitnessHub.Data.Models;
+    using FitnessHub.Services.Mapping;
     using FitnessHub.Web.ViewModels.MyCart;
 
     public class MyCartService : IMyCartService
@@ -33,16 +34,8 @@
             var equipments = this.userEquipmentRepository.All().Where(x => x.UserId == appUser.Id).ToList();
             foreach (var item in equipments)
             {
-                var equipment = this.equipmentsRepository.GetByIdWithDeletedAsync(item.EquipmentId).Result;
-                equipmentsAsList.Add(new EquipmentCartViewModel
-                {
-                    Id = equipment.Id,
-                    Name = equipment.Name,
-                    Price = equipment.Price,
-                    Description = equipment.Description,
-                    ImageUrl = equipment.ImageUrl,
-                    Quantity = item.Quantity,
-                });
+                var equipment = this.GetEquipmentById<EquipmentCartViewModel>(item.EquipmentId);
+                equipmentsAsList.Add(equipment);
             }
 
             return equipmentsAsList;
@@ -54,17 +47,8 @@
             var suplements = this.userSuplementRepository.All().Where(x => x.UserId == appUser.Id).ToList();
             foreach (var item in suplements)
             {
-                var suplement = this.suplementsRepository.GetByIdWithDeletedAsync(item.SuplementId).Result;
-                suplementsAsList.Add(new SuplementCartViewModel
-                {
-                    Id = suplement.Id,
-                    Name = suplement.Name,
-                    Price = suplement.Price,
-                    Weight = suplement.Weight,
-                    Description = suplement.Description,
-                    ImageUrl = suplement.ImageUrl,
-                    Quantity = item.Quantity,
-                });
+                var suplement = this.GetSuplementById<SuplementCartViewModel>(item.SuplementId);
+                suplementsAsList.Add(suplement);
             }
 
             return suplementsAsList;
@@ -122,6 +106,24 @@
             }
 
             await this.userSuplementRepository.SaveChangesAsync();
+        }
+
+        private T GetSuplementById<T>(int suplementId)
+        {
+            var suplement = this.suplementsRepository.AllAsNoTracking()
+                .Where(x => x.Id == suplementId)
+                .To<T>().FirstOrDefault();
+
+            return suplement;
+        }
+
+        private T GetEquipmentById<T>(int equipmentId)
+        {
+            var equipment = this.equipmentsRepository.AllAsNoTracking()
+                .Where(x => x.Id == equipmentId)
+                .To<T>().FirstOrDefault();
+
+            return equipment;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace FitnessHub.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
@@ -14,44 +15,81 @@
 
     public class SuplementsService : ISuplementsService
     {
+        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif" };
         private readonly IDeletableEntityRepository<Suplement> suplementsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IRepository<UserSuplement> userSuplementRepository;
+        private readonly IRepository<Image> imagesRepository;
 
         public SuplementsService(
             IDeletableEntityRepository<Suplement> suplementsRepository,
             IDeletableEntityRepository<ApplicationUser> userRepository,
-            IRepository<UserSuplement> userSuplementRepository)
+            IRepository<UserSuplement> userSuplementRepository,
+            IRepository<Image> imagesRepository)
         {
             this.suplementsRepository = suplementsRepository;
             this.userRepository = userRepository;
             this.userSuplementRepository = userSuplementRepository;
+            this.imagesRepository = imagesRepository;
         }
 
-        public async Task AddSuplementAsync(SuplementInputModel suplementInputModel)
+        public async Task AddSuplementAsync(SuplementInputModel model, string userId, string imagePath)
         {
             var suplement = new Suplement()
             {
-                Name = suplementInputModel.Name,
-                Price = decimal.Parse(suplementInputModel.Price, CultureInfo.InvariantCulture),
-                Weight = int.Parse(suplementInputModel.Weight, CultureInfo.InvariantCulture),
-                Description = suplementInputModel.Description,
-                ImageUrl = suplementInputModel.ImageUrl,
+                Name = model.Name,
+                Price = decimal.Parse(model.Price, CultureInfo.InvariantCulture),
+                Weight = int.Parse(model.Weight, CultureInfo.InvariantCulture),
+                Description = model.Description,
             };
+
+            Directory.CreateDirectory($"{imagePath}/suplements/");
+
+            var extension = Path.GetExtension(model.Image.FileName).TrimStart('.');
+            if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
+            {
+                throw new Exception($"Invalid image extension {extension}");
+            }
+
+            var dbImage = new Image
+            {
+                AddedByUserId = userId,
+                Extension = extension,
+            };
+            suplement.Image = dbImage;
+
+            var physicalPath = $"{imagePath}/suplements/{dbImage.Id}.{extension}";
+            using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
+            await model.Image.CopyToAsync(fileStream);
 
             await this.suplementsRepository.AddAsync(suplement);
             await this.suplementsRepository.SaveChangesAsync();
         }
 
-        public async Task EditSuplement(int id, SuplementInputModel suplementInputModel)
+        public async Task EditSuplement(SuplementInputModel model, int suplementId, string userId, string imagePath)
         {
-            var suplement = this.suplementsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            var suplement = this.suplementsRepository.All().Where(x => x.Id == suplementId).FirstOrDefault();
 
-            suplement.Name = suplementInputModel.Name;
-            suplement.Price = decimal.Parse(suplementInputModel.Price, CultureInfo.InvariantCulture);
-            suplement.Weight = int.Parse(suplementInputModel.Weight, CultureInfo.InvariantCulture);
-            suplement.Description = suplementInputModel.Description;
-            suplement.ImageUrl = suplementInputModel.ImageUrl;
+            suplement.Name = model.Name;
+            suplement.Price = decimal.Parse(model.Price, CultureInfo.InvariantCulture);
+            suplement.Weight = int.Parse(model.Weight, CultureInfo.InvariantCulture);
+            suplement.Description = model.Description;
+
+            var extension = Path.GetExtension(model.Image.FileName).TrimStart('.');
+            if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
+            {
+                throw new Exception($"Invalid image extension {extension}");
+            }
+
+            var image = this.imagesRepository.All().Where(x => x.SuplementId == suplement.Id).FirstOrDefault();
+            image.AddedByUserId = userId;
+            image.Extension = extension;
+
+            suplement.Image = image;
+
+            var physicalPath = $"{imagePath}/suplements/{suplement.Image.Id}.{extension}";
+            using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
+            await model.Image.CopyToAsync(fileStream);
 
             this.suplementsRepository.Update(suplement);
             await this.suplementsRepository.SaveChangesAsync();

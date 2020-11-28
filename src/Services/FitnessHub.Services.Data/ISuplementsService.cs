@@ -14,9 +14,9 @@
 
         public int GetCount();
 
-        public Task AddSuplementAsync(SuplementInputModel suplementInputModel);
+        public Task AddSuplementAsync(SuplementInputModel model, string userId, string imagePath);
 
-        public Task EditSuplement(int id, SuplementInputModel suplementInputModel);
+        public Task EditSuplement(SuplementInputModel model, int suplementId, string userId, string imagePath);
 
         public T GetSuplementDetails<T>(int id);
 

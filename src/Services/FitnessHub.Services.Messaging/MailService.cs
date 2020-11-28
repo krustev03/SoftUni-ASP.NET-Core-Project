@@ -1,10 +1,9 @@
 ﻿namespace FitnessHub.Services.Messaging
 {
-    using System.IO;
     using System.Threading.Tasks;
+
     using FitnessHub.Data.Models;
-    using FitnessHub.Web.Infrastructure.Settings;
-    using FitnessHub.Web.ViewModels.Mail;
+
     using MailKit.Net.Smtp;
     using MailKit.Security;
     using Microsoft.Extensions.Options;

@@ -41,7 +41,7 @@
 
             await this.emailSender.SendPlainEmailAsync(email, name, SupportEmail, subject, content, null);
 
-            return this.Redirect("/Contacts/ThankYou");
+            return this.RedirectToAction("ThankYou");
         }
 
         public IActionResult ThankYou()

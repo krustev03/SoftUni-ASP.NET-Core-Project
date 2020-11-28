@@ -2,6 +2,8 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using static FitnessHub.Common.GlobalConstants;
+
     public class ContactsInputModel
     {
         [Required]
@@ -20,7 +22,7 @@
 
         [Required]
         [StringLength(
-            300,
+            EmailMessageMaxLength,
             ErrorMessage = "The username must be between 3 and 45 characters.",
             MinimumLength = 5)]
         public string Message { get; set; }

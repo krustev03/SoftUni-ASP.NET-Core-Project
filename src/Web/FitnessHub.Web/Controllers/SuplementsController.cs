@@ -1,5 +1,6 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
+    using System;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -16,16 +17,16 @@
     {
         private readonly ISuplementsService suplementsService;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IWebHostEnvironment environment;
 
         public SuplementsController(
             ISuplementsService suplementsService,
             UserManager<ApplicationUser> userManager,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment environment)
         {
             this.suplementsService = suplementsService;
             this.userManager = userManager;
-            this.webHostEnvironment = webHostEnvironment;
+            this.environment = environment;
         }
 
         [Authorize]
@@ -58,30 +59,23 @@
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Add(SuplementInputModel model)
         {
-            if (!model.Image.FileName.EndsWith(".jpg"))
-            {
-                this.ModelState.AddModelError("Image", "Invalid file type.");
-            }
-
-            var allSuplements = this.suplementsService.GetAllSuplements<SuplementViewModel>().ToList();
-
-            if (allSuplements.Any(x => x.Name == model.Name))
-            {
-                this.ModelState.AddModelError("Name", $"Name '{model.Name}' has already been taken.");
-            }
-
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            using (FileStream fs = new FileStream(
-                this.webHostEnvironment.WebRootPath + $"/suplementsImages/{model.Name}.jpg", FileMode.Create))
+            var appUser = await this.userManager.GetUserAsync(this.User);
+
+            try
             {
-                await model.Image.CopyToAsync(fs);
+                await this.suplementsService.AddSuplementAsync(model, appUser.Id, $"{this.environment.WebRootPath}/images");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.View(model);
             }
 
-            await this.suplementsService.AddSuplementAsync(model);
             var page = 1;
 
             return this.RedirectToAction("Index", new { page });
@@ -96,25 +90,22 @@
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int suplementId, int page, SuplementInputModel model)
         {
-            if (!model.Image.FileName.EndsWith(".jpg"))
-            {
-                this.ModelState.AddModelError("Image", "Invalid file type.");
-            }
-
-            var allSuplements = this.suplementsService.GetAllSuplements<SuplementViewModel>().ToList();
-
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            using (FileStream fs = new FileStream(
-                this.webHostEnvironment.WebRootPath + $"/suplementsImages/{model.Name}.jpg", FileMode.Create))
-            {
-                await model.Image.CopyToAsync(fs);
-            }
+            var appUser = await this.userManager.GetUserAsync(this.User);
 
-            await this.suplementsService.EditSuplement(suplementId, model);
+            try
+            {
+                await this.suplementsService.EditSuplement(model, suplementId, appUser.Id, $"{this.environment.WebRootPath}/images");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError(string.Empty, ex.Message);
+                return this.View(model);
+            }
 
             return this.RedirectToAction("Index", new { page });
         }

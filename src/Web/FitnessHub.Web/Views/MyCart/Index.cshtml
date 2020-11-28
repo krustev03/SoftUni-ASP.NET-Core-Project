@@ -4,64 +4,6 @@
     this.ViewData["Title"] = "My Cart";
 }
 
-@*<main>
-        <h1 class="display-2 main__heading"><b>My Cart</b></h1>
-        <div class="services__content container d-flex flex-column">
-            <div class="services__model text-center row">
-                <div class="col"></div>
-                <h4 class="col">Name:</h4>
-                <h4 class="col">Quantity:</h4>
-                <h4 class="col">Price:</h4>
-                <div class="col"></div>
-            </div>
-            @foreach (var equipment in Model.Equipments.OrderBy(x => x.Name))
-            {
-                <div class="entity text-center row align-items-center item__image__container align-self-center">
-                    <div class="col">
-                        <img src="@Url.Content(equipment.ImageUrl)" class="w-100 h-100">
-                    </div>
-                    <h4 class="col">@equipment.Name</h4>
-                    <h4 class="col">@equipment.Quantity</h4>
-                    <h4 class="col">@equipment.Price lv.</h4>
-                    <div class="col">
-                        <form method="post" asp-controller="MyCart" asp-action="RemoveEquipmentFromCart" asp-route-id="@equipment.Id">
-                            <input type="submit" value="Remove" class="btn btn-outline-danger" />
-                        </form>
-                    </div>
-                </div>
-            }
-            @foreach (var suplement in Model.Suplements.OrderBy(x => x.Name))
-            {
-                <div class="entity text-center row align-items-center item__image__container align-self-center">
-                    <div class="col">
-                        <img src="@Url.Content(suplement.ImageUrl)" class="w-100 h-100">
-                    </div>
-                    <h4 class="col">@suplement.Name</h4>
-                    <h4 class="col">@suplement.Quantity</h4>
-                    <h4 class="col">@suplement.Price lv.</h4>
-                    <div class="col">
-                        <form method="post" asp-controller="MyCart" asp-action="RemoveSuplementFromCart" asp-route-id="@suplement.Id">
-                            <input type="submit" value="Remove" class="btn btn-outline-danger" />
-                        </form>
-                    </div>
-                </div>
-            }
-            <div class="entity proceed__container text-center row align-items-center item__image__container align-self-center">
-                <div class="col proceed__link">
-                    <a class="btn btn-primary" role="button" asp-area="" asp-controller="MyCart" asp-action="GoToHome">Go to home</a>
-                </div>
-                <h4 class="col"></h4>
-                <h2 class="col">Total: @Model.TotalPrice lv.</h2>
-                @if(Model.TotalPrice > 0)
-                {
-                    <div class="col proceed__link">
-                    <a class="btn btn-primary" role="button" href="/Orders/CardDetails?price=@Model.TotalPrice">Proceed to chechkout</a>
-                </div>
-                }
-            </div>
-        </div>
-    </main>*@
-
 <section class="breadcrumb-section set-bg" data-setbg="img/mycart-banner.jpg">
     <div class="container">
         <div class="row">
@@ -82,7 +24,7 @@
                 <div class="container-fluid">
                     <div class="row text-center">
                         <div class="col-lg-6 p-0">
-                            <div class="about-video set-bg" data-setbg="img/about-us.jpg">
+                            <div class="about-video">
                                 <img src="@Url.Content(equipment.ImageUrl)" class="w-100 h-100">
                             </div>
                         </div>
@@ -122,7 +64,7 @@
                 <div class="container-fluid">
                     <div class="row text-center">
                         <div class="col-lg-6 p-0">
-                            <div class="about-video set-bg" data-setbg="img/about-us.jpg">
+                            <div class="about-video">
                                 <img src="@Url.Content(suplement.ImageUrl)" class="w-100 h-100">
                             </div>
                         </div>
