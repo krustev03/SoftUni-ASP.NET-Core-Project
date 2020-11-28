@@ -11,7 +11,6 @@
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Mapping;
     using FitnessHub.Web.ViewModels.Equipments;
-    using Microsoft.AspNetCore.Identity;
 
     public class EquipmentsService : IEquipmentsService
     {
@@ -91,6 +90,8 @@
 
             this.equipmentsRepository.Update(equipment);
             await this.equipmentsRepository.SaveChangesAsync();
+            this.imagesRepository.Update(image);
+            await this.imagesRepository.SaveChangesAsync();
         }
 
         public IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
@@ -123,6 +124,13 @@
         {
             var equipment = this.equipmentsRepository.All().Where(x => x.Id == id).FirstOrDefault();
             this.equipmentsRepository.Delete(equipment);
+            var equipmentsInCart = this.userEquipmentRepository.All().Where(x => x.EquipmentId == id).ToList();
+            foreach (var item in equipmentsInCart)
+            {
+                this.userEquipmentRepository.Delete(item);
+            }
+
+            await this.userEquipmentRepository.SaveChangesAsync();
             await this.equipmentsRepository.SaveChangesAsync();
         }
 

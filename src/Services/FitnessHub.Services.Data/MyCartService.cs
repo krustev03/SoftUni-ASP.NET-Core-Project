@@ -35,6 +35,7 @@
             foreach (var item in equipments)
             {
                 var equipment = this.GetEquipmentById<EquipmentCartViewModel>(item.EquipmentId);
+                equipment.Quantity = item.Quantity;
                 equipmentsAsList.Add(equipment);
             }
 
@@ -48,6 +49,7 @@
             foreach (var item in suplements)
             {
                 var suplement = this.GetSuplementById<SuplementCartViewModel>(item.SuplementId);
+                suplement.Quantity = item.Quantity;
                 suplementsAsList.Add(suplement);
             }
 

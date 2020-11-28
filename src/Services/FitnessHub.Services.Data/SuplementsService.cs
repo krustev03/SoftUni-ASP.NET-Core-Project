@@ -81,11 +81,18 @@
                 throw new Exception($"Invalid image extension {extension}");
             }
 
-            var image = this.imagesRepository.All().Where(x => x.SuplementId == suplement.Id).FirstOrDefault();
-            image.AddedByUserId = userId;
-            image.Extension = extension;
+            var dbImage = new Image
+            {
+                AddedByUserId = userId,
+                Extension = extension,
+            };
 
-            suplement.Image = image;
+            var image = this.imagesRepository.All().Where(x => x.SuplementId == suplement.Id).FirstOrDefault();
+            image.SuplementId = null;
+
+            suplement.ImageId = dbImage.Id;
+            suplement.Image = dbImage;
+            suplement.Image.SuplementId = suplement.Id;
 
             var physicalPath = $"{imagePath}/suplements/{suplement.Image.Id}.{extension}";
             using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
@@ -125,6 +132,13 @@
         {
             var suplement = this.suplementsRepository.All().Where(x => x.Id == id).FirstOrDefault();
             this.suplementsRepository.Delete(suplement);
+            var suplementsInCart = this.userSuplementRepository.All().Where(x => x.SuplementId == id).ToList();
+            foreach (var item in suplementsInCart)
+            {
+                this.userSuplementRepository.Delete(item);
+            }
+
+            await this.userSuplementRepository.SaveChangesAsync();
             await this.suplementsRepository.SaveChangesAsync();
         }
 
