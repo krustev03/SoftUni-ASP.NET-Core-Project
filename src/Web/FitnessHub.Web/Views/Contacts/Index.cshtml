@@ -1,4 +1,5 @@
-﻿@model FitnessHub.Web.ViewModels.Contacts.ContactsInputModel
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@model FitnessHub.Web.ViewModels.Contacts.ContactsInputModel
 
 @{
     this.ViewData["Title"] = "Contact Us";
@@ -61,14 +62,44 @@
                             <textarea asp-for="@Model.Message" type="textarea" placeholder="Message"></textarea>
                             <span asp-validation-for="@Model.Message" class="text-danger"></span>
                         </div>
+                        <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
                         <button type="submit" id="submit">Submit</button>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="map">
+        <div id="mapdiv"></div>
+        @*<div class="map">
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d5315.112345837007!2d23.228234186403547!3d43.41704038489523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sbg!2sbg!4v1606250818672!5m2!1sbg!2sbg"
                     height="550" style="border:0;" allowfullscreen=""></iframe>
-        </div>
+        </div>*@
     </div>
 </section>
+
+@section Scripts
+{
+    <script src="https://openlayers.org/api/OpenLayers.js"></script>
+    <script>
+        map = new OpenLayers.Map("mapdiv");
+        map.addLayer(new OpenLayers.Layer.OSM());
+        var lonLat = new OpenLayers.LonLat(23.226347, 43.409676)
+            .transform(
+                new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+                map.getProjectionObject() // to Spherical Mercator Projection
+            );
+        var zoom = 14;
+        var markers = new OpenLayers.Layer.Markers("Markers");
+        map.addLayer(markers);
+        markers.addMarker(new OpenLayers.Marker(lonLat));
+        map.setCenter(lonLat, zoom);
+    </script>
+
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:Key"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:Key"]', { action: 'contact_form' }).then(function (token) {
+                document.getElementById("RecaptchaValue").value = token;
+            });
+        });
+    </script>
+}

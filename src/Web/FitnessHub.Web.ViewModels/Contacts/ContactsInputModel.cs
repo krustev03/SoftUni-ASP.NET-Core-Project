@@ -2,6 +2,8 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using FitnessHub.Web.Infrastructure;
+
     using static FitnessHub.Common.GlobalConstants;
 
     public class ContactsInputModel
@@ -26,5 +28,8 @@
             ErrorMessage = "The username must be between 3 and 45 characters.",
             MinimumLength = 5)]
         public string Message { get; set; }
+
+        [GoogleReCaptchaValidation]
+        public string RecaptchaValue { get; set; }
     }
 }
