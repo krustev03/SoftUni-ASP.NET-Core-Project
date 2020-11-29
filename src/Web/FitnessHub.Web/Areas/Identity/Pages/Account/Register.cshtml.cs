@@ -10,6 +10,7 @@
 
     using FitnessHub.Data.Common.Repositories;
     using FitnessHub.Data.Models;
+    using FitnessHub.Web.Enums;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -18,6 +19,8 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
     using Microsoft.Extensions.Logging;
+
+    using static FitnessHub.Common.GlobalConstants;
 
     [AllowAnonymous]
     public class RegisterModel : PageModel
@@ -75,6 +78,10 @@
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Display(Name = "Choose your account purpose")]
+            [EnumDataType(typeof(Role))]
+            public Role RoleTypes { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -100,6 +107,13 @@
                 }
 
                 var result = await this._userManager.CreateAsync(user, this.Input.Password);
+                string role = this.Input.RoleTypes.ToString();
+
+                if (role == "Trainer")
+                {
+                    await _userManager.AddToRoleAsync(user, TrainerRoleName);
+                }
+
                 if (result.Succeeded)
                 {
                     this._logger.LogInformation("User created a new account with password.");
