@@ -1,23 +1,22 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
-    using System;
     using System.Threading.Tasks;
 
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Data;
-    using FitnessHub.Web.ViewModels.Services;
+    using FitnessHub.Web.ViewModels.TrainerPosts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-    public class ServicesController : BaseController
+    public class TrainerPostsController : Controller
     {
-        private readonly IServicesService servicesService;
+        private readonly ITrainerPostsService trainerPostsService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public ServicesController(IServicesService servicesService, UserManager<ApplicationUser> userManager)
+        public TrainerPostsController(ITrainerPostsService trainerPostsService, UserManager<ApplicationUser> userManager)
         {
-            this.servicesService = servicesService;
+            this.trainerPostsService = trainerPostsService;
             this.userManager = userManager;
         }
 
@@ -30,25 +29,25 @@
             }
 
             const int ItemsPerPage = 3;
-            var viewModel = new ServicesIndexViewModel
+            var viewModel = new TrainerPostsIndexViewModel
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = page,
-                ItemsCount = this.servicesService.GetCount(),
-                Services = this.servicesService.GetAllForPaging<ServiceViewModel>(page, ItemsPerPage),
+                ItemsCount = this.trainerPostsService.GetCount(),
+                TrainerPosts = this.trainerPostsService.GetAllForPaging<TrainerPostViewModel>(page, ItemsPerPage),
             };
             return this.View(viewModel);
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, Trainer")]
         public IActionResult Add()
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Add(ServiceInputModel model)
+        [Authorize(Roles = "Administrator, Trainer")]
+        public async Task<IActionResult> Add(TrainerPostInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -57,38 +56,38 @@
 
             var appUser = await this.userManager.GetUserAsync(this.User);
 
-            await this.servicesService.AddServiceAsync(model, appUser);
+            await this.trainerPostsService.AddPostAsync(model, appUser);
 
             var page = 1;
 
             return this.RedirectToAction("Index", new { page });
         }
 
-        [Authorize(Roles = "Administrator")]
-        public IActionResult Edit(int serviceId)
+        [Authorize(Roles = "Administrator, Trainer")]
+        public IActionResult Edit(int trainerPostId)
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Edit(int serviceId, int page, ServiceInputModel model)
+        [Authorize(Roles = "Administrator, Trainer")]
+        public async Task<IActionResult> Edit(int trainerPostId, int page, TrainerPostInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            await this.servicesService.EditService(serviceId, model);
+            await this.trainerPostsService.EditPost(trainerPostId, model);
 
             return this.RedirectToAction("Index", new { page });
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Delete(int serviceId, int page)
+        [Authorize(Roles = "Administrator, Trainer")]
+        public async Task<IActionResult> Delete(int trainerPostId, int page)
         {
-            await this.servicesService.DeleteServiceByIdAsync(serviceId);
+            await this.trainerPostsService.DeletePostByIdAsync(trainerPostId);
 
             return this.RedirectToAction("Index", new { page });
         }

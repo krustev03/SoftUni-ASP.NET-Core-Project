@@ -1,8 +1,8 @@
-﻿@model FitnessHub.Web.ViewModels.Services.ServiceInputModel
+﻿@model FitnessHub.Web.ViewModels.TrainerPosts.TrainerPostInputModel
 
 @{
-    this.ViewData["Title"] = "Edit Service";
-    int serviceId = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["serviceId"]);
+    this.ViewData["Title"] = "Edit Post";
+    int trainerPostId = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["trainerPostId"]);
     int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
 }
 
@@ -11,15 +11,15 @@
         <div class="row">
             <div class="col-lg-6 form-section text-center">
                 <div class="leave-comment">
-                    <h2 class="text-white form-heading-2">Edit Service</h2>
-                    <form method="post" asp-action="Edit" asp-route-serviceId="@serviceId" asp-route-page="@pageNum" asp-controller="Services">
+                    <h2 class="text-white form-heading-2">Edit Post</h2>
+                    <form method="post" asp-action="Edit" asp-route-trainerPostId="@trainerPostId" asp-route-page="@pageNum" asp-controller="TrainerPosts">
                         <div>
-                            <input asp-for="@Model.Name" type="text" placeholder="Name" required>
-                            <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                            <input asp-for="@Model.FirstName" type="text" placeholder="First Name" required>
+                            <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
                         </div>
                         <div>
-                            <input asp-for="@Model.Price" type="number" placeholder="Price" />
-                            <span asp-validation-for="@Model.Price" class="text-danger"></span>
+                            <input asp-for="@Model.LastName" type="text" placeholder="Last Name" required>
+                            <span asp-validation-for="@Model.LastName" class="text-danger"></span>
                         </div>
                         <div>
                             <textarea asp-for="@Model.Description" type="textarea" placeholder="Description"></textarea>

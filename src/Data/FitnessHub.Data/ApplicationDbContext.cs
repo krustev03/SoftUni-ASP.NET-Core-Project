@@ -28,6 +28,8 @@
 
         public DbSet<Service> Services { get; set; }
 
+        public DbSet<TrainerPost> TrainerPost { get; set; }
+
         public DbSet<Suplement> Suplements { get; set; }
 
         public DbSet<Equipment> Equipments { get; set; }

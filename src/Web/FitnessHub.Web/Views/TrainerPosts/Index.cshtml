@@ -1,0 +1,89 @@
+﻿@model FitnessHub.Web.ViewModels.TrainerPosts.TrainerPostsIndexViewModel
+
+@{
+    this.ViewData["Title"] = "Trainers";
+    int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
+}
+
+<section class="breadcrumb-section set-bg" data-setbg="img/trainers-banner.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb-text">
+                    <h2>Trainers</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="contact-section spad items-section">
+    @if (Model.PagesCount == 0)
+    {
+        <h3 class="display-4 text-white text-center m-5"><b>No Trainer Posts Availabe</b></h3>
+    }
+    else if (Model.PagesCount < Model.PageNumber)
+    {
+        <h3 class="display-4 text-white text-center m-5"><b>No items in this page</b></h3>
+    }
+    else
+    {
+        <h3 class="display-4 text-white text-center m-5"><b>Page @Model.PageNumber of @Model.PagesCount</b></h3>
+    }
+    <div class="services__content container w-50 d-flex flex-column">
+        @foreach (var trainerPost in Model.TrainerPosts)
+        {
+            <section class="aboutus-section item-section">
+                <div class="container-fluid">
+                    <div class="row text-center">
+                        <div class="col-lg-12 p-0">
+                            <div class="about-text text-center shop-item-sizing d-flex flex-column justify-content-center">
+                                <div class="section-title text-center item-about">
+                                    <span>About</span>
+                                    <h2>@trainerPost.FirstName @trainerPost.LastName</h2>
+                                </div>
+                                <div class="at-desc item_description">
+                                    <p>
+                                        @trainerPost.Description
+                                    </p>
+                                </div>
+                                <div class="about-bar">
+                                    <div class="ab-item">
+                                        <h4 class="text-white">Phone Number: @trainerPost.Author.PhoneNumber</h4>
+                                    </div>
+                                    <div class="ab-item">
+                                        <h4 class="text-white">Posted: @trainerPost.CreatedOn.ToString("dd'/'MM'/'yyyy HH:mm")</h4>
+                                    </div>
+                                </div>
+                                @if (this.User.IsInRole("Administrator") || this.User.Identity.Name == trainerPost.Author.Id)
+                                {
+                                    <div class="leave-comment">
+                                        <form method="post" class="shop-item-button" asp-controller="TrainerPosts" asp-action="Delete" asp-route-trainerPostId="@trainerPost.Id" asp-route-page="@pageNum">
+                                            <button type="submit" id="submit">Delete</button>
+                                        </form>
+                                        <a class="shop-item-link" role="button" asp-area="" asp-controller="TrainerPosts" asp-action="Edit" asp-route-trainerPostId="@trainerPost.Id" asp-route-page="@pageNum"><b>Edit</b></a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    </div>
+    @if (this.User.IsInRole("Administrator") || this.User.IsInRole("Trainer"))
+    {
+        <div class="d-flex justify-content-around">
+            <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="Home" asp-action="GoToHome">Go to home</a>
+            <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="TrainerPosts" asp-action="Add">Add Post</a>
+        </div>
+    }
+    else 
+    {
+        <div class="d-flex justify-content-center">
+            <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="Home" asp-action="GoToHome">Go to home</a>
+        </div>
+    } 
+</section>
+
+<partial name="_PagingPartial" model="@Model" />
