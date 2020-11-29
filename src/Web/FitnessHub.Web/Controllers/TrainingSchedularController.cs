@@ -59,7 +59,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> AddTrainingProgram(AddTrainingProgramInputModel model)
+        public async Task<IActionResult> AddTrainingProgram(TrainingProgramInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -91,7 +91,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> ChangeProgramName(int programId, int page, AddTrainingProgramInputModel model)
+        public async Task<IActionResult> ChangeProgramName(int programId, int page, TrainingProgramInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -138,7 +138,7 @@
         [Authorize]
         public IActionResult AddExercise(int programId, int trainingId, int page)
         {
-            var viewModel = new AddExerciseInputModel
+            var viewModel = new ExerciseInputModel
             {
                 MuscleGroupsItems = this.muscleGroupsService.GetAllAsKeyValuePairs(),
             };
@@ -147,7 +147,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> AddExercise(int programId, int trainingId, int page, AddExerciseInputModel model)
+        public async Task<IActionResult> AddExercise(int programId, int trainingId, int page, ExerciseInputModel model)
         {
             await this.trainingsService.AddExerciseToTrainingAsync(trainingId, model);
 
@@ -157,7 +157,7 @@
         [Authorize]
         public IActionResult EditExercise(int programId, int trainingId, int exerciseId, int page)
         {
-            var viewModel = new AddExerciseInputModel
+            var viewModel = new ExerciseInputModel
             {
                 MuscleGroupsItems = this.muscleGroupsService.GetAllAsKeyValuePairs(),
             };
@@ -166,7 +166,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> EditExercise(int programId, int trainingId, int exerciseId, int page, AddExerciseInputModel model)
+        public async Task<IActionResult> EditExercise(int programId, int trainingId, int exerciseId, int page, ExerciseInputModel model)
         {
             if (!this.ModelState.IsValid)
             {

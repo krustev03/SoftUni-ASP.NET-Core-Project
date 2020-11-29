@@ -1,6 +1,5 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
-    using System.Linq;
     using System.Threading.Tasks;
 
     using FitnessHub.Data.Models;
@@ -14,20 +13,17 @@
     public class OrdersController : Controller
     {
         private readonly IMailService mailService;
-        private readonly IEmailSender emailSender;
         private readonly IOrdersService ordersService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public OrdersController(
             IMailService mailService,
             UserManager<ApplicationUser> userManager,
-            IOrdersService ordersService,
-            IEmailSender emailSender)
+            IOrdersService ordersService)
         {
             this.mailService = mailService;
             this.userManager = userManager;
             this.ordersService = ordersService;
-            this.emailSender = emailSender;
         }
 
         [Authorize]
@@ -38,7 +34,7 @@
 
         [HttpPost]
         [Authorize]
-        public IActionResult CardDetails(decimal price, CreditCardInputValidationModel model)
+        public IActionResult CardDetails(decimal price, CardValidationModel model)
         {
             if (!this.ModelState.IsValid)
             {

@@ -3,19 +3,21 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class AddExerciseInputModel
+    using static FitnessHub.Common.GlobalConstants;
+
+    public class ExerciseInputModel
     {
         [Required]
-        [MinLength(2, ErrorMessage = "The name must be at least 2 characters")]
-        [MaxLength(30)]
+        [MinLength(ExerciseNameMinLength, ErrorMessage = "The name must be at least 2 characters")]
+        [MaxLength(ExerciseNameMaxLength)]
         public string Name { get; set; }
 
         [Required]
-        [Range(1, 30, ErrorMessage = "The sets should be between 1 and 30")]
+        [Range(ExerciseSetsMinLength, ExerciseSetsMaxLength, ErrorMessage = "The sets should be between 1 and 30")]
         public int Sets { get; set; }
 
         [Required]
-        [Range(1, 100, ErrorMessage = "The reps should be between 1 and 100")]
+        [Range(ExerciseRepsMinLength, ExerciseRepsMaxLength, ErrorMessage = "The reps should be between 1 and 100")]
         public int Reps { get; set; }
 
         public int MuscleGroupId { get; set; }

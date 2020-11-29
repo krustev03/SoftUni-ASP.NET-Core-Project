@@ -8,9 +8,9 @@
 
     public interface ITrainingProgramsService
     {
-        public Task AddTrainingProgramAsync(AddTrainingProgramInputModel programModel, ApplicationUser appUser);
+        public Task AddTrainingProgramAsync(TrainingProgramInputModel programModel, ApplicationUser appUser);
 
-        public Task ChangeName(int id, AddTrainingProgramInputModel model);
+        public Task ChangeName(int id, TrainingProgramInputModel model);
 
         public IEnumerable<T> GetAllForPaging<T>(int page, string userId, int itemsPerPage);
 

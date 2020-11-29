@@ -18,7 +18,7 @@
             this.newsRepository = newsRepository;
         }
 
-        public async Task AddNewsAsync(AddNewsInputModel serviceInputModel)
+        public async Task AddNewsAsync(NewsInputModel serviceInputModel)
         {
             var news = new News()
             {
@@ -30,7 +30,7 @@
             await this.newsRepository.SaveChangesAsync();
         }
 
-        public async Task EditNews(int newsId, AddNewsInputModel model)
+        public async Task EditNews(int newsId, NewsInputModel model)
         {
             var news = this.newsRepository.All().Where(x => x.Id == newsId).FirstOrDefault();
 

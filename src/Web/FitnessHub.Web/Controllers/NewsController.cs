@@ -43,7 +43,7 @@
 
         [HttpPost]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Add(AddNewsInputModel model)
+        public async Task<IActionResult> Add(NewsInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -65,7 +65,7 @@
 
         [HttpPost]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Edit(int newsId, int page, AddNewsInputModel model)
+        public async Task<IActionResult> Edit(int newsId, int page, NewsInputModel model)
         {
             if (!this.ModelState.IsValid)
             {

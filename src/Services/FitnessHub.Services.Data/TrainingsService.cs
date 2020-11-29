@@ -47,7 +47,7 @@
             await this.trainingsRepository.SaveChangesAsync();
         }
 
-        public async Task AddExerciseToTrainingAsync(int trainingId, AddExerciseInputModel model)
+        public async Task AddExerciseToTrainingAsync(int trainingId, ExerciseInputModel model)
         {
             var exercise = new Exercise()
             {
@@ -66,7 +66,7 @@
             this.trainingsRepository.Update(training);
         }
 
-        public async Task EditExercise(int exerciseId, AddExerciseInputModel model)
+        public async Task EditExercise(int exerciseId, ExerciseInputModel model)
         {
             var exercise = this.exercisesRepository.All().Where(x => x.Id == exerciseId).FirstOrDefault();
 

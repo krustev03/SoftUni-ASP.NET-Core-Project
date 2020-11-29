@@ -10,9 +10,9 @@
     {
         [Required]
         [StringLength(
-            45,
+            ContactsNameInputMaxLength,
             ErrorMessage = "The username must be between 3 and 45 characters.",
-            MinimumLength = 3)]
+            MinimumLength = ContactsNameInputMinLength)]
         public string Name { get; set; }
 
         [Required]
@@ -26,7 +26,7 @@
         [StringLength(
             EmailMessageMaxLength,
             ErrorMessage = "The username must be between 3 and 45 characters.",
-            MinimumLength = 5)]
+            MinimumLength = EmailMessageMinLength)]
         public string Message { get; set; }
 
         [GoogleReCaptchaValidation]

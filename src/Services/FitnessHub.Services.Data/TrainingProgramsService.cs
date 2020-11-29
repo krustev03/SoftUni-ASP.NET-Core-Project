@@ -18,7 +18,7 @@
             this.trainingProgramsRepository = trainingProgramsRepository;
         }
 
-        public async Task AddTrainingProgramAsync(AddTrainingProgramInputModel programModel, ApplicationUser appUser)
+        public async Task AddTrainingProgramAsync(TrainingProgramInputModel programModel, ApplicationUser appUser)
         {
             var trainingProgram = new TrainingProgram()
             {
@@ -31,7 +31,7 @@
             await this.trainingProgramsRepository.SaveChangesAsync();
         }
 
-        public async Task ChangeName(int id, AddTrainingProgramInputModel model)
+        public async Task ChangeName(int id, TrainingProgramInputModel model)
         {
             var trainingProgram = this.trainingProgramsRepository.All().Where(x => x.Id == id).FirstOrDefault();
 

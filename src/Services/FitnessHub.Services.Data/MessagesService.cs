@@ -16,7 +16,7 @@
             this.messagesRepository = messagesRepository;
         }
 
-        public async Task AddMessageAsync(AddMessageInputModel inputModel, string authorId)
+        public async Task AddMessageAsync(MessageInputModel inputModel, string authorId)
         {
             var message = new Message()
             {

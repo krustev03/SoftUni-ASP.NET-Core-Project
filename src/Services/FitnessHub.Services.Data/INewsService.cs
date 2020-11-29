@@ -7,9 +7,9 @@
 
     public interface INewsService
     {
-        public Task AddNewsAsync(AddNewsInputModel serviceInputModel);
+        public Task AddNewsAsync(NewsInputModel serviceInputModel);
 
-        public Task EditNews(int newsId, AddNewsInputModel model);
+        public Task EditNews(int newsId, NewsInputModel model);
 
         public IEnumerable<T> GetAllNews<T>();
 

@@ -28,7 +28,7 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Index(AddMessageInputModel model)
+        public async Task<IActionResult> Index(MessageInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
