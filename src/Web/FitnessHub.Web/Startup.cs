@@ -86,7 +86,6 @@
 
             // Application services
             services.AddTransient<IEmailSender>(x => new SendGridEmailSender(SendGridKey));
-            services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ITrainerPostsService, TrainerPostsService>();
             services.AddTransient<ISuplementsService, SuplementsService>();
             services.AddTransient<IEquipmentsService, EquipmentsService>();

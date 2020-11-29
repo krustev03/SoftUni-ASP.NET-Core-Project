@@ -24,10 +24,6 @@
         {
         }
 
-        public DbSet<Setting> Settings { get; set; }
-
-        public DbSet<Service> Services { get; set; }
-
         public DbSet<TrainerPost> TrainerPost { get; set; }
 
         public DbSet<Suplement> Suplements { get; set; }

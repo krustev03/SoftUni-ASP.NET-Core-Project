@@ -25,10 +25,9 @@
 
             var seeders = new List<ISeeder>
                           {
-                              new AdminSeeder(),
                               new RolesSeeder(),
+                              new AdminSeeder(),
                               new MuscleGroupsSeeder(),
-                              new SettingsSeeder(),
                           };
 
             foreach (var seeder in seeders)
