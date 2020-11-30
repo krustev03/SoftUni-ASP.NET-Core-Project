@@ -5,7 +5,7 @@
     using FitnessHub.Data.Models;
     using FitnessHub.Web.ViewModels.Orders;
 
-    public interface IOrdersService
+    public interface IOrderService
     {
         public Task AddOrderAsync(OrderInputModel orderInputModel, string userId);
     }

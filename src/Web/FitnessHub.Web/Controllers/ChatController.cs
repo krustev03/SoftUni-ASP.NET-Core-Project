@@ -11,10 +11,10 @@
 
     public class ChatController : Controller
     {
-        private readonly IMessagesService messagesService;
+        private readonly IMessageService messagesService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public ChatController(IMessagesService messagesService, UserManager<ApplicationUser> userManager)
+        public ChatController(IMessageService messagesService, UserManager<ApplicationUser> userManager)
         {
             this.messagesService = messagesService;
             this.userManager = userManager;

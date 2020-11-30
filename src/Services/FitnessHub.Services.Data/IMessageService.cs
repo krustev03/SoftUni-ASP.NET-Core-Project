@@ -4,7 +4,7 @@
 
     using FitnessHub.Web.ViewModels.Chat;
 
-    public interface IMessagesService
+    public interface IMessageService
     {
         public Task AddMessageAsync(MessageInputModel inputModel, string authorId);
 

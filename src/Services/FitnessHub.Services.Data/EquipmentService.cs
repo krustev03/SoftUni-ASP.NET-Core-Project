@@ -12,7 +12,7 @@
     using FitnessHub.Services.Mapping;
     using FitnessHub.Web.ViewModels.Equipments;
 
-    public class EquipmentsService : IEquipmentsService
+    public class EquipmentService : IEquipmentService
     {
         private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif" };
         private readonly IDeletableEntityRepository<Equipment> equipmentsRepository;
@@ -20,7 +20,7 @@
         private readonly IRepository<UserEquipment> userEquipmentRepository;
         private readonly IRepository<Image> imagesRepository;
 
-        public EquipmentsService(
+        public EquipmentService(
             IDeletableEntityRepository<Equipment> equipmentsRepository,
             IDeletableEntityRepository<ApplicationUser> userRepository,
             IRepository<UserEquipment> userEquipmentRepository,

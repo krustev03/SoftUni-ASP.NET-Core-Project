@@ -13,7 +13,7 @@
     using FitnessHub.Web.ViewModels.Suplements;
     using Microsoft.AspNetCore.Identity;
 
-    public class SuplementsService : ISuplementsService
+    public class SuplementService : ISuplementService
     {
         private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif" };
         private readonly IDeletableEntityRepository<Suplement> suplementsRepository;
@@ -21,7 +21,7 @@
         private readonly IRepository<UserSuplement> userSuplementRepository;
         private readonly IRepository<Image> imagesRepository;
 
-        public SuplementsService(
+        public SuplementService(
             IDeletableEntityRepository<Suplement> suplementsRepository,
             IDeletableEntityRepository<ApplicationUser> userRepository,
             IRepository<UserSuplement> userSuplementRepository,

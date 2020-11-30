@@ -4,7 +4,7 @@
 
     using FitnessHub.Web.ViewModels.TrainingSchedular;
 
-    public interface ITrainingsService
+    public interface ITrainingService
     {
         public Task AddTrainingAsync(int programId, string dayOfWeek);
 

@@ -86,17 +86,17 @@
 
             // Application services
             services.AddTransient<IEmailSender>(x => new SendGridEmailSender(SendGridKey));
-            services.AddTransient<ITrainerPostsService, TrainerPostsService>();
-            services.AddTransient<ISuplementsService, SuplementsService>();
-            services.AddTransient<IEquipmentsService, EquipmentsService>();
-            services.AddTransient<IMessagesService, MessagesService>();
+            services.AddTransient<ITrainerPostService, TrainerPostService>();
+            services.AddTransient<ISuplementService, SuplementService>();
+            services.AddTransient<IEquipmentService, EquipmentService>();
+            services.AddTransient<IMessageService, MessageService>();
             services.AddTransient<IMyCartService, MyCartService>();
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<IMailService, MailService>();
-            services.AddTransient<IOrdersService, OrdersService>();
-            services.AddTransient<ITrainingProgramsService, TrainingProgramsService>();
-            services.AddTransient<ITrainingsService, TrainingsService>();
-            services.AddTransient<IMuscleGroupsService, MuscleGroupsService>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<ITrainingProgramService, TrainingProgramService>();
+            services.AddTransient<ITrainingService, TrainingService>();
+            services.AddTransient<IMuscleGroupService, MuscleGroupService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

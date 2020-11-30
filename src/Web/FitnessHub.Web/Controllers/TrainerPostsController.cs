@@ -11,10 +11,10 @@
 
     public class TrainerPostsController : Controller
     {
-        private readonly ITrainerPostsService trainerPostsService;
+        private readonly ITrainerPostService trainerPostsService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public TrainerPostsController(ITrainerPostsService trainerPostsService, UserManager<ApplicationUser> userManager)
+        public TrainerPostsController(ITrainerPostService trainerPostsService, UserManager<ApplicationUser> userManager)
         {
             this.trainerPostsService = trainerPostsService;
             this.userManager = userManager;

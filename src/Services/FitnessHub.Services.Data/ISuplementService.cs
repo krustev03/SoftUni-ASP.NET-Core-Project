@@ -6,7 +6,7 @@
     using FitnessHub.Data.Models;
     using FitnessHub.Web.ViewModels.Suplements;
 
-    public interface ISuplementsService
+    public interface ISuplementService
     {
         public IEnumerable<T> GetAllSuplements<T>();
 

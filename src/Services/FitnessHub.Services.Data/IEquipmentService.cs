@@ -6,7 +6,7 @@
     using FitnessHub.Data.Models;
     using FitnessHub.Web.ViewModels.Equipments;
 
-    public interface IEquipmentsService
+    public interface IEquipmentService
     {
         public IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage);
 

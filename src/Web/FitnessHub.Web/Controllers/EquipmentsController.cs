@@ -15,12 +15,12 @@
 
     public class EquipmentsController : BaseController
     {
-        private readonly IEquipmentsService equipmentsService;
+        private readonly IEquipmentService equipmentsService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment environment;
 
         public EquipmentsController(
-            IEquipmentsService equipmentsService,
+            IEquipmentService equipmentsService,
             UserManager<ApplicationUser> userManager,
             IWebHostEnvironment environment)
         {

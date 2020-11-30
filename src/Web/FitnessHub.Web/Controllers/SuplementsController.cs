@@ -15,12 +15,12 @@
 
     public class SuplementsController : BaseController
     {
-        private readonly ISuplementsService suplementsService;
+        private readonly ISuplementService suplementsService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment environment;
 
         public SuplementsController(
-            ISuplementsService suplementsService,
+            ISuplementService suplementsService,
             UserManager<ApplicationUser> userManager,
             IWebHostEnvironment environment)
         {

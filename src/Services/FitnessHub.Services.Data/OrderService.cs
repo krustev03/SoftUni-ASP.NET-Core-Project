@@ -8,7 +8,7 @@
     using FitnessHub.Data.Models;
     using FitnessHub.Web.ViewModels.Orders;
 
-    public class OrdersService : IOrdersService
+    public class OrderService : IOrderService
     {
         private readonly IDeletableEntityRepository<Order> ordersRepository;
         private readonly IRepository<UserEquipment> userEquipmentRepository;
@@ -19,7 +19,7 @@
         private readonly IDeletableEntityRepository<Suplement> suplementsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
 
-        public OrdersService(
+        public OrderService(
             IDeletableEntityRepository<Order> ordersRepository,
             IRepository<UserEquipment> userEquipmentRepository,
             IRepository<UserSuplement> userSuplementRepository,

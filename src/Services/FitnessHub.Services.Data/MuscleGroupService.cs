@@ -6,11 +6,11 @@
     using FitnessHub.Data.Common.Repositories;
     using FitnessHub.Data.Models;
 
-    public class MuscleGroupsService : IMuscleGroupsService
+    public class MuscleGroupService : IMuscleGroupService
     {
         private readonly IRepository<MuscleGroup> muscleGroupsRepository;
 
-        public MuscleGroupsService(IRepository<MuscleGroup> muscleGroupsRepository)
+        public MuscleGroupService(IRepository<MuscleGroup> muscleGroupsRepository)
         {
             this.muscleGroupsRepository = muscleGroupsRepository;
         }

@@ -6,7 +6,7 @@
     using FitnessHub.Data.Models;
     using FitnessHub.Web.ViewModels.TrainingSchedular;
 
-    public interface ITrainingProgramsService
+    public interface ITrainingProgramService
     {
         public Task AddTrainingProgramAsync(TrainingProgramInputModel programModel, ApplicationUser appUser);
 

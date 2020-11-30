@@ -7,11 +7,11 @@
     using FitnessHub.Data.Models;
     using FitnessHub.Web.ViewModels.Chat;
 
-    public class MessagesService : IMessagesService
+    public class MessageService : IMessageService
     {
         private readonly IDeletableEntityRepository<Message> messagesRepository;
 
-        public MessagesService(IDeletableEntityRepository<Message> messagesRepository)
+        public MessageService(IDeletableEntityRepository<Message> messagesRepository)
         {
             this.messagesRepository = messagesRepository;
         }

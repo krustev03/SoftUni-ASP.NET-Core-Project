@@ -12,15 +12,15 @@
 
     public class TrainingSchedularController : Controller
     {
-        private readonly ITrainingProgramsService trainingProgramsService;
-        private readonly ITrainingsService trainingsService;
-        private readonly IMuscleGroupsService muscleGroupsService;
+        private readonly ITrainingProgramService trainingProgramsService;
+        private readonly ITrainingService trainingsService;
+        private readonly IMuscleGroupService muscleGroupsService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public TrainingSchedularController(
-            ITrainingProgramsService trainingProgramsService,
-            ITrainingsService trainingsService,
-            IMuscleGroupsService muscleGroupsService,
+            ITrainingProgramService trainingProgramsService,
+            ITrainingService trainingsService,
+            IMuscleGroupService muscleGroupsService,
             UserManager<ApplicationUser> userManager)
         {
             this.trainingProgramsService = trainingProgramsService;

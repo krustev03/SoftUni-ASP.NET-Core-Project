@@ -8,12 +8,12 @@
     using FitnessHub.Services.Mapping;
     using FitnessHub.Web.ViewModels.TrainingSchedular;
 
-    public class TrainingsService : ITrainingsService
+    public class TrainingService : ITrainingService
     {
         private readonly IDeletableEntityRepository<Training> trainingsRepository;
         private readonly IRepository<Exercise> exercisesRepository;
 
-        public TrainingsService(
+        public TrainingService(
             IDeletableEntityRepository<Training> trainingsRepository,
             IRepository<Exercise> exercisesRepository)
         {

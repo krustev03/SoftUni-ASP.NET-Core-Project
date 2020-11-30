@@ -13,13 +13,13 @@
     public class OrdersController : Controller
     {
         private readonly IMailService mailService;
-        private readonly IOrdersService ordersService;
+        private readonly IOrderService ordersService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public OrdersController(
             IMailService mailService,
             UserManager<ApplicationUser> userManager,
-            IOrdersService ordersService)
+            IOrderService ordersService)
         {
             this.mailService = mailService;
             this.userManager = userManager;

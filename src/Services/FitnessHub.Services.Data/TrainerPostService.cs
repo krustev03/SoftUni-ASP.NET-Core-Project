@@ -10,11 +10,11 @@
     using FitnessHub.Services.Mapping;
     using FitnessHub.Web.ViewModels.TrainerPosts;
 
-    public class TrainerPostsService : ITrainerPostsService
+    public class TrainerPostService : ITrainerPostService
     {
         private readonly IDeletableEntityRepository<TrainerPost> trainerPostsRepository;
 
-        public TrainerPostsService(
+        public TrainerPostService(
             IDeletableEntityRepository<TrainerPost> trainerPostsRepository)
         {
             this.trainerPostsRepository = trainerPostsRepository;
