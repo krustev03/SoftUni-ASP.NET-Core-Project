@@ -13,17 +13,17 @@
     public class OrdersController : Controller
     {
         private readonly IMailService mailService;
-        private readonly IOrderService ordersService;
+        private readonly IOrderService orderService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public OrdersController(
             IMailService mailService,
             UserManager<ApplicationUser> userManager,
-            IOrderService ordersService)
+            IOrderService orderService)
         {
             this.mailService = mailService;
             this.userManager = userManager;
-            this.ordersService = ordersService;
+            this.orderService = orderService;
         }
 
         [Authorize]
@@ -60,7 +60,7 @@
 
             var appUser = await this.userManager.GetUserAsync(this.User);
 
-            await this.ordersService.AddOrderAsync(model, appUser.Id);
+            await this.orderService.AddOrderAsync(model, appUser.Id);
             await this.mailService.SendEmailAsync(appUser);
             await this.userManager.UpdateAsync(appUser);
 

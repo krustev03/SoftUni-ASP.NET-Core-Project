@@ -1,8 +1,6 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
     using System;
-    using System.IO;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using FitnessHub.Data.Models;
@@ -15,16 +13,16 @@
 
     public class SuplementsController : BaseController
     {
-        private readonly ISuplementService suplementsService;
+        private readonly ISuplementService suplementService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment environment;
 
         public SuplementsController(
-            ISuplementService suplementsService,
+            ISuplementService suplementService,
             UserManager<ApplicationUser> userManager,
             IWebHostEnvironment environment)
         {
-            this.suplementsService = suplementsService;
+            this.suplementService = suplementService;
             this.userManager = userManager;
             this.environment = environment;
         }
@@ -42,8 +40,8 @@
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = page,
-                ItemsCount = this.suplementsService.GetCount(),
-                Suplements = this.suplementsService.GetAllForPaging<SuplementViewModel>(page, ItemsPerPage),
+                ItemsCount = this.suplementService.GetCount(),
+                Suplements = this.suplementService.GetAllForPaging<SuplementViewModel>(page, ItemsPerPage),
             };
 
             return this.View(viewModel);
@@ -68,7 +66,7 @@
 
             try
             {
-                await this.suplementsService.AddSuplementAsync(model, appUser.Id, $"{this.environment.WebRootPath}/images");
+                await this.suplementService.AddSuplementAsync(model, appUser.Id, $"{this.environment.WebRootPath}/images");
             }
             catch (Exception ex)
             {
@@ -99,7 +97,7 @@
 
             try
             {
-                await this.suplementsService.EditSuplement(model, suplementId, appUser.Id, $"{this.environment.WebRootPath}/images");
+                await this.suplementService.EditSuplement(model, suplementId, appUser.Id, $"{this.environment.WebRootPath}/images");
             }
             catch (Exception ex)
             {
@@ -111,24 +109,24 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Delete(int suplementId, int page)
-        {
-            await this.suplementsService.DeleteSuplementByIdAsync(suplementId);
-
-            return this.RedirectToAction("Index", new { page });
-        }
-
-        [HttpPost]
         [Authorize]
         public async Task<IActionResult> AddToCart(int suplementId, int page)
         {
             var user = await this.userManager.GetUserAsync(this.User);
             string userId = user.Id;
-            await this.suplementsService.AddSuplementToCart(suplementId, userId);
+            await this.suplementService.AddSuplementToCart(suplementId, userId);
             await this.userManager.UpdateAsync(user);
 
             return this.RedirectToAction(nameof(this.Index), new { page });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Delete(int suplementId, int page)
+        {
+            await this.suplementService.DeleteSuplementByIdAsync(suplementId);
+
+            return this.RedirectToAction("Index", new { page });
         }
     }
 }

@@ -11,12 +11,12 @@
 
     public class TrainerPostsController : Controller
     {
-        private readonly ITrainerPostService trainerPostsService;
+        private readonly ITrainerPostService trainerPostService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public TrainerPostsController(ITrainerPostService trainerPostsService, UserManager<ApplicationUser> userManager)
+        public TrainerPostsController(ITrainerPostService trainerPostService, UserManager<ApplicationUser> userManager)
         {
-            this.trainerPostsService = trainerPostsService;
+            this.trainerPostService = trainerPostService;
             this.userManager = userManager;
         }
 
@@ -33,8 +33,8 @@
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = page,
-                ItemsCount = this.trainerPostsService.GetCount(),
-                TrainerPosts = this.trainerPostsService.GetAllForPaging<TrainerPostViewModel>(page, ItemsPerPage),
+                ItemsCount = this.trainerPostService.GetCount(),
+                TrainerPosts = this.trainerPostService.GetAllForPaging<TrainerPostViewModel>(page, ItemsPerPage),
             };
             return this.View(viewModel);
         }
@@ -56,7 +56,7 @@
 
             var appUser = await this.userManager.GetUserAsync(this.User);
 
-            await this.trainerPostsService.AddPostAsync(model, appUser);
+            await this.trainerPostService.AddPostAsync(model, appUser);
 
             var page = 1;
 
@@ -78,7 +78,7 @@
                 return this.View(model);
             }
 
-            await this.trainerPostsService.EditPost(trainerPostId, model);
+            await this.trainerPostService.EditPost(trainerPostId, model);
 
             return this.RedirectToAction("Index", new { page });
         }
@@ -87,7 +87,7 @@
         [Authorize(Roles = "Administrator, Trainer")]
         public async Task<IActionResult> Delete(int trainerPostId, int page)
         {
-            await this.trainerPostsService.DeletePostByIdAsync(trainerPostId);
+            await this.trainerPostService.DeletePostByIdAsync(trainerPostId);
 
             return this.RedirectToAction("Index", new { page });
         }

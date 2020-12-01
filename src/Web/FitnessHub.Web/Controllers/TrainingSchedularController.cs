@@ -12,20 +12,20 @@
 
     public class TrainingSchedularController : Controller
     {
-        private readonly ITrainingProgramService trainingProgramsService;
-        private readonly ITrainingService trainingsService;
-        private readonly IMuscleGroupService muscleGroupsService;
+        private readonly ITrainingProgramService trainingProgramService;
+        private readonly ITrainingService trainingService;
+        private readonly IMuscleGroupService muscleGroupService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public TrainingSchedularController(
-            ITrainingProgramService trainingProgramsService,
-            ITrainingService trainingsService,
-            IMuscleGroupService muscleGroupsService,
+            ITrainingProgramService trainingProgramService,
+            ITrainingService trainingService,
+            IMuscleGroupService muscleGroupService,
             UserManager<ApplicationUser> userManager)
         {
-            this.trainingProgramsService = trainingProgramsService;
-            this.trainingsService = trainingsService;
-            this.muscleGroupsService = muscleGroupsService;
+            this.trainingProgramService = trainingProgramService;
+            this.trainingService = trainingService;
+            this.muscleGroupService = muscleGroupService;
             this.userManager = userManager;
         }
 
@@ -44,8 +44,8 @@
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = page,
-                ItemsCount = this.trainingProgramsService.GetCount(),
-                TrainingPrograms = this.trainingProgramsService.GetAllForPaging<TrainingProgramViewModel>(page, userId, ItemsPerPage),
+                ItemsCount = this.trainingProgramService.GetCount(),
+                TrainingPrograms = this.trainingProgramService.GetAllForPaging<TrainingProgramViewModel>(page, userId, ItemsPerPage),
             };
 
             return this.View(viewModel);
@@ -68,7 +68,7 @@
 
             var appUser = await this.userManager.GetUserAsync(this.User);
 
-            await this.trainingProgramsService.AddTrainingProgramAsync(model, appUser);
+            await this.trainingProgramService.AddTrainingProgramAsync(model, appUser);
             var page = 1;
 
             return this.RedirectToAction("Index", new { page });
@@ -78,7 +78,7 @@
         [Authorize]
         public async Task<IActionResult> DeleteProgram(int programId, int page)
         {
-            await this.trainingProgramsService.DeleteProgramByIdAsync(programId);
+            await this.trainingProgramService.DeleteProgramByIdAsync(programId);
 
             return this.RedirectToAction("Index", new { page });
         }
@@ -98,7 +98,7 @@
                 return this.View(model);
             }
 
-            await this.trainingProgramsService.ChangeName(programId, model);
+            await this.trainingProgramService.ChangeName(programId, model);
 
             return this.RedirectToAction("AllTrainings", new { programId, page });
         }
@@ -113,7 +113,7 @@
         [Authorize]
         public async Task<IActionResult> AddTraining(string dayOfWeek, int programId, int page)
         {
-            await this.trainingsService.AddTrainingAsync(programId, dayOfWeek);
+            await this.trainingService.AddTrainingAsync(programId, dayOfWeek);
 
             return this.RedirectToAction("AllTrainings", new { programId,  page });
         }
@@ -121,7 +121,7 @@
         [Authorize]
         public IActionResult TrainingDetails(int programId, int trainingId, int page)
         {
-            var trainingModel = this.trainingsService.GetTrainingDetails<TrainingDetailsViewModel>(trainingId);
+            var trainingModel = this.trainingService.GetTrainingDetails<TrainingDetailsViewModel>(trainingId);
 
             return this.View(trainingModel);
         }
@@ -130,7 +130,7 @@
         [Authorize]
         public async Task<IActionResult> DeleteTraining(int programId, int trainingId, int page)
         {
-            await this.trainingsService.DeleteTrainingByIdAsync(trainingId);
+            await this.trainingService.DeleteTrainingByIdAsync(trainingId);
 
             return this.RedirectToAction("AllTrainings", new { programId, page });
         }
@@ -140,7 +140,7 @@
         {
             var viewModel = new ExerciseInputModel
             {
-                MuscleGroupsItems = this.muscleGroupsService.GetAllAsKeyValuePairs(),
+                MuscleGroupsItems = this.muscleGroupService.GetAllAsKeyValuePairs(),
             };
             return this.View(viewModel);
         }
@@ -149,7 +149,7 @@
         [Authorize]
         public async Task<IActionResult> AddExercise(int programId, int trainingId, int page, ExerciseInputModel model)
         {
-            await this.trainingsService.AddExerciseToTrainingAsync(trainingId, model);
+            await this.trainingService.AddExerciseToTrainingAsync(trainingId, model);
 
             return this.RedirectToAction("TrainingDetails", new { programId, trainingId, page });
         }
@@ -159,7 +159,7 @@
         {
             var viewModel = new ExerciseInputModel
             {
-                MuscleGroupsItems = this.muscleGroupsService.GetAllAsKeyValuePairs(),
+                MuscleGroupsItems = this.muscleGroupService.GetAllAsKeyValuePairs(),
             };
             return this.View(viewModel);
         }
@@ -173,7 +173,7 @@
                 return this.View(model);
             }
 
-            await this.trainingsService.EditExercise(exerciseId, model);
+            await this.trainingService.EditExercise(exerciseId, model);
 
             return this.RedirectToAction("TrainingDetails", new { programId, trainingId, page });
         }
@@ -182,7 +182,7 @@
         [Authorize]
         public async Task<IActionResult> DeleteExercise(int programId, int trainingId, int exerciseId, int page)
         {
-            await this.trainingsService.DeleteExerciseByIdAsync(exerciseId);
+            await this.trainingService.DeleteExerciseByIdAsync(exerciseId);
 
             return this.RedirectToAction("TrainingDetails", new { programId, trainingId, page });
         }

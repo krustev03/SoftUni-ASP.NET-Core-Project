@@ -11,7 +11,6 @@
 
     public class AdminSeeder : ISeeder
     {
-
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();

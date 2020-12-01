@@ -15,16 +15,16 @@
 
     public class EquipmentsController : BaseController
     {
-        private readonly IEquipmentService equipmentsService;
+        private readonly IEquipmentService equipmentService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IWebHostEnvironment environment;
 
         public EquipmentsController(
-            IEquipmentService equipmentsService,
+            IEquipmentService equipmentService,
             UserManager<ApplicationUser> userManager,
             IWebHostEnvironment environment)
         {
-            this.equipmentsService = equipmentsService;
+            this.equipmentService = equipmentService;
             this.userManager = userManager;
             this.environment = environment;
         }
@@ -42,8 +42,8 @@
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = page,
-                ItemsCount = this.equipmentsService.GetCount(),
-                Equipments = this.equipmentsService.GetAllForPaging<EquipmentViewModel>(page, ItemsPerPage),
+                ItemsCount = this.equipmentService.GetCount(),
+                Equipments = this.equipmentService.GetAllForPaging<EquipmentViewModel>(page, ItemsPerPage),
             };
             return this.View(viewModel);
         }
@@ -67,7 +67,7 @@
 
             try
             {
-                await this.equipmentsService.AddEquipmentAsync(model, appUser.Id, $"{this.environment.WebRootPath}/images");
+                await this.equipmentService.AddEquipmentAsync(model, appUser.Id, $"{this.environment.WebRootPath}/images");
             }
             catch (Exception ex)
             {
@@ -99,7 +99,7 @@
 
             try
             {
-                await this.equipmentsService.EditEquipment(model, equipmentId, appUser.Id, $"{this.environment.WebRootPath}/images");
+                await this.equipmentService.EditEquipment(model, equipmentId, appUser.Id, $"{this.environment.WebRootPath}/images");
             }
             catch (Exception ex)
             {
@@ -111,24 +111,24 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Delete(int equipmentId, int page)
-        {
-            await this.equipmentsService.DeleteEquipmentByIdAsync(equipmentId);
-
-            return this.RedirectToAction("Index", new { page });
-        }
-
-        [HttpPost]
         [Authorize]
         public async Task<IActionResult> AddToCart(int equipmentId, int page)
         {
             var user = await this.userManager.GetUserAsync(this.User);
             string userId = user.Id;
-            await this.equipmentsService.AddEquipmentToCart(equipmentId, userId);
+            await this.equipmentService.AddEquipmentToCart(equipmentId, userId);
             await this.userManager.UpdateAsync(user);
 
             return this.RedirectToAction(nameof(this.Index), new { page });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Delete(int equipmentId, int page)
+        {
+            await this.equipmentService.DeleteEquipmentByIdAsync(equipmentId);
+
+            return this.RedirectToAction("Index", new { page });
         }
     }
 }

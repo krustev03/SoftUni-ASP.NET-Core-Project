@@ -108,32 +108,6 @@
             return this.equipmentsRepository.All().Count();
         }
 
-        public IEnumerable<T> GetAllEquipments<T>()
-        {
-            return this.equipmentsRepository.All().To<T>();
-        }
-
-        public T GetEquipmentDetails<T>(int id)
-        {
-            var equipment = this.equipmentsRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
-
-            return equipment;
-        }
-
-        public async Task DeleteEquipmentByIdAsync(int id)
-        {
-            var equipment = this.equipmentsRepository.All().Where(x => x.Id == id).FirstOrDefault();
-            this.equipmentsRepository.Delete(equipment);
-            var equipmentsInCart = this.userEquipmentRepository.All().Where(x => x.EquipmentId == id).ToList();
-            foreach (var item in equipmentsInCart)
-            {
-                this.userEquipmentRepository.Delete(item);
-            }
-
-            await this.userEquipmentRepository.SaveChangesAsync();
-            await this.equipmentsRepository.SaveChangesAsync();
-        }
-
         public async Task AddEquipmentToCart(int id, string userId)
         {
             var equipment = this.equipmentsRepository.All().Where(x => x.Id == id).FirstOrDefault();
@@ -157,6 +131,20 @@
                 this.userEquipmentRepository.Update(userEquipment);
                 await this.userEquipmentRepository.SaveChangesAsync();
             }
+        }
+
+        public async Task DeleteEquipmentByIdAsync(int id)
+        {
+            var equipment = this.equipmentsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            this.equipmentsRepository.Delete(equipment);
+            var equipmentsInCart = this.userEquipmentRepository.All().Where(x => x.EquipmentId == id).ToList();
+            foreach (var item in equipmentsInCart)
+            {
+                this.userEquipmentRepository.Delete(item);
+            }
+
+            await this.userEquipmentRepository.SaveChangesAsync();
+            await this.equipmentsRepository.SaveChangesAsync();
         }
     }
 }

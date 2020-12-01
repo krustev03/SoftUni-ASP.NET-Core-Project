@@ -11,12 +11,12 @@
 
     public class ChatController : Controller
     {
-        private readonly IMessageService messagesService;
+        private readonly IMessageService messageService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public ChatController(IMessageService messagesService, UserManager<ApplicationUser> userManager)
+        public ChatController(IMessageService messageService, UserManager<ApplicationUser> userManager)
         {
-            this.messagesService = messagesService;
+            this.messageService = messageService;
             this.userManager = userManager;
         }
 
@@ -37,7 +37,7 @@
 
             var appUser = await this.userManager.GetUserAsync(this.User);
 
-            await this.messagesService.AddMessageAsync(model, appUser.Id);
+            await this.messageService.AddMessageAsync(model, appUser.Id);
 
             return this.View();
         }
@@ -46,7 +46,7 @@
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int id)
         {
-            await this.messagesService.DeleteMessageByIdAsync(id);
+            await this.messageService.DeleteMessageByIdAsync(id);
 
             return this.RedirectToAction(nameof(this.Index));
         }
