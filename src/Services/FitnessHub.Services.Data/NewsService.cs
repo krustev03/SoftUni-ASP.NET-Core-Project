@@ -41,11 +41,6 @@
             await this.newsRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<T> GetAllNews<T>()
-        {
-            return this.newsRepository.All().To<T>();
-        }
-
         public IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
         {
             var news = this.newsRepository.AllAsNoTracking()

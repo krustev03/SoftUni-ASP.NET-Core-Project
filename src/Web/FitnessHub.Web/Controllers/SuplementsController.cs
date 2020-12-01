@@ -11,7 +11,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-    public class SuplementsController : BaseController
+    public class SuplementsController : Controller
     {
         private readonly ISuplementService suplementService;
         private readonly UserManager<ApplicationUser> userManager;

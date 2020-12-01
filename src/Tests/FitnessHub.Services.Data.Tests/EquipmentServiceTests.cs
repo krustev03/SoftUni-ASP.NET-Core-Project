@@ -6,10 +6,8 @@
 
     using FitnessHub.Data.Models;
     using FitnessHub.Data.Repositories;
-    using FitnessHub.Services.Mapping;
     using FitnessHub.Web.ViewModels.Equipments;
     using Microsoft.AspNetCore.Http.Internal;
-    using Microsoft.AspNetCore.Identity;
     using Xunit;
 
     // async Task AddEquipmentAsync(EquipmentInputModel model, string userId, string imagePath)
@@ -170,7 +168,6 @@
             await equipmentService.AddEquipmentAsync(model4, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
 
             // Act
-            AutoMapperConfig.RegisterMappings(typeof(EquipmentViewModel).Assembly);
             var resultCount = equipmentService.GetAllForPaging<EquipmentViewModel>(1, 3).Count();
             var expectedCount = 3;
 
@@ -268,11 +265,11 @@
 
             await usersRepository.AddAsync(user);
 
-            await equipmentService.AddEquipmentAsync(model1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+            await equipmentService.AddEquipmentAsync(model1, user.Id, "~/images");
 
             // Act
-            await equipmentService.AddEquipmentToCart(1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80");
-            await equipmentService.AddEquipmentToCart(1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80");
+            await equipmentService.AddEquipmentToCart(1, user.Id);
+            await equipmentService.AddEquipmentToCart(1, user.Id);
             var resultCount = userEquipmentsRepository.All().ToList().Count();
             var userEquipment = await userEquipmentsRepository.GetByIdWithDeletedAsync(1);
             var resultQuantity = userEquipment.Quantity;
@@ -313,10 +310,10 @@
 
             await usersRepository.AddAsync(user);
 
-            await equipmentService.AddEquipmentAsync(model1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+            await equipmentService.AddEquipmentAsync(model1, user.Id, "~/images");
 
-            await equipmentService.AddEquipmentToCart(1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80");
-            await equipmentService.AddEquipmentToCart(1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80");
+            await equipmentService.AddEquipmentToCart(1, user.Id);
+            await equipmentService.AddEquipmentToCart(1, user.Id);
 
             // Act
             await equipmentService.DeleteEquipmentByIdAsync(1);

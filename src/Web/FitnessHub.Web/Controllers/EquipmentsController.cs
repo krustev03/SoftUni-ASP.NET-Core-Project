@@ -13,7 +13,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-    public class EquipmentsController : BaseController
+    public class EquipmentsController : Controller
     {
         private readonly IEquipmentService equipmentService;
         private readonly UserManager<ApplicationUser> userManager;

@@ -7,7 +7,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    public class NewsController : BaseController
+    public class NewsController : Controller
     {
         private readonly INewsService newsService;
 

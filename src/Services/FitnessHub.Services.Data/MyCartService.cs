@@ -28,10 +28,10 @@
             this.userSuplementRepository = userSuplementRepository;
         }
 
-        public IEnumerable<EquipmentCartViewModel> GetUserEquipments(ApplicationUser appUser)
+        public IEnumerable<EquipmentCartViewModel> GetUserEquipments(string userId)
         {
             var equipmentsAsList = new List<EquipmentCartViewModel>();
-            var equipments = this.userEquipmentRepository.All().Where(x => x.UserId == appUser.Id).ToList();
+            var equipments = this.userEquipmentRepository.All().Where(x => x.UserId == userId).ToList();
             foreach (var item in equipments)
             {
                 var equipment = this.GetEquipmentById<EquipmentCartViewModel>(item.EquipmentId);
@@ -42,10 +42,10 @@
             return equipmentsAsList;
         }
 
-        public IEnumerable<SuplementCartViewModel> GetUserSuplements(ApplicationUser appUser)
+        public IEnumerable<SuplementCartViewModel> GetUserSuplements(string userId)
         {
             var suplementsAsList = new List<SuplementCartViewModel>();
-            var suplements = this.userSuplementRepository.All().Where(x => x.UserId == appUser.Id).ToList();
+            var suplements = this.userSuplementRepository.All().Where(x => x.UserId == userId).ToList();
             foreach (var item in suplements)
             {
                 var suplement = this.GetSuplementById<SuplementCartViewModel>(item.SuplementId);
@@ -56,12 +56,12 @@
             return suplementsAsList;
         }
 
-        public decimal GetTotalPrice(ApplicationUser appUser)
+        public decimal GetTotalPrice(string userId)
         {
             decimal totalPrice = 0;
 
-            var suplements = this.userSuplementRepository.All().Where(x => x.UserId == appUser.Id).ToList();
-            var equipments = this.userEquipmentRepository.All().Where(x => x.UserId == appUser.Id).ToList();
+            var suplements = this.userSuplementRepository.All().Where(x => x.UserId == userId).ToList();
+            var equipments = this.userEquipmentRepository.All().Where(x => x.UserId == userId).ToList();
 
             foreach (var item in suplements)
             {
@@ -110,15 +110,6 @@
             await this.userSuplementRepository.SaveChangesAsync();
         }
 
-        private T GetSuplementById<T>(int suplementId)
-        {
-            var suplement = this.suplementsRepository.AllAsNoTracking()
-                .Where(x => x.Id == suplementId)
-                .To<T>().FirstOrDefault();
-
-            return suplement;
-        }
-
         private T GetEquipmentById<T>(int equipmentId)
         {
             var equipment = this.equipmentsRepository.AllAsNoTracking()
@@ -126,6 +117,15 @@
                 .To<T>().FirstOrDefault();
 
             return equipment;
+        }
+
+        private T GetSuplementById<T>(int suplementId)
+        {
+            var suplement = this.suplementsRepository.AllAsNoTracking()
+                .Where(x => x.Id == suplementId)
+                .To<T>().FirstOrDefault();
+
+            return suplement;
         }
     }
 }

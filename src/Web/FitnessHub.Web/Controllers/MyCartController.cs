@@ -14,7 +14,9 @@
         private readonly IMyCartService myCartService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public MyCartController(IMyCartService myCartService, UserManager<ApplicationUser> userManager)
+        public MyCartController(
+            IMyCartService myCartService,
+            UserManager<ApplicationUser> userManager)
         {
             this.myCartService = myCartService;
             this.userManager = userManager;
@@ -27,9 +29,9 @@
 
             var viewModel = new CartItemsViewModel
             {
-                Equipments = this.myCartService.GetUserEquipments(appUser),
-                Suplements = this.myCartService.GetUserSuplements(appUser),
-                TotalPrice = this.myCartService.GetTotalPrice(appUser),
+                Equipments = this.myCartService.GetUserEquipments(appUser.Id),
+                Suplements = this.myCartService.GetUserSuplements(appUser.Id),
+                TotalPrice = this.myCartService.GetTotalPrice(appUser.Id),
             };
 
             return this.View(viewModel);

@@ -8,11 +8,11 @@
 
     public interface IMyCartService
     {
-        public IEnumerable<EquipmentCartViewModel> GetUserEquipments(ApplicationUser appUser);
+        public IEnumerable<EquipmentCartViewModel> GetUserEquipments(string userId);
 
-        public IEnumerable<SuplementCartViewModel> GetUserSuplements(ApplicationUser appUser);
+        public IEnumerable<SuplementCartViewModel> GetUserSuplements(string userId);
 
-        public decimal GetTotalPrice(ApplicationUser appUser);
+        public decimal GetTotalPrice(string userId);
 
         public Task RemoveEquipmentFromCartAsync(int id, string userId);
 

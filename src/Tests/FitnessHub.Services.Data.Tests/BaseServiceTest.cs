@@ -3,6 +3,11 @@
     using FitnessHub.Data;
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Data.Tests.Mocks;
+    using FitnessHub.Services.Mapping;
+    using FitnessHub.Web.ViewModels.Equipments;
+    using FitnessHub.Web.ViewModels.MyCart;
+    using FitnessHub.Web.ViewModels.News;
+    using FitnessHub.Web.ViewModels.Suplements;
     using Microsoft.AspNetCore.Identity;
     using Moq;
 
@@ -15,6 +20,12 @@
         {
             this.Context = InMemoryDatabase.Get();
             this.UserManager = UserManagerMock.New;
+            AutoMapperConfig.RegisterMappings(
+                typeof(EquipmentViewModel).Assembly,
+                typeof(EquipmentCartViewModel).Assembly,
+                typeof(SuplementViewModel).Assembly,
+                typeof(SuplementCartViewModel).Assembly,
+                typeof(NewsViewModel).Assembly);
         }
     }
 }
