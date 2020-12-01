@@ -12,6 +12,7 @@
         [Fact] // 1. IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs()
         public async void GetAllAsKeyValuePairs_ShouldReturnMuscleGroupsAsKeyValuePairs()
         {
+
             // Arrange
             var muscleGrousRepository = new EfRepository<MuscleGroup>(this.Context);
             var muscleGroupService = new MuscleGroupService(muscleGrousRepository);
