@@ -61,6 +61,9 @@
 
             [Required(ErrorMessage = "The username is required.")]
             [Display(Name = "Username")]
+            [MinLength(2, ErrorMessage = "The username must be between 2 and 35 characters.")]
+            [MaxLength(35, ErrorMessage = "The username must be between 2 and 35 characters.")]
+            [RegularExpression("([a-zA-Z][^\\s]*)", ErrorMessage = "The username cannot start with digit.")]
             public string UserName { get; set; }
 
             [Required(ErrorMessage = "Phone number is required.")]
@@ -103,6 +106,14 @@
                 if (userExists)
                 {
                     this.ModelState.AddModelError(string.Empty, "User already exists");
+                    return this.Page();
+                }
+
+                var emailExists = this.userRepository.AllWithDeleted().Any(x => x.Email == user.Email);
+
+                if (emailExists)
+                {
+                    this.ModelState.AddModelError(string.Empty, "Email already taken");
                     return this.Page();
                 }
 
