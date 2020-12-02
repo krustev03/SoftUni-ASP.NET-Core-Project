@@ -2,7 +2,7 @@
 
 @{
     this.ViewData["Title"] = "Card Details";
-    var totalPrice = Convert.ToDouble(this.ViewContext.HttpContext.Request.Query["totalPrice"]);
+    var totalPrice = this.ViewContext.HttpContext.Request.Query["totalPrice"];
 }
 
 <section class="contact-section spad">

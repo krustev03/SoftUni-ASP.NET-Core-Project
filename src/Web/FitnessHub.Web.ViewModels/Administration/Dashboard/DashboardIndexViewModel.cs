@@ -6,6 +6,6 @@
 
     public class DashboardIndexViewModel
     {
-        public IEnumerable<ApplicationUser> Users { get; set; }
+        public IEnumerable<DashboardUserViewModel> Users { get; set; }
     }
 }

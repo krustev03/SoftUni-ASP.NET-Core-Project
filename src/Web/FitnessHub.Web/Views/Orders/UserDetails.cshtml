@@ -1,7 +1,7 @@
 ﻿@model FitnessHub.Web.ViewModels.Orders.OrderInputModel
 @{
     this.ViewData["Title"] = "User Details";
-    var totalPrice = Convert.ToDouble(this.ViewContext.HttpContext.Request.Query["totalPrice"]);
+    var totalPrice = Convert.ToDecimal(this.ViewContext.HttpContext.Request.Query["totalPrice"]);
 }
 
 <section class="contact-section spad">

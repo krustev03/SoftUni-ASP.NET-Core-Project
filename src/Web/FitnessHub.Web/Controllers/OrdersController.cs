@@ -27,24 +27,24 @@
         }
 
         [Authorize]
-        public IActionResult CardDetails(double totalPrice)
+        public IActionResult CardDetails(decimal totalPrice)
         {
             return this.View();
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult CardDetails(double totalPrice, CardValidationModel model)
+        public IActionResult CardDetails(string totalPrice, CardValidationModel model)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            return this.RedirectToAction("UserDetails", new { totalPrice });
+            return this.RedirectToAction($"UserDetails", new { totalPrice });
         }
 
-        public IActionResult UserDetails(double totalPrice)
+        public IActionResult UserDetails(decimal totalPrice)
         {
             return this.View();
         }

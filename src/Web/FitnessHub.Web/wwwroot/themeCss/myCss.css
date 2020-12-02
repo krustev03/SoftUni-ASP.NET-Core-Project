@@ -209,3 +209,7 @@
     width: 100%;
     height: 300px;
 }
+
+.class-timetable table tbody tr td.hover-bg:hover {
+    color: black !important;
+}

@@ -1,4 +1,6 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@using FitnessHub.Data.Models
+@inject UserManager<ApplicationUser> userManager 
 @model FitnessHub.Web.ViewModels.Administration.Dashboard.DashboardIndexViewModel
 @{ this.ViewData["Title"] = "Admin dashboard"; }
 
@@ -12,30 +14,39 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-xl-12">
                 <div class="class-timetable d-flex flex-column justify-content-center">
                     <table>
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Username</th>
+                                <th>Role</th>
                                 <th>Orders</th>
+                                <th>Registered</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var user in Model.Users.OrderByDescending(x => x.CreatedOn))
                             {
-                                <tr>
-                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="workout">
-                                        <p>@user.Id</p>
-                                    </td>
-                                    <td class="hover-bg ts-meta" data-tsmeta="fitness">
-                                        <p>@user.UserName</p>
-                                    </td>
-                                    <td class="dark-bg hover-bg ts-meta" data-tsmeta="workout">
-                                        <p>@user.Orders.ToList().Count</p>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td class="class-time">@user.Id</td>
+
+                                <td class="hover-bg ts-meta text-white" data-tsmeta="fitness">@user.UserName</td>
+
+                                @if (await this.userManager.IsInRoleAsync(await this.userManager.FindByIdAsync(user.Id), "Trainer"))
+                                {
+                                    <td class="dark-bg hover-bg ts-meta text-white" data-tsmeta="fitness">Trainer</td>
+                                }
+                                else
+                                {
+                                    <td class="dark-bg hover-bg ts-meta text-white" data-tsmeta="fitness">Client</td>
+                                }
+
+                                <td class="hover-bg ts-meta text-white" data-tsmeta="workout">@user.Orders.ToList().Count</td>
+
+                                <td class="dark-bg hover-bg ts-meta text-white" data-tsmeta="workout">@user.CreatedOn.ToString("dd'/'MM'/'yyyy HH:mm")</td>
+                            </tr>
                             }
                             </tbody>
                     </table>
