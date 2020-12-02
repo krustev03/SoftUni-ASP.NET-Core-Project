@@ -1,7 +1,7 @@
 ﻿@model FitnessHub.Web.ViewModels.Orders.OrderInputModel
 @{
     this.ViewData["Title"] = "User Details";
-    var totalPrice = Convert.ToDecimal(this.ViewContext.HttpContext.Request.Query["price"]);
+    var totalPrice = Convert.ToDouble(this.ViewContext.HttpContext.Request.Query["totalPrice"]);
 }
 
 <section class="contact-section spad">
@@ -17,7 +17,7 @@
                                 <small>enter your user details</small>
                             </div>
                             <div class="credit-card-body">
-                                <input asp-for="@Model.Price" type="hidden" value="@totalPrice" />
+                                <input asp-for="@Model.TotalPrice" type="hidden" value="@totalPrice" />
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">

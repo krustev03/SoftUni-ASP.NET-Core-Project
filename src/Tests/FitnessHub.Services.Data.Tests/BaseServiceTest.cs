@@ -8,6 +8,7 @@
     using FitnessHub.Web.ViewModels.MyCart;
     using FitnessHub.Web.ViewModels.News;
     using FitnessHub.Web.ViewModels.Suplements;
+    using FitnessHub.Web.ViewModels.TrainerPosts;
     using Microsoft.AspNetCore.Identity;
     using Moq;
 
@@ -25,7 +26,8 @@
                 typeof(EquipmentCartViewModel).Assembly,
                 typeof(SuplementViewModel).Assembly,
                 typeof(SuplementCartViewModel).Assembly,
-                typeof(NewsViewModel).Assembly);
+                typeof(NewsViewModel).Assembly,
+                typeof(TrainerPostViewModel).Assembly);
         }
     }
 }

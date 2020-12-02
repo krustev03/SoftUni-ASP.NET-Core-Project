@@ -2,7 +2,7 @@
 
 @{
     this.ViewData["Title"] = "Card Details";
-    var totalPrice = Convert.ToDecimal(this.ViewContext.HttpContext.Request.Query["price"]);
+    var totalPrice = Convert.ToDouble(this.ViewContext.HttpContext.Request.Query["totalPrice"]);
 }
 
 <section class="contact-section spad">
@@ -11,7 +11,7 @@
             <div class="col-lg-6 form-section text-center">
                 <div class="leave-comment">
                     <h2 class="text-white form-heading-2">Card Details</h2>
-                    <form method="post" asp-action="CardDetails" asp-controller="Orders" asp-route-price="@totalPrice">
+                    <form method="post" asp-action="CardDetails" asp-controller="Orders" asp-route-totalPrice="@totalPrice">
                         <div class="credit-card">
                             <div class="credit-card-header">
                                 <strong>Credit Card</strong>

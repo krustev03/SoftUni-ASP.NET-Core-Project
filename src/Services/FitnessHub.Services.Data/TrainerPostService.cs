@@ -20,14 +20,14 @@
             this.trainerPostsRepository = trainerPostsRepository;
         }
 
-        public async Task AddPostAsync(TrainerPostInputModel model, ApplicationUser appUser)
+        public async Task AddPostAsync(TrainerPostInputModel model, string userId)
         {
             var post = new TrainerPost()
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Description = model.Description,
-                AuthorId = appUser.Id,
+                AuthorId = userId,
             };
 
             await this.trainerPostsRepository.AddAsync(post);

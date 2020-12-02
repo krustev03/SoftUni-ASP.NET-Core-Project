@@ -13,7 +13,7 @@
 
     // IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
 
-    // public int GetCount()
+    // int GetCount()
 
     // async Task DeleteNewsByIdAsync(int newsId)
     public class NewsServiceTests : BaseServiceTest
@@ -72,7 +72,7 @@
         }
 
         [Fact] // 3. IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
-        public async void GetAllForPaging_ShouldReturnAllNews()
+        public async void GetAllForPaging_ShouldReturnAllNewsInOnePage()
         {
             // Arrange
             var model1 = new NewsInputModel()
@@ -99,7 +99,7 @@
             Assert.Equal(expectedCount, resultCount);
         }
 
-        [Fact] // 4. public int GetCount()
+        [Fact] // 4. int GetCount()
         public async void GetCount_ShouldReturnNewsCount()
         {
             // Arrange

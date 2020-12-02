@@ -56,7 +56,7 @@
 
             var appUser = await this.userManager.GetUserAsync(this.User);
 
-            await this.trainerPostService.AddPostAsync(model, appUser);
+            await this.trainerPostService.AddPostAsync(model, appUser.Id);
 
             var page = 1;
 

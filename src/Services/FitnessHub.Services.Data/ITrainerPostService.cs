@@ -12,7 +12,7 @@
 
         public int GetCount();
 
-        public Task AddPostAsync(TrainerPostInputModel model, ApplicationUser appUser);
+        public Task AddPostAsync(TrainerPostInputModel model, string userId);
 
         public Task EditPost(int trainerPostId, TrainerPostInputModel model);
 

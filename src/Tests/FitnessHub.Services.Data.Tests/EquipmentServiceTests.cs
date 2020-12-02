@@ -16,7 +16,7 @@
 
     // IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
 
-    // public int GetCount()
+    // int GetCount()
 
     // async void AddEquipmentToCart()
 
@@ -115,7 +115,7 @@
         }
 
         [Fact] // 3. IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
-        public async void GetAllForPaging_ShouldReturnAllEquipments()
+        public async void GetAllForPaging_ShouldReturnAllEquipmentsInOnePage()
         {
             // Arrange
             var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
@@ -175,7 +175,7 @@
             Assert.Equal(expectedCount, resultCount);
         }
 
-        [Fact] // 4. public int GetCount()
+        [Fact] // 4. int GetCount()
         public async void GetCount_ShouldReturnEquipmentsCount()
         {
             // Arrange

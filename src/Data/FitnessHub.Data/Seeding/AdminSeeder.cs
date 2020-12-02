@@ -15,16 +15,16 @@
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-            if (userManager.Users.Any(x => x.Email == "pepcho_krastev@abv.bg"))
+            if (userManager.Users.Any(x => x.Email == "pepi_krastev@abv.bg"))
             {
                 return;
             }
 
             var user = new ApplicationUser()
             {
-                Email = "pepcho_krastev@abv.bg",
-                UserName = "Golbarg2000",
-                PhoneNumber = "0885842694",
+                Email = "pepi_krastev@abv.bg",
+                UserName = "Golbarg200",
+                PhoneNumber = "0885845472",
             };
 
             await userManager.CreateAsync(user, "123456pepi");

@@ -52,7 +52,7 @@
                 CityCode = orderInputModel.CityCode,
                 PhoneNumber = appUser.PhoneNumber,
                 Adress = orderInputModel.Adress,
-                Price = orderInputModel.Price,
+                Price = orderInputModel.TotalPrice,
                 UserId = appUser.Id,
             };
 

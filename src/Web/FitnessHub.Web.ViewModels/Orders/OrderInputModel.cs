@@ -31,6 +31,6 @@
         [Required]
         public string Adress { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal TotalPrice { get; set; }
     }
 }
