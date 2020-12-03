@@ -108,9 +108,9 @@
             return this.equipmentsRepository.All().Count();
         }
 
-        public async Task AddEquipmentToCart(int id, string userId)
+        public async Task AddEquipmentToCart(int equipmentId, string userId)
         {
-            var equipment = this.equipmentsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            var equipment = this.equipmentsRepository.All().Where(x => x.Id == equipmentId).FirstOrDefault();
             var appUser = await this.userRepository.GetByIdWithDeletedAsync(userId);
             var userEquipment = this.userEquipmentRepository.All().Where(x => x.EquipmentId == equipment.Id && x.UserId == userId).FirstOrDefault();
 
@@ -133,11 +133,11 @@
             }
         }
 
-        public async Task DeleteEquipmentByIdAsync(int id)
+        public async Task DeleteEquipmentByIdAsync(int equipmentId)
         {
-            var equipment = this.equipmentsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            var equipment = this.equipmentsRepository.All().Where(x => x.Id == equipmentId).FirstOrDefault();
             this.equipmentsRepository.Delete(equipment);
-            var equipmentsInCart = this.userEquipmentRepository.All().Where(x => x.EquipmentId == id).ToList();
+            var equipmentsInCart = this.userEquipmentRepository.All().Where(x => x.EquipmentId == equipmentId).ToList();
             foreach (var item in equipmentsInCart)
             {
                 this.userEquipmentRepository.Delete(item);

@@ -2,12 +2,15 @@
 {
     using System.Threading.Tasks;
 
+    using FitnessHub.Data.Models;
     using FitnessHub.Web.ViewModels.Chat;
 
     public interface IMessageService
     {
-        public Task AddMessageAsync(MessageInputModel inputModel, string authorId);
+        Task AddMessageAsync(MessageInputModel inputModel, string authorId);
 
-        public Task DeleteMessageByIdAsync(int id);
+        Message FindMessageById(int messageId);
+
+        Task DeleteMessageByIdAsync(int messageId);
     }
 }

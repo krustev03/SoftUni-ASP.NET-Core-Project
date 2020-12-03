@@ -66,10 +66,13 @@
                                     <form method="post" class="shop-item-button" asp-controller="Suplements" asp-action="AddToCart" asp-route-suplementId="@suplement.Id" asp-route-page="@pageNum">
                                         <button type="submit" id="submit">Add to cart</button>
                                     </form>
-                                    <form method="post" class="shop-item-button" asp-controller="Suplements" asp-action="Delete" asp-route-suplementId="@suplement.Id" asp-route-page="@pageNum">
-                                        <button type="submit" id="submit">Delete</button>
-                                    </form>
-                                    <a class="shop-item-link" role="button" asp-area="" asp-controller="Suplements" asp-action="Edit" asp-route-suplementId="@suplement.Id" asp-route-page="@pageNum"><b>Edit</b></a>
+                                    @if (this.User.IsInRole("Administrator"))
+                                    {
+                                        <form method="post" class="shop-item-button" asp-controller="Suplements" asp-action="Delete" asp-route-suplementId="@suplement.Id" asp-route-page="@pageNum">
+                                            <button type="submit" id="submit">Delete</button>
+                                        </form>
+                                        <a class="shop-item-link" role="button" asp-area="" asp-controller="Suplements" asp-action="Edit" asp-route-suplementId="@suplement.Id" asp-route-page="@pageNum"><b>Edit</b></a>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -81,7 +84,10 @@
     </div>
     <div class="d-flex justify-content-around">
         <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="Home" asp-action="GoToHome">Go to home</a>
-        <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="Suplements" asp-action="Add">Add Suplement</a>
+        @if (this.User.IsInRole("Administrator"))
+        {
+            <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="Suplements" asp-action="Add">Add Suplement</a>
+        }
     </div>
 </section>
 

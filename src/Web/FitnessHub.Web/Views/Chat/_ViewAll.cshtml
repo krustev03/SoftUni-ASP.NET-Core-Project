@@ -1,20 +1,25 @@
 ﻿@using FitnessHub.Data.Models
+@using Microsoft.AspNetCore.Identity;
 @inject FitnessHub.Data.Common.Repositories.IDeletableEntityRepository<Message> messagesRepo
 @inject FitnessHub.Data.Common.Repositories.IDeletableEntityRepository<ApplicationUser> usersRepo
+@inject UserManager<ApplicationUser> userManager
 
 @foreach (var message in messagesRepo.All().ToList().OrderByDescending(x => x.CreatedOn))
 {
-<div class="entity chat__box row align-items-center d-flex">
-    <div class="col-8">
-        <h4>@usersRepo.GetByIdWithDeletedAsync(message.AuthorId).Result.UserName: @message.Content</h4>
+    <div class="entity chat__box row align-items-center d-flex">
+        <div class="col-8">
+            <h4>@usersRepo.GetByIdWithDeletedAsync(message.AuthorId).Result.UserName: @message.Content</h4>
+        </div>
+        <div class="col-2">
+            @if (this.User.IsInRole("Administrator") || this.userManager.GetUserId(this.User) == message.AuthorId)
+            {
+                <form method="post" asp-controller="Chat" asp-action="Delete" asp-route-messageId="@message.Id">
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
+            }
+        </div>
+        <div class="col-2">
+            <h4>@message.CreatedOn</h4>
+        </div>
     </div>
-    <div class="col-2">
-        <form method="post" asp-controller="Chat" asp-action="Delete" asp-route-id="@message.Id">
-            <input type="submit" value="Delete" class="btn btn-danger" />
-        </form>
-    </div>
-    <div class="col-2">
-        <h4>@message.CreatedOn</h4>
-    </div>
-</div>
 }

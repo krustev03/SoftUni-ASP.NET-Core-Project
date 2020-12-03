@@ -16,7 +16,6 @@
             this.newsService = newsService;
         }
 
-        [Authorize]
         public IActionResult Index(int page = 1)
         {
             if (page <= 0)

@@ -18,22 +18,22 @@
             this.trainingProgramsRepository = trainingProgramsRepository;
         }
 
-        public async Task AddTrainingProgramAsync(TrainingProgramInputModel programModel, ApplicationUser appUser)
+        public async Task AddTrainingProgramAsync(TrainingProgramInputModel programModel, string userId)
         {
             var trainingProgram = new TrainingProgram()
             {
                 Name = programModel.Name,
                 Trainings = new List<Training>(),
-                CreatorId = appUser.Id,
+                CreatorId = userId,
             };
 
             await this.trainingProgramsRepository.AddAsync(trainingProgram);
             await this.trainingProgramsRepository.SaveChangesAsync();
         }
 
-        public async Task ChangeName(int id, TrainingProgramInputModel model)
+        public async Task ChangeName(int programId, TrainingProgramInputModel model)
         {
-            var trainingProgram = this.trainingProgramsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            var trainingProgram = this.trainingProgramsRepository.All().Where(x => x.Id == programId).FirstOrDefault();
 
             trainingProgram.Name = model.Name;
 

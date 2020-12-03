@@ -25,8 +25,8 @@
             return this.View();
         }
 
-        [Authorize]
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Index(ContactsInputModel model)
         {
             if (!this.ModelState.IsValid)
@@ -44,6 +44,7 @@
             return this.RedirectToAction("ThankYou");
         }
 
+        [Authorize]
         public IActionResult ThankYou()
         {
             return this.View();

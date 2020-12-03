@@ -11,7 +11,6 @@
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Mapping;
     using FitnessHub.Web.ViewModels.Suplements;
-    using Microsoft.AspNetCore.Identity;
 
     public class SuplementService : ISuplementService
     {
@@ -121,18 +120,11 @@
             return this.suplementsRepository.All().Count();
         }
 
-        public T GetSuplementDetails<T>(int id)
+        public async Task DeleteSuplementByIdAsync(int suplementId)
         {
-            var suplement = this.suplementsRepository.All().Where(x => x.Id == id).To<T>().FirstOrDefault();
-
-            return suplement;
-        }
-
-        public async Task DeleteSuplementByIdAsync(int id)
-        {
-            var suplement = this.suplementsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            var suplement = this.suplementsRepository.All().Where(x => x.Id == suplementId).FirstOrDefault();
             this.suplementsRepository.Delete(suplement);
-            var suplementsInCart = this.userSuplementRepository.All().Where(x => x.SuplementId == id).ToList();
+            var suplementsInCart = this.userSuplementRepository.All().Where(x => x.SuplementId == suplementId).ToList();
             foreach (var item in suplementsInCart)
             {
                 this.userSuplementRepository.Delete(item);
@@ -142,9 +134,9 @@
             await this.suplementsRepository.SaveChangesAsync();
         }
 
-        public async Task AddSuplementToCart(int id, string userId)
+        public async Task AddSuplementToCart(int suplementId, string userId)
         {
-            var suplement = this.suplementsRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            var suplement = this.suplementsRepository.All().Where(x => x.Id == suplementId).FirstOrDefault();
             var appUser = await this.userRepository.GetByIdWithDeletedAsync(userId);
             var userSuplement = this.userSuplementRepository.All().Where(x => x.SuplementId == suplement.Id && x.UserId == userId).FirstOrDefault();
 

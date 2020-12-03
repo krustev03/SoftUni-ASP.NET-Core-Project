@@ -28,9 +28,9 @@
             await this.messagesRepository.SaveChangesAsync();
         }
 
-        public async Task DeleteMessageByIdAsync(int id)
+        public async Task DeleteMessageByIdAsync(int messageId)
         {
-            var message = this.messagesRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            var message = this.messagesRepository.All().Where(x => x.Id == messageId).FirstOrDefault();
             this.messagesRepository.Delete(message);
             await this.messagesRepository.SaveChangesAsync();
         }

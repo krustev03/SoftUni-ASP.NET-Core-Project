@@ -44,6 +44,7 @@
             return this.RedirectToAction($"UserDetails", new { totalPrice });
         }
 
+        [Authorize]
         public IActionResult UserDetails(decimal totalPrice)
         {
             return this.View();

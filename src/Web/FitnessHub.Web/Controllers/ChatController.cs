@@ -43,10 +43,10 @@
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Delete(int id)
+        [Authorize]
+        public async Task<IActionResult> Delete(int messageId)
         {
-            await this.messageService.DeleteMessageByIdAsync(id);
+            await this.messageService.DeleteMessageByIdAsync(messageId);
 
             return this.RedirectToAction(nameof(this.Index));
         }

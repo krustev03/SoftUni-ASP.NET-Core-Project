@@ -79,6 +79,7 @@
             return this.RedirectToAction("Index", new { page });
         }
 
+        [Authorize(Roles = "Administrator")]
         public IActionResult Edit(int id)
         {
             return this.View();

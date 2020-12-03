@@ -68,7 +68,7 @@
 
             var appUser = await this.userManager.GetUserAsync(this.User);
 
-            await this.trainingProgramService.AddTrainingProgramAsync(model, appUser);
+            await this.trainingProgramService.AddTrainingProgramAsync(model, appUser.Id);
             var page = 1;
 
             return this.RedirectToAction("Index", new { page });

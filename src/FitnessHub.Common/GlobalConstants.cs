@@ -11,7 +11,7 @@
         public const string SupportEmail = "fitnesshubofficial2020@gmail.com";
 
         // SendGrid configuration
-        public const string SendGridKey = "API KEY HERE";
+        public const string SendGridKey = "API_KEY_HERE";
 
         // Chat Page Validations
         public const int ChatMessageMinLength = 1;
@@ -44,7 +44,11 @@
         public const string CardNumberRegex = "^[0-9]{16}$";
         public const string SecurityCodeRegex = "^[0-9]{3}$";
 
-        // TODO: UserDetails Validaiton
+        public const int BuyerNameMinLength = 2;
+        public const string BuyerNameRegex = "^[A-Z].*?$";
+        public const int CityMinLength = 2;
+        public const string CityCodeRegex = "^[0-9]{4}$";
+        public const int AdressMinLength = 5;
 
         // Suplements Page Validation
         public const int SuplementNameMinLength = 5;
@@ -65,5 +69,13 @@
         public const int ExerciseSetsMaxLength = 30;
         public const int ExerciseRepsMinLength = 1;
         public const int ExerciseRepsMaxLength = 100;
+
+        // Trainer Posts Page Validations
+        public const int TrainerPostNameMinLength = 2;
+        public const int TrainerPostNameMaxLength = 50;
+        public const string TrainerPostNameRegex = "^[A-Z].*?$";
+
+        public const int TrainerPostDescriptionMinLength = 20;
+        public const int TrainerPostDescriptionMaxLength = 250;
     }
 }

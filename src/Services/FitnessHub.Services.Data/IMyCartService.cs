@@ -3,19 +3,18 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using FitnessHub.Data.Models;
     using FitnessHub.Web.ViewModels.MyCart;
 
     public interface IMyCartService
     {
-        public IEnumerable<EquipmentCartViewModel> GetUserEquipments(string userId);
+        IEnumerable<EquipmentCartViewModel> GetUserEquipments(string userId);
 
-        public IEnumerable<SuplementCartViewModel> GetUserSuplements(string userId);
+        IEnumerable<SuplementCartViewModel> GetUserSuplements(string userId);
 
-        public decimal GetTotalPrice(string userId);
+        decimal GetTotalPrice(string userId);
 
-        public Task RemoveEquipmentFromCartAsync(int id, string userId);
+        Task RemoveEquipmentFromCartAsync(int equipmentId, string userId);
 
-        public Task RemoveSuplementFromCartAsync(int id, string userId);
+        Task RemoveSuplementFromCartAsync(int suplementId, string userId);
     }
 }

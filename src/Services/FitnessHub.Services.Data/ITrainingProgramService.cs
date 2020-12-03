@@ -3,19 +3,18 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using FitnessHub.Data.Models;
     using FitnessHub.Web.ViewModels.TrainingSchedular;
 
     public interface ITrainingProgramService
     {
-        public Task AddTrainingProgramAsync(TrainingProgramInputModel programModel, ApplicationUser appUser);
+        Task AddTrainingProgramAsync(TrainingProgramInputModel programModel, string userId);
 
-        public Task ChangeName(int id, TrainingProgramInputModel model);
+        Task ChangeName(int programId, TrainingProgramInputModel model);
 
-        public IEnumerable<T> GetAllForPaging<T>(int page, string userId, int itemsPerPage);
+        IEnumerable<T> GetAllForPaging<T>(int page, string userId, int itemsPerPage);
 
-        public int GetCount();
+        int GetCount();
 
-        public Task DeleteProgramByIdAsync(int id);
+        Task DeleteProgramByIdAsync(int programId);
     }
 }

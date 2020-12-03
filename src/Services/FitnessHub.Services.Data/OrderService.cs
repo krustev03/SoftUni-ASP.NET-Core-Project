@@ -59,17 +59,17 @@
             await this.ordersRepository.AddAsync(order);
             await this.ordersRepository.SaveChangesAsync();
 
-            var equipments = await this.GetEquipmentsInOrder(appUser);
+            var equipments = await this.GetEquipmentsInOrder(appUser.Id);
             await this.AddEquipmentsToOrder(equipments, order);
 
-            var suplements = await this.GetSuplementsInOrder(appUser);
+            var suplements = await this.GetSuplementsInOrder(appUser.Id);
             await this.AddSuplementsToOrder(suplements, order);
 
             this.ordersRepository.Update(order);
             await this.ordersRepository.SaveChangesAsync();
 
-            this.RemoveEquipmentsFromUser(appUser);
-            this.RemoveSuplementsFromUser(appUser);
+            this.RemoveEquipmentsFromUser(appUser.Id);
+            this.RemoveSuplementsFromUser(appUser.Id);
 
             appUser.Orders.Add(order);
             this.userRepository.Update(appUser);
@@ -128,9 +128,9 @@
             }
         }
 
-        private async Task<List<Equipment>> GetEquipmentsInOrder(ApplicationUser appUser)
+        private async Task<List<Equipment>> GetEquipmentsInOrder(string userId)
         {
-            var userEquipments = this.userEquipmentRepository.All().Where(x => x.UserId == appUser.Id).ToList();
+            var userEquipments = this.userEquipmentRepository.All().Where(x => x.UserId == userId).ToList();
             var equipments = new List<Equipment>();
             foreach (var userEquipment in userEquipments)
             {
@@ -145,9 +145,9 @@
             return equipments;
         }
 
-        private async Task<List<Suplement>> GetSuplementsInOrder(ApplicationUser appUser)
+        private async Task<List<Suplement>> GetSuplementsInOrder(string userId)
         {
-            var userSuplements = this.userSuplementRepository.All().Where(x => x.UserId == appUser.Id).ToList();
+            var userSuplements = this.userSuplementRepository.All().Where(x => x.UserId == userId).ToList();
             var suplements = new List<Suplement>();
             foreach (var userSuplement in userSuplements)
             {
@@ -161,9 +161,9 @@
             return suplements;
         }
 
-        private void RemoveEquipmentsFromUser(ApplicationUser appUser)
+        private void RemoveEquipmentsFromUser(string userId)
         {
-            var userEquipments = this.userEquipmentRepository.All().Where(x => x.UserId == appUser.Id).ToList();
+            var userEquipments = this.userEquipmentRepository.All().Where(x => x.UserId == userId).ToList();
 
             foreach (var userEquipment in userEquipments)
             {
@@ -171,9 +171,9 @@
             }
         }
 
-        private void RemoveSuplementsFromUser(ApplicationUser appUser)
+        private void RemoveSuplementsFromUser(string userId)
         {
-            var userSuplements = this.userSuplementRepository.All().Where(x => x.UserId == appUser.Id).ToList();
+            var userSuplements = this.userSuplementRepository.All().Where(x => x.UserId == userId).ToList();
 
             foreach (var userSuplement in userSuplements)
             {

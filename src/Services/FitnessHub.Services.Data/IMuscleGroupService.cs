@@ -4,6 +4,6 @@
 
     public interface IMuscleGroupService
     {
-        public IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs();
+        IEnumerable<KeyValuePair<string, string>> GetAllAsKeyValuePairs();
     }
 }

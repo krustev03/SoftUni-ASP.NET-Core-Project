@@ -78,9 +78,9 @@
             return totalPrice;
         }
 
-        public async Task RemoveEquipmentFromCartAsync(int id, string userId)
+        public async Task RemoveEquipmentFromCartAsync(int equipmentId, string userId)
         {
-            var userEquipment = this.userEquipmentRepository.All().Where(x => x.EquipmentId == id && x.UserId == userId).FirstOrDefault();
+            var userEquipment = this.userEquipmentRepository.All().Where(x => x.EquipmentId == equipmentId && x.UserId == userId).FirstOrDefault();
 
             if (userEquipment.Quantity > 1)
             {
@@ -94,9 +94,9 @@
             await this.userEquipmentRepository.SaveChangesAsync();
         }
 
-        public async Task RemoveSuplementFromCartAsync(int id, string userId)
+        public async Task RemoveSuplementFromCartAsync(int suplementId, string userId)
         {
-            var userSuplement = this.userSuplementRepository.All().Where(x => x.SuplementId == id && x.UserId == userId).FirstOrDefault();
+            var userSuplement = this.userSuplementRepository.All().Where(x => x.SuplementId == suplementId && x.UserId == userId).FirstOrDefault();
 
             if (userSuplement.Quantity > 1)
             {

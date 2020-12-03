@@ -2,23 +2,25 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using static FitnessHub.Common.GlobalConstants;
+
     public class TrainerPostInputModel
     {
         [Required]
-        [MinLength(2, ErrorMessage = "The name must be at least 2 characters.")]
-        [MaxLength(50)]
-        [RegularExpression("^[A-Z].*?$", ErrorMessage = "The name must start with capital letter.")]
+        [MinLength(TrainerPostNameMinLength, ErrorMessage = "The first name must be at least 2 characters.")]
+        [MaxLength(TrainerPostNameMaxLength)]
+        [RegularExpression(TrainerPostNameRegex, ErrorMessage = "The first name must start with capital letter.")]
         public string FirstName { get; set; }
 
         [Required]
-        [MinLength(2, ErrorMessage = "The name must be at least 2 characters.")]
-        [MaxLength(50)]
-        [RegularExpression("^[A-Z].*?$", ErrorMessage = "The name must start with capital letter.")]
+        [MinLength(TrainerPostNameMinLength, ErrorMessage = "The last name must be at least 2 characters.")]
+        [MaxLength(TrainerPostNameMaxLength)]
+        [RegularExpression(TrainerPostNameRegex, ErrorMessage = "The last name must start with capital letter.")]
         public string LastName { get; set; }
 
         [Required]
-        [MinLength(20, ErrorMessage = "The description must be at least 20 characters.")]
-        [MaxLength(250)]
+        [MinLength(TrainerPostDescriptionMinLength, ErrorMessage = "The description must be at least 20 characters.")]
+        [MaxLength(TrainerPostDescriptionMaxLength)]
         public string Description { get; set; }
     }
 }

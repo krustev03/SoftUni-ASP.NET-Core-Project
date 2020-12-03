@@ -7,14 +7,14 @@
 
     public interface INewsService
     {
-        public Task AddNewsAsync(NewsInputModel serviceInputModel);
+        Task AddNewsAsync(NewsInputModel serviceInputModel);
 
-        public Task EditNews(int newsId, NewsInputModel model);
+        Task EditNews(int newsId, NewsInputModel model);
 
-        public IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3);
+        IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3);
 
-        public int GetCount();
+        int GetCount();
 
-        public Task DeleteNewsByIdAsync(int newsId);
+        Task DeleteNewsByIdAsync(int newsId);
     }
 }
