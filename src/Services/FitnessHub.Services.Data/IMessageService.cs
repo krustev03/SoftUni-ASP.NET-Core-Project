@@ -9,8 +9,6 @@
     {
         Task AddMessageAsync(MessageInputModel inputModel, string authorId);
 
-        Message FindMessageById(int messageId);
-
         Task DeleteMessageByIdAsync(int messageId);
     }
 }

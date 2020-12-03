@@ -6,8 +6,8 @@
     {
         Task AddTrainingAsync(int programId, string dayOfWeek);
 
-        T GetTrainingDetails<T>(int trainingId);
+        T GetTraining<T>(int trainingId);
 
-        Task DeleteTrainingByIdAsync(int trainingId);
+        Task DeleteTrainingByIdAsync(int trainingId, int programId);
     }
 }

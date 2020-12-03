@@ -14,17 +14,20 @@
     {
         private readonly ITrainingProgramService trainingProgramService;
         private readonly ITrainingService trainingService;
+        private readonly IExerciseService exerciseService;
         private readonly IMuscleGroupService muscleGroupService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public TrainingSchedularController(
             ITrainingProgramService trainingProgramService,
             ITrainingService trainingService,
+            IExerciseService exerciseService,
             IMuscleGroupService muscleGroupService,
             UserManager<ApplicationUser> userManager)
         {
             this.trainingProgramService = trainingProgramService;
             this.trainingService = trainingService;
+            this.exerciseService = exerciseService;
             this.muscleGroupService = muscleGroupService;
             this.userManager = userManager;
         }
@@ -121,7 +124,7 @@
         [Authorize]
         public IActionResult TrainingDetails(int programId, int trainingId, int page)
         {
-            var trainingModel = this.trainingService.GetTrainingDetails<TrainingDetailsViewModel>(trainingId);
+            var trainingModel = this.trainingService.GetTraining<TrainingDetailsViewModel>(trainingId);
 
             return this.View(trainingModel);
         }
@@ -130,7 +133,7 @@
         [Authorize]
         public async Task<IActionResult> DeleteTraining(int programId, int trainingId, int page)
         {
-            await this.trainingService.DeleteTrainingByIdAsync(trainingId);
+            await this.trainingService.DeleteTrainingByIdAsync(trainingId, programId);
 
             return this.RedirectToAction("AllTrainings", new { programId, page });
         }
@@ -149,7 +152,7 @@
         [Authorize]
         public async Task<IActionResult> AddExercise(int programId, int trainingId, int page, ExerciseInputModel model)
         {
-            await this.trainingService.AddExerciseToTrainingAsync(trainingId, model);
+            await this.exerciseService.AddExerciseToTrainingAsync(trainingId, model);
 
             return this.RedirectToAction("TrainingDetails", new { programId, trainingId, page });
         }
@@ -173,7 +176,7 @@
                 return this.View(model);
             }
 
-            await this.trainingService.EditExercise(exerciseId, model);
+            await this.exerciseService.EditExercise(exerciseId, model);
 
             return this.RedirectToAction("TrainingDetails", new { programId, trainingId, page });
         }
@@ -182,7 +185,7 @@
         [Authorize]
         public async Task<IActionResult> DeleteExercise(int programId, int trainingId, int exerciseId, int page)
         {
-            await this.trainingService.DeleteExerciseByIdAsync(exerciseId);
+            await this.exerciseService.DeleteExerciseByIdAsync(exerciseId);
 
             return this.RedirectToAction("TrainingDetails", new { programId, trainingId, page });
         }
