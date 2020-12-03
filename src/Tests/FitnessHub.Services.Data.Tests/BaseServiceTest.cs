@@ -4,6 +4,7 @@
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Data.Tests.Mocks;
     using FitnessHub.Services.Mapping;
+    using FitnessHub.Web.ViewModels.Administration.Dashboard;
     using FitnessHub.Web.ViewModels.Equipments;
     using FitnessHub.Web.ViewModels.MyCart;
     using FitnessHub.Web.ViewModels.News;
@@ -30,7 +31,10 @@
                 typeof(NewsViewModel).Assembly,
                 typeof(TrainerPostViewModel).Assembly,
                 typeof(TrainingProgramViewModel).Assembly,
-                typeof(TrainingDetailsViewModel).Assembly);
+                typeof(TrainingDetailsViewModel).Assembly,
+                typeof(ExerciseViewModel).Assembly,
+                typeof(DashboardUserViewModel).Assembly,
+                typeof(DashboardUserViewModel).Assembly);
         }
     }
 }

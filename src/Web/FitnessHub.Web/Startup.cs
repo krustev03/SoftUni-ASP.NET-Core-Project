@@ -96,6 +96,7 @@
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<ITrainingProgramService, TrainingProgramService>();
             services.AddTransient<ITrainingService, TrainingService>();
+            services.AddTransient<IExerciseService, ExerciseService>();
             services.AddTransient<IMuscleGroupService, MuscleGroupService>();
             services.AddTransient<IUserService, UserService>();
         }

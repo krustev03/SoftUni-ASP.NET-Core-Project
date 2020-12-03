@@ -1,6 +1,7 @@
 ﻿namespace FitnessHub.Services.Data.Tests
 {
     using System.Linq;
+
     using FitnessHub.Data.Models;
     using FitnessHub.Data.Repositories;
     using FitnessHub.Web.ViewModels.TrainingSchedular;
@@ -48,8 +49,6 @@
             var trainingProgramService = new TrainingProgramService(trainingProgramsRepository);
             var trainingsRepository = new EfDeletableEntityRepository<Training>(this.Context);
             var trainingService = new TrainingService(trainingsRepository,trainingProgramsRepository);
-            var exercisesRepository = new EfDeletableEntityRepository<Exercise>(this.Context);
-            var exerciseService = new ExerciseService(exercisesRepository, trainingsRepository);
 
             var model1 = new TrainingProgramInputModel()
             {
@@ -59,33 +58,12 @@
             await trainingProgramService.AddTrainingProgramAsync(model1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80");
             await trainingService.AddTrainingAsync(1, "Monday");
 
-            var exerciseModel1 = new ExerciseInputModel()
-            {
-                Name = "Pull-ups",
-                Sets = 3,
-                Reps = 3,
-                MuscleGroupId = 2,
-            };
-
-            var exerciseModel2 = new ExerciseInputModel()
-            {
-                Name = "Push-ups",
-                Sets = 3,
-                Reps = 3,
-                MuscleGroupId = 1,
-            };
-
-            await exerciseService.AddExerciseToTrainingAsync(1, exerciseModel1);
-            await exerciseService.AddExerciseToTrainingAsync(1, exerciseModel2);
-
             // Act
             var training = trainingService.GetTraining<TrainingDetailsViewModel>(1);
             var expectedDayOfWeek = "Monday";
-            var expectedExercisesCount = 2;
 
             // Assert
             Assert.Equal(expectedDayOfWeek, training.DayOfWeek);
-            Assert.Equal(expectedExercisesCount, training.Exercises.Count());
         }
 
         [Fact] // 3. async Task DeleteTrainingByIdAsync(int trainingId)
