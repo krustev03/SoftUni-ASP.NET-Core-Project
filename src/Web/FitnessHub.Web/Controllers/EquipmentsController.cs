@@ -1,8 +1,6 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
     using System;
-    using System.IO;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using FitnessHub.Data.Models;
@@ -81,9 +79,10 @@
         }
 
         [Authorize(Roles = "Administrator")]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int equipmentId)
         {
-            return this.View();
+            var model = this.equipmentService.GetEquipmentById<EditEquipmentInputModel>(equipmentId);
+            return this.View(model);
         }
 
         [HttpPost]

@@ -103,6 +103,14 @@
             return equipments;
         }
 
+        public T GetEquipmentById<T>(int equipmentId)
+        {
+            var equipment = this.equipmentsRepository.AllAsNoTracking()
+                .Where(x => x.Id == equipmentId)
+                .To<T>().FirstOrDefault();
+            return equipment;
+        }
+
         public int GetCount()
         {
             return this.equipmentsRepository.All().Count();

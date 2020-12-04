@@ -9,6 +9,8 @@
     {
         IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage);
 
+        T GetEquipmentById<T>(int equipmentId);
+
         int GetCount();
 
         Task AddEquipmentAsync(EquipmentInputModel model, string userId, string imagePath);
