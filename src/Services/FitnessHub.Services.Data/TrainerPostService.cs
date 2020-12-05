@@ -55,6 +55,14 @@
             return posts;
         }
 
+        public T GetPostById<T>(int postId)
+        {
+            var post = this.trainerPostsRepository.AllAsNoTracking()
+                .Where(x => x.Id == postId)
+                .To<T>().FirstOrDefault();
+            return post;
+        }
+
         public int GetCount()
         {
             return this.trainerPostsRepository.All().Count();

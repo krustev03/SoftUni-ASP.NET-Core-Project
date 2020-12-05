@@ -29,7 +29,7 @@
             // Arrange
             var image = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test.jpg");
 
-            var model = new EquipmentInputModel()
+            var model = new CreateEquipmentInputModel()
             {
                 Name = "Peika",
                 Price = "20.00",
@@ -68,7 +68,7 @@
             // Arrange
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
-            var model1 = new EquipmentInputModel()
+            var model1 = new CreateEquipmentInputModel()
             {
                 Name = "Peika",
                 Price = "20.00",
@@ -83,7 +83,7 @@
 
             var image2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test2.png");
 
-            var model2 = new EquipmentInputModel()
+            var model2 = new CreateEquipmentInputModel()
             {
                 Name = "Lost",
                 Price = "21.00",
@@ -124,7 +124,7 @@
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
-            var model1 = new EquipmentInputModel()
+            var model1 = new CreateEquipmentInputModel()
             {
                 Name = "Peika",
                 Price = "20.00",
@@ -134,7 +134,7 @@
 
             var image2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test2.png");
 
-            var model2 = new EquipmentInputModel()
+            var model2 = new CreateEquipmentInputModel()
             {
                 Name = "Lost",
                 Price = "21.00",
@@ -144,7 +144,7 @@
 
             var image3 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test3.png");
 
-            var model3 = new EquipmentInputModel()
+            var model3 = new CreateEquipmentInputModel()
             {
                 Name = "Makara",
                 Price = "21.00",
@@ -154,7 +154,7 @@
 
             var image4 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test4.png");
 
-            var model4 = new EquipmentInputModel()
+            var model4 = new CreateEquipmentInputModel()
             {
                 Name = "Lejanka",
                 Price = "21.00",
@@ -185,7 +185,7 @@
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
-            var model1 = new EquipmentInputModel()
+            var model1 = new CreateEquipmentInputModel()
             {
                 Name = "Peika",
                 Price = "20.00",
@@ -195,7 +195,7 @@
 
             var image2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test2.png");
 
-            var model2 = new EquipmentInputModel()
+            var model2 = new CreateEquipmentInputModel()
             {
                 Name = "Lost",
                 Price = "21.00",
@@ -205,7 +205,7 @@
 
             var image3 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test3.png");
 
-            var model3 = new EquipmentInputModel()
+            var model3 = new CreateEquipmentInputModel()
             {
                 Name = "Makara",
                 Price = "21.00",
@@ -215,7 +215,7 @@
 
             var image4 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test4.png");
 
-            var model4 = new EquipmentInputModel()
+            var model4 = new CreateEquipmentInputModel()
             {
                 Name = "Lejanka",
                 Price = "21.00",
@@ -242,7 +242,7 @@
             // Arrange
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
-            var model1 = new EquipmentInputModel()
+            var model1 = new CreateEquipmentInputModel()
             {
                 Name = "Peika",
                 Price = "20.00",
@@ -287,7 +287,7 @@
             // Arrange
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
-            var model1 = new EquipmentInputModel()
+            var model1 = new CreateEquipmentInputModel()
             {
                 Name = "Peika",
                 Price = "20.00",

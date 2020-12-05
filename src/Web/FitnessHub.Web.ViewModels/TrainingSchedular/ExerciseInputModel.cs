@@ -3,9 +3,12 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using FitnessHub.Data.Models;
+    using FitnessHub.Services.Mapping;
+
     using static FitnessHub.Common.GlobalConstants;
 
-    public class ExerciseInputModel
+    public class ExerciseInputModel : IMapFrom<Exercise>
     {
         [Required]
         [MinLength(ExerciseNameMinLength, ErrorMessage = "The name must be at least 2 characters")]

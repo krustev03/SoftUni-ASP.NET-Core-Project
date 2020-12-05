@@ -1,6 +1,5 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
-    using System;
     using System.Threading.Tasks;
 
     using FitnessHub.Data.Models;
@@ -89,7 +88,8 @@
         [Authorize]
         public IActionResult ChangeProgramName(int programId)
         {
-            return this.View();
+            var model = this.trainingProgramService.GetProgramById<TrainingProgramInputModel>(programId);
+            return this.View(model);
         }
 
         [HttpPost]
@@ -160,11 +160,9 @@
         [Authorize]
         public IActionResult EditExercise(int programId, int trainingId, int exerciseId, int page)
         {
-            var viewModel = new ExerciseInputModel
-            {
-                MuscleGroupsItems = this.muscleGroupService.GetAllAsKeyValuePairs(),
-            };
-            return this.View(viewModel);
+            var model = this.exerciseService.GetExerciseById<ExerciseInputModel>(exerciseId);
+            model.MuscleGroupsItems = this.muscleGroupService.GetAllAsKeyValuePairs();
+            return this.View(model);
         }
 
         [HttpPost]

@@ -59,7 +59,8 @@
         [Authorize(Roles = "Administrator")]
         public IActionResult Edit(int newsId)
         {
-            return this.View();
+            var model = this.newsService.GetNewsById<NewsInputModel>(newsId);
+            return this.View(model);
         }
 
         [HttpPost]

@@ -5,6 +5,7 @@
 
     using FitnessHub.Data.Common.Repositories;
     using FitnessHub.Data.Models;
+    using FitnessHub.Services.Mapping;
     using FitnessHub.Web.ViewModels.TrainingSchedular;
 
     public class ExerciseService : IExerciseService
@@ -50,6 +51,14 @@
 
             this.exercisesRepository.Update(exercise);
             await this.exercisesRepository.SaveChangesAsync();
+        }
+
+        public T GetExerciseById<T>(int exerciseId)
+        {
+            var exercise = this.exercisesRepository.AllAsNoTracking()
+                .Where(x => x.Id == exerciseId)
+                .To<T>().FirstOrDefault();
+            return exercise;
         }
 
         public async Task DeleteExerciseByIdAsync(int exerciseId)

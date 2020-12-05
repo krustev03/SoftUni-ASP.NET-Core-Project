@@ -13,9 +13,9 @@
 
         int GetCount();
 
-        Task AddEquipmentAsync(EquipmentInputModel model, string userId, string imagePath);
+        Task AddEquipmentAsync(CreateEquipmentInputModel model, string userId, string imagePath);
 
-        Task EditEquipment(EquipmentInputModel model, int equipmentId, string userId, string imagePath);
+        Task EditEquipment(EditEquipmentInputModel model, int equipmentId, string userId);
 
         Task DeleteEquipmentByIdAsync(int equipmentId);
 

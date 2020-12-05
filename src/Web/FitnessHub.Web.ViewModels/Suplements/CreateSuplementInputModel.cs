@@ -1,10 +1,10 @@
-﻿namespace FitnessHub.Web.ViewModels.Equipments
+﻿namespace FitnessHub.Web.ViewModels.Suplements
 {
     using System.ComponentModel.DataAnnotations;
 
     using Microsoft.AspNetCore.Http;
 
-    public class EquipmentInputModel : BaseEquipmentInputModel
+    public class CreateSuplementInputModel : BaseSuplementInputModel
     {
         [Required]
         public IFormFile Image { get; set; }

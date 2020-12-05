@@ -13,6 +13,8 @@
 
         IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3);
 
+        T GetNewsById<T>(int newsId);
+
         int GetCount();
 
         Task DeleteNewsByIdAsync(int newsId);

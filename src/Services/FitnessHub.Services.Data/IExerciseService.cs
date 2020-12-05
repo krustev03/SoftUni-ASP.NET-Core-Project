@@ -8,8 +8,10 @@
     {
         Task AddExerciseToTrainingAsync(int trainingId, ExerciseInputModel model);
 
-        Task DeleteExerciseByIdAsync(int exerciseId);
-
         Task EditExercise(int exerciseId, ExerciseInputModel model);
+
+        T GetExerciseById<T>(int exerciseId);
+
+        Task DeleteExerciseByIdAsync(int exerciseId);
     }
 }

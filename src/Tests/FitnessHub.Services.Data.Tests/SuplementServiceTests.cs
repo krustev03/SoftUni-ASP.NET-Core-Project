@@ -29,7 +29,7 @@
             // Arrange
             var image = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test.jpg");
 
-            var model = new SuplementInputModel()
+            var model = new CreateSuplementInputModel()
             {
                 Name = "Shake",
                 Weight = "300",
@@ -71,7 +71,7 @@
             // Arrange
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
-            var model1 = new SuplementInputModel()
+            var model1 = new CreateSuplementInputModel()
             {
                 Name = "Shake",
                 Weight = "300",
@@ -82,7 +82,7 @@
 
             var image2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test2.png");
 
-            var model2 = new SuplementInputModel()
+            var model2 = new CreateSuplementInputModel()
             {
                 Name = "Creatin",
                 Weight = "500",
@@ -131,7 +131,7 @@
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
-            var model1 = new SuplementInputModel()
+            var model1 = new CreateSuplementInputModel()
             {
                 Name = "Peika",
                 Weight = "100",
@@ -142,7 +142,7 @@
 
             var image2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test2.png");
 
-            var model2 = new SuplementInputModel()
+            var model2 = new CreateSuplementInputModel()
             {
                 Name = "Lost",
                 Weight = "200",
@@ -153,7 +153,7 @@
 
             var image3 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test3.png");
 
-            var model3 = new SuplementInputModel()
+            var model3 = new CreateSuplementInputModel()
             {
                 Name = "Makara",
                 Weight = "300",
@@ -164,7 +164,7 @@
 
             var image4 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test4.png");
 
-            var model4 = new SuplementInputModel()
+            var model4 = new CreateSuplementInputModel()
             {
                 Name = "Lejanka",
                 Weight = "400",
@@ -196,7 +196,7 @@
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
-            var model1 = new SuplementInputModel()
+            var model1 = new CreateSuplementInputModel()
             {
                 Name = "Peika",
                 Weight = "100",
@@ -207,7 +207,7 @@
 
             var image2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test2.png");
 
-            var model2 = new SuplementInputModel()
+            var model2 = new CreateSuplementInputModel()
             {
                 Name = "Lost",
                 Weight = "200",
@@ -218,7 +218,7 @@
 
             var image3 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test3.png");
 
-            var model3 = new SuplementInputModel()
+            var model3 = new CreateSuplementInputModel()
             {
                 Name = "Makara",
                 Weight = "300",
@@ -229,7 +229,7 @@
 
             var image4 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test4.png");
 
-            var model4 = new SuplementInputModel()
+            var model4 = new CreateSuplementInputModel()
             {
                 Name = "Lejanka",
                 Weight = "400",
@@ -257,7 +257,7 @@
             // Arrange
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
-            var model1 = new SuplementInputModel()
+            var model1 = new CreateSuplementInputModel()
             {
                 Name = "Protein",
                 Weight = "300",
@@ -303,7 +303,7 @@
             // Arrange
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
-            var model1 = new SuplementInputModel()
+            var model1 = new CreateSuplementInputModel()
             {
                 Name = "Protein",
                 Weight = "300",

@@ -13,6 +13,8 @@
 
         IEnumerable<T> GetAllForPaging<T>(int page, string userId, int itemsPerPage);
 
+        T GetProgramById<T>(int programId);
+
         int GetCount();
 
         Task DeleteProgramByIdAsync(int programId);

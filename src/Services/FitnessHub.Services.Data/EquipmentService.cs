@@ -32,7 +32,7 @@
             this.imagesRepository = imagesRepository;
         }
 
-        public async Task AddEquipmentAsync(EquipmentInputModel model, string userId, string imagePath)
+        public async Task AddEquipmentAsync(CreateEquipmentInputModel model, string userId, string imagePath)
         {
             var equipment = new Equipment()
             {
@@ -64,7 +64,7 @@
             await this.equipmentsRepository.SaveChangesAsync();
         }
 
-        public async Task EditEquipment(EquipmentInputModel model, int equipmentId, string userId, string imagePath)
+        public async Task EditEquipment(EditEquipmentInputModel model, int equipmentId, string userId)
         {
             var equipment = this.equipmentsRepository.All().Where(x => x.Id == equipmentId).FirstOrDefault();
 
@@ -72,26 +72,8 @@
             equipment.Price = decimal.Parse(model.Price, CultureInfo.InvariantCulture);
             equipment.Description = model.Description;
 
-            var extension = Path.GetExtension(model.Image.FileName).TrimStart('.');
-            if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
-            {
-                throw new Exception($"Invalid image extension {extension}");
-            }
-
-            var image = this.imagesRepository.All().Where(x => x.EquipmentId == equipment.Id).FirstOrDefault();
-            image.AddedByUserId = userId;
-            image.Extension = extension;
-
-            equipment.Image = image;
-
-            var physicalPath = $"{imagePath}/equipments/{equipment.Image.Id}.{extension}";
-            using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
-            await model.Image.CopyToAsync(fileStream);
-
             this.equipmentsRepository.Update(equipment);
             await this.equipmentsRepository.SaveChangesAsync();
-            this.imagesRepository.Update(image);
-            await this.imagesRepository.SaveChangesAsync();
         }
 
         public IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)

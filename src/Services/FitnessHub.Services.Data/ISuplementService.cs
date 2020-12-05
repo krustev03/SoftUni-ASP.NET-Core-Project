@@ -11,11 +11,13 @@
 
         IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage);
 
+        T GetSuplementById<T>(int suplementId);
+
         int GetCount();
 
-        Task AddSuplementAsync(SuplementInputModel model, string userId, string imagePath);
+        Task AddSuplementAsync(CreateSuplementInputModel model, string userId, string imagePath);
 
-        Task EditSuplement(SuplementInputModel model, int suplementId, string userId, string imagePath);
+        Task EditSuplement(EditSuplementInputModel model, int suplementId, string userId);
 
         Task DeleteSuplementByIdAsync(int suplementId);
 

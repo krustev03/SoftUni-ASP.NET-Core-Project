@@ -9,6 +9,8 @@
     {
         IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage);
 
+        T GetPostById<T>(int postId);
+
         int GetCount();
 
         Task AddPostAsync(TrainerPostInputModel model, string userId);

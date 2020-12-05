@@ -35,7 +35,7 @@
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
-            var model1 = new EquipmentInputModel()
+            var model1 = new CreateEquipmentInputModel()
             {
                 Name = "Peika",
                 Price = "20.00",
@@ -45,7 +45,7 @@
 
             var image2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test2.png");
 
-            var model2 = new EquipmentInputModel()
+            var model2 = new CreateEquipmentInputModel()
             {
                 Name = "Lost",
                 Price = "21.00",
@@ -91,7 +91,7 @@
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
-            var model1 = new SuplementInputModel()
+            var model1 = new CreateSuplementInputModel()
             {
                 Name = "Peika",
                 Weight = "300",
@@ -102,7 +102,7 @@
 
             var image2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test2.png");
 
-            var model2 = new SuplementInputModel()
+            var model2 = new CreateSuplementInputModel()
             {
                 Name = "Lost",
                 Weight = "200",
@@ -152,7 +152,7 @@
 
             var imageEquipment = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
-            var modelEquipment = new EquipmentInputModel()
+            var modelEquipment = new CreateEquipmentInputModel()
             {
                 Name = "Peika",
                 Price = "10.00",
@@ -162,7 +162,7 @@
 
             var imageSuplement = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
-            var modelSuplement = new SuplementInputModel()
+            var modelSuplement = new CreateSuplementInputModel()
             {
                 Name = "Peika",
                 Weight = "300",
@@ -211,7 +211,7 @@
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
-            var model1 = new EquipmentInputModel()
+            var model1 = new CreateEquipmentInputModel()
             {
                 Name = "Peika",
                 Price = "20.00",
@@ -221,7 +221,7 @@
 
             var image2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test2.png");
 
-            var model2 = new EquipmentInputModel()
+            var model2 = new CreateEquipmentInputModel()
             {
                 Name = "Lost",
                 Price = "21.00",
@@ -267,7 +267,7 @@
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
-            var model1 = new SuplementInputModel()
+            var model1 = new CreateSuplementInputModel()
             {
                 Name = "Peika",
                 Weight = "300",
@@ -278,7 +278,7 @@
 
             var image2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test2.png");
 
-            var model2 = new SuplementInputModel()
+            var model2 = new CreateSuplementInputModel()
             {
                 Name = "Lost",
                 Weight = "200",

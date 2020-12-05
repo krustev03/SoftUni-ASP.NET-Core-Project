@@ -32,7 +32,7 @@
             this.imagesRepository = imagesRepository;
         }
 
-        public async Task AddSuplementAsync(SuplementInputModel model, string userId, string imagePath)
+        public async Task AddSuplementAsync(CreateSuplementInputModel model, string userId, string imagePath)
         {
             var suplement = new Suplement()
             {
@@ -65,7 +65,7 @@
             await this.suplementsRepository.SaveChangesAsync();
         }
 
-        public async Task EditSuplement(SuplementInputModel model, int suplementId, string userId, string imagePath)
+        public async Task EditSuplement(EditSuplementInputModel model, int suplementId, string userId)
         {
             var suplement = this.suplementsRepository.All().Where(x => x.Id == suplementId).FirstOrDefault();
 
@@ -73,29 +73,6 @@
             suplement.Price = decimal.Parse(model.Price, CultureInfo.InvariantCulture);
             suplement.Weight = int.Parse(model.Weight, CultureInfo.InvariantCulture);
             suplement.Description = model.Description;
-
-            var extension = Path.GetExtension(model.Image.FileName).TrimStart('.');
-            if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
-            {
-                throw new Exception($"Invalid image extension {extension}");
-            }
-
-            var dbImage = new Image
-            {
-                AddedByUserId = userId,
-                Extension = extension,
-            };
-
-            var image = this.imagesRepository.All().Where(x => x.SuplementId == suplement.Id).FirstOrDefault();
-            image.SuplementId = null;
-
-            suplement.ImageId = dbImage.Id;
-            suplement.Image = dbImage;
-            suplement.Image.SuplementId = suplement.Id;
-
-            var physicalPath = $"{imagePath}/suplements/{suplement.Image.Id}.{extension}";
-            using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
-            await model.Image.CopyToAsync(fileStream);
 
             this.suplementsRepository.Update(suplement);
             await this.suplementsRepository.SaveChangesAsync();
@@ -108,6 +85,14 @@
                 .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                 .To<T>().ToList();
             return suplements;
+        }
+
+        public T GetSuplementById<T>(int suplementId)
+        {
+            var suplement = this.suplementsRepository.AllAsNoTracking()
+                .Where(x => x.Id == suplementId)
+                .To<T>().FirstOrDefault();
+            return suplement;
         }
 
         public IEnumerable<T> GetAllSuplements<T>()

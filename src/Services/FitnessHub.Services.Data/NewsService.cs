@@ -50,6 +50,14 @@
             return news;
         }
 
+        public T GetNewsById<T>(int newsId)
+        {
+            var news = this.newsRepository.AllAsNoTracking()
+                .Where(x => x.Id == newsId)
+                .To<T>().FirstOrDefault();
+            return news;
+        }
+
         public int GetCount()
         {
             return this.newsRepository.All().Count();

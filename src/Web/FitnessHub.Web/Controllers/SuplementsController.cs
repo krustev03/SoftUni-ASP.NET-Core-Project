@@ -55,7 +55,7 @@
 
         [HttpPost]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Add(SuplementInputModel model)
+        public async Task<IActionResult> Add(CreateSuplementInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -80,14 +80,15 @@
         }
 
         [Authorize(Roles = "Administrator")]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int suplementId)
         {
-            return this.View();
+            var model = this.suplementService.GetSuplementById<EditSuplementInputModel>(suplementId);
+            return this.View(model);
         }
 
         [HttpPost]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Edit(int suplementId, int page, SuplementInputModel model)
+        public async Task<IActionResult> Edit(int suplementId, int page, EditSuplementInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -98,7 +99,7 @@
 
             try
             {
-                await this.suplementService.EditSuplement(model, suplementId, appUser.Id, $"{this.environment.WebRootPath}/images");
+                await this.suplementService.EditSuplement(model, suplementId, appUser.Id);
             }
             catch (Exception ex)
             {

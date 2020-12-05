@@ -21,7 +21,7 @@
             // Arrange
             var imageSuplement1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "testSuplement1.jpg");
 
-            var modelSuplement1 = new SuplementInputModel()
+            var modelSuplement1 = new CreateSuplementInputModel()
             {
                 Name = "Protein",
                 Weight = "300",
@@ -32,7 +32,7 @@
 
             var imageSuplement2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "testSuplement2.jpg");
 
-            var modelSuplement2 = new SuplementInputModel()
+            var modelSuplement2 = new CreateSuplementInputModel()
             {
                 Name = "Creatin",
                 Weight = "300",
@@ -43,7 +43,7 @@
 
             var imageEquipment1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "testEquipment1.jpg");
 
-            var modelEquipment1 = new EquipmentInputModel()
+            var modelEquipment1 = new CreateEquipmentInputModel()
             {
                 Name = "Straight bar",
                 Price = "30.00",
@@ -53,7 +53,7 @@
 
             var imageEquipment2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "testEquipment2.jpg");
 
-            var modelEquipment2 = new EquipmentInputModel()
+            var modelEquipment2 = new CreateEquipmentInputModel()
             {
                 Name = "Bench press",
                 Price = "40.00",

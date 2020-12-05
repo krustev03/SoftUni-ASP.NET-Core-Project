@@ -54,7 +54,7 @@
 
         [HttpPost]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Add(EquipmentInputModel model)
+        public async Task<IActionResult> Add(CreateEquipmentInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -87,7 +87,7 @@
 
         [HttpPost]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Edit(int equipmentId, int page, EquipmentInputModel model)
+        public async Task<IActionResult> Edit(int equipmentId, int page, EditEquipmentInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -98,7 +98,7 @@
 
             try
             {
-                await this.equipmentService.EditEquipment(model, equipmentId, appUser.Id, $"{this.environment.WebRootPath}/images");
+                await this.equipmentService.EditEquipment(model, equipmentId, appUser.Id);
             }
             catch (Exception ex)
             {

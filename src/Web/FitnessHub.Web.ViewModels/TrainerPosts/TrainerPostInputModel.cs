@@ -2,9 +2,12 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using FitnessHub.Data.Models;
+    using FitnessHub.Services.Mapping;
+
     using static FitnessHub.Common.GlobalConstants;
 
-    public class TrainerPostInputModel
+    public class TrainerPostInputModel : IMapFrom<TrainerPost>
     {
         [Required]
         [MinLength(TrainerPostNameMinLength, ErrorMessage = "The first name must be at least 2 characters.")]

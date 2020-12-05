@@ -51,6 +51,14 @@
             return trainingPrograms;
         }
 
+        public T GetProgramById<T>(int programId)
+        {
+            var program = this.trainingProgramsRepository.AllAsNoTracking()
+                .Where(x => x.Id == programId)
+                .To<T>().FirstOrDefault();
+            return program;
+        }
+
         public int GetCount()
         {
             return this.trainingProgramsRepository.All().Count();

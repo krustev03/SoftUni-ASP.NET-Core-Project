@@ -2,9 +2,12 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    using FitnessHub.Data.Models;
+    using FitnessHub.Services.Mapping;
+
     using static FitnessHub.Common.GlobalConstants;
 
-    public class NewsInputModel
+    public class NewsInputModel : IMapFrom<News>
     {
         [Required]
         [MinLength(NewsTitleMinLength, ErrorMessage = "The title must be at least 5 characters.")]

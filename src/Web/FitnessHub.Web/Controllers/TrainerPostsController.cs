@@ -66,7 +66,8 @@
         [Authorize(Roles = "Administrator, Trainer")]
         public IActionResult Edit(int trainerPostId)
         {
-            return this.View();
+            var model = this.trainerPostService.GetPostById<TrainerPostInputModel>(trainerPostId);
+            return this.View(model);
         }
 
         [HttpPost]

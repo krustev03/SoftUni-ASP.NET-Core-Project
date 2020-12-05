@@ -2,11 +2,9 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using Microsoft.AspNetCore.Http;
-
     using static FitnessHub.Common.GlobalConstants;
 
-    public class SuplementInputModel
+    public class BaseSuplementInputModel
     {
         [Required]
         [MinLength(SuplementNameMinLength, ErrorMessage = "The name must be at least 5 characters.")]
@@ -26,8 +24,5 @@
         [MinLength(SuplementDescriptionMinLength, ErrorMessage = "The description must be at least 20 characters.")]
         [MaxLength(SuplementDescriptionMaxLength)]
         public string Description { get; set; }
-
-        [Required]
-        public IFormFile Image { get; set; }
     }
 }
