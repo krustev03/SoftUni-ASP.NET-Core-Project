@@ -55,7 +55,7 @@
 
         public T GetExerciseById<T>(int exerciseId)
         {
-            var exercise = this.exercisesRepository.AllAsNoTracking()
+            var exercise = this.exercisesRepository.All()
                 .Where(x => x.Id == exerciseId)
                 .To<T>().FirstOrDefault();
             return exercise;

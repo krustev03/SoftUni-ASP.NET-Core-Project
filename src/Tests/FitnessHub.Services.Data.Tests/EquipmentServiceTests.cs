@@ -16,6 +16,8 @@
 
     // IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
 
+    // T GetEquipmentById<T>(int equipmentId)
+
     // int GetCount()
 
     // async void AddEquipmentToCart()
@@ -83,35 +85,25 @@
 
             var image2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test2.png");
 
-            var model2 = new CreateEquipmentInputModel()
+            var model2 = new EditEquipmentInputModel()
             {
                 Name = "Lost",
                 Price = "21.00",
                 Description = "The best equipment in the world.",
-                Image = image2,
             };
 
             // Act
-            await equipmentService.EditEquipment(model2, 1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+            await equipmentService.EditEquipment(model2, 1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80");
             var equipment = await equipmentsRepository.GetByIdWithDeletedAsync(1);
 
             var expectedName = "Lost";
             var expectedPrice = 21.00m;
             var expectedDescription = "The best equipment in the world.";
-            var expectedImage = new Image()
-            {
-                AddedByUserId = "24bf72c6-e348-40d1-a7b1-d28dfa033c80",
-                Extension = "png",
-                EquipmentId = 1,
-            };
 
             // Assert
             Assert.Equal(expectedName, equipment.Name);
             Assert.Equal(expectedPrice, equipment.Price);
             Assert.Equal(expectedDescription, equipment.Description);
-            Assert.Equal(expectedImage.AddedByUserId, equipment.Image.AddedByUserId);
-            Assert.Equal(expectedImage.Extension, equipment.Image.Extension);
-            Assert.Equal(expectedImage.EquipmentId, equipment.Image.EquipmentId);
         }
 
         [Fact] // 3. IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
@@ -175,7 +167,38 @@
             Assert.Equal(expectedCount, resultCount);
         }
 
-        [Fact] // 4. int GetCount()
+        [Fact] // 4. T GetEquipmentById<T>(int equipmentId)
+        public async void GetEquipmentById_ShouldGetEquipmentByIdInDatabase()
+        {
+            // Arrange
+            var image = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test.jpg");
+
+            var model = new CreateEquipmentInputModel()
+            {
+                Name = "Peika",
+                Price = "20.00",
+                Description = "The best equipment in the universe.",
+                Image = image,
+            };
+            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
+            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository);
+
+            await equipmentService.AddEquipmentAsync(model, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+
+            // Act
+            var equipment = equipmentService.GetEquipmentById<EquipmentViewModel>(1);
+            var expectedName = "Peika";
+            var expectedPrice = 20.00m;
+            var expectedDescription = "The best equipment in the universe.";
+
+            // Assert
+            Assert.Equal(expectedName, equipment.Name);
+            Assert.Equal(expectedPrice, equipment.Price);
+            Assert.Equal(expectedDescription, equipment.Description);
+        }
+
+        [Fact] // 5. int GetCount()
         public async void GetCount_ShouldReturnEquipmentsCount()
         {
             // Arrange
@@ -236,7 +259,7 @@
             Assert.Equal(expectedCount, resultCount);
         }
 
-        [Fact] // 5. async Task AddEquipmentToCart(int id, string userId)
+        [Fact] // 6. async Task AddEquipmentToCart(int id, string userId)
         public async void AddEquipmentToCart_ShouldAddEquipmentToCart()
         {
             // Arrange
@@ -281,7 +304,7 @@
             Assert.Equal(expectedQuantity, resultQuantity);
         }
 
-        [Fact] // 6. async Task DeleteEquipmentByIdAsync(int id)
+        [Fact] // 7. async Task DeleteEquipmentByIdAsync(int id)
         public async void DeleteEquipmentByIdAsync_ShouldDeleteEquipmentInCartAndInDatabase()
         {
             // Arrange

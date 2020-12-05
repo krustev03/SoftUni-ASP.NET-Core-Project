@@ -1,5 +1,6 @@
 ﻿namespace FitnessHub.Services.Data.Tests
 {
+    using System;
     using System.IO;
     using System.Linq;
     using System.Text;
@@ -15,6 +16,8 @@
     // async Task EditSuplement(SuplementInputModel model, int suplementId, string userId, string imagePath)
 
     // IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
+
+    // T GetSuplementById<T>(int suplementId)
 
     // int GetCount()
 
@@ -80,15 +83,12 @@
                 Image = image1,
             };
 
-            var image2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test2.png");
-
-            var model2 = new CreateSuplementInputModel()
+            var model2 = new EditSuplementInputModel()
             {
                 Name = "Creatin",
                 Weight = "500",
                 Price = "25.00",
                 Description = "The best creatin in the universe.",
-                Image = image2,
             };
             var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
             var imagesRepository = new EfRepository<Image>(this.Context);
@@ -97,28 +97,19 @@
             await suplementService.AddSuplementAsync(model1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
 
             // Act
-            await suplementService.EditSuplement(model2, 1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+            await suplementService.EditSuplement(model2, 1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80");
             var suplement = await suplementsRepository.GetByIdWithDeletedAsync(1);
 
             var expectedName = "Creatin";
             var expectedPrice = 25.00m;
             var expectedWeight = 500;
             var expectedDescription = "The best creatin in the universe.";
-            var expectedImage = new Image()
-            {
-                AddedByUserId = "24bf72c6-e348-40d1-a7b1-d28dfa033c80",
-                Extension = "png",
-                SuplementId = 1,
-            };
 
             // Assert
             Assert.Equal(expectedName, suplement.Name);
             Assert.Equal(expectedWeight, suplement.Weight);
             Assert.Equal(expectedPrice, suplement.Price);
             Assert.Equal(expectedDescription, suplement.Description);
-            Assert.Equal(expectedImage.AddedByUserId, suplement.Image.AddedByUserId);
-            Assert.Equal(expectedImage.Extension, suplement.Image.Extension);
-            Assert.Equal(expectedImage.SuplementId, suplement.Image.SuplementId);
         }
 
         [Fact] // 3. IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
@@ -186,7 +177,41 @@
             Assert.Equal(expectedCount, resultCount);
         }
 
-        [Fact] // 4. int GetCount()
+        [Fact] // 4. T GetSuplementById<T>(int suplementId)
+        public async void GetSuplementById_ShouldGetSuplementByIdInDatabase()
+        {
+            // Arrange
+            var image = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test.jpg");
+
+            var model = new CreateSuplementInputModel()
+            {
+                Name = "Shake",
+                Weight = "300",
+                Price = "20.00",
+                Description = "The best suplement in the universe.",
+                Image = image,
+            };
+            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
+            var imagesRepository = new EfRepository<Image>(this.Context);
+            var suplementService = new SuplementService(suplementsRepository, null, null, imagesRepository);
+
+            await suplementService.AddSuplementAsync(model, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+
+            // Act
+            var suplement = suplementService.GetSuplementById<SuplementViewModel>(1);
+            var expectedName = "Shake";
+            var expectedWeight = 300;
+            var expectedPrice = 20.00m;
+            var expectedDescription = "The best suplement in the universe.";
+
+            // Assert
+            Assert.Equal(expectedName, suplement.Name);
+            Assert.Equal(expectedWeight, suplement.Weight);
+            Assert.Equal(expectedPrice, suplement.Price);
+            Assert.Equal(expectedDescription, suplement.Description);
+        }
+
+        [Fact] // 5. int GetCount()
         public async void GetCount_ShouldReturnSuplementsCount()
         {
             // Arrange
@@ -251,7 +276,7 @@
             Assert.Equal(expectedCount, resultCount);
         }
 
-        [Fact] // 5. async Task AddSuplementToCart(int id, string userId)
+        [Fact] // 6. async Task AddSuplementToCart(int id, string userId)
         public async void AddSuplementToCart_ShouldAddSuplementToCart()
         {
             // Arrange
@@ -297,7 +322,7 @@
             Assert.Equal(expectedQuantity, resultQuantity);
         }
 
-        [Fact] // 6. async Task DeleteSuplementByIdAsync(int id)
+        [Fact] // 7. async Task DeleteSuplementByIdAsync(int id)
         public async void DeleteSuplementByIdAsync_ShouldDeleteSuplementInCartAndInDatabase()
         {
             // Arrange

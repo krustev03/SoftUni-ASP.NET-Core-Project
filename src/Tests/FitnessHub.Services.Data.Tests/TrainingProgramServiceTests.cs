@@ -15,6 +15,8 @@
 
         // IEnumerable<T> GetAllForPaging<T>(int page, string userId, int itemsPerPage = 3)
 
+        // T GetProgramById<T>(int programId)
+
         // int GetCount()
 
         // async Task DeleteProgramByIdAsync(int programId)
@@ -108,7 +110,29 @@
             Assert.Equal(expectedCount, resultCount);
         }
 
-        [Fact] // 4. int GetCount()
+        [Fact] // 4. T GetProgramById<T>(int programId)
+        public async void GetProgramById_ShouldGetTrainingProgramByIdInDatabase()
+        {
+            // Arrange
+            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.Context);
+            var trainingProgramService = new TrainingProgramService(trainingProgramsRepository);
+
+            var model1 = new TrainingProgramInputModel()
+            {
+                Name = "Programa",
+            };
+
+            await trainingProgramService.AddTrainingProgramAsync(model1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80");
+
+            // Act
+            var trainingProgram = trainingProgramService.GetProgramById<TrainingProgramViewModel>(1);
+            var expectedName = "Programa";
+
+            // Assert
+            Assert.Equal(expectedName, trainingProgram.Name);
+        }
+
+        [Fact] // 5. int GetCount()
         public async void GetCount_ShouldReturnTrainingProgramsCount()
         {
             // Arrange
@@ -148,7 +172,7 @@
             Assert.Equal(expectedCount, resultCount);
         }
 
-        [Fact] // 5. async Task DeleteProgramByIdAsync(int programId)
+        [Fact] // 6. async Task DeleteProgramByIdAsync(int programId)
         public async void DeleteProgramByIdAsync_ShouldDeleteTrainingProgramInDatabase()
         {
             // Arrange

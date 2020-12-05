@@ -13,6 +13,8 @@
 
     // IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
 
+    // T GetPostById<T>(int postId)
+
     // int GetCount()
 
     // async Task DeletePostByIdAsync(int id)
@@ -130,7 +132,35 @@
             Assert.Equal(expectedCount, resultCount);
         }
 
-        [Fact] // 4. int GetCount()
+        [Fact] // 4. T GetPostById<T>(int postId)
+        public async void GetPostById_ShouldGetPostByIdInDatabase()
+        {
+            // Arrange
+            var trainerPostsRepository = new EfDeletableEntityRepository<TrainerPost>(this.Context);
+            var trainerPostService = new TrainerPostService(trainerPostsRepository);
+
+            var model = new TrainerPostInputModel()
+            {
+                FirstName = "Sasho",
+                LastName = "Mitov",
+                Description = "The best trainer in the universe.",
+            };
+
+            await trainerPostService.AddPostAsync(model, "24bf72c6-e348-40d1-a7b1-d28dfa033c80");
+
+            // Act
+            var trainerPost = trainerPostService.GetPostById<TrainerPostViewModel>(1);
+            var expectedFirstName = "Sasho";
+            var expectedLastName = "Mitov";
+            var expectedDescription = "The best trainer in the universe.";
+
+            // Assert
+            Assert.Equal(expectedFirstName, trainerPost.FirstName);
+            Assert.Equal(expectedLastName, trainerPost.LastName);
+            Assert.Equal(expectedDescription, trainerPost.Description);
+        }
+
+        [Fact] // 5. int GetCount()
         public async void GetCount_ShouldReturnTrainerPostsCount()
         {
             // Arrange
@@ -178,7 +208,7 @@
             Assert.Equal(expectedCount, resultCount);
         }
 
-        [Fact] // 5. async Task DeletePostByIdAsync(int id)
+        [Fact] // 6. async Task DeletePostByIdAsync(int id)
         public async void DeletePostByIdAsync_ShouldDeleteTrainerPostInDatabase()
         {
             // Arrange

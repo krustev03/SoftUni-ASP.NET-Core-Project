@@ -13,6 +13,8 @@
 
     // IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
 
+    // T GetNewsById<T>(int newsId)
+
     // int GetCount()
 
     // async Task DeleteNewsByIdAsync(int newsId)
@@ -99,7 +101,31 @@
             Assert.Equal(expectedCount, resultCount);
         }
 
-        [Fact] // 4. int GetCount()
+        [Fact] // 4. T GetNewsById<T>(int newsId)
+        public async void GetNewsById_ShouldGetNewsByIdInDatabase()
+        {
+            // Arrange
+            var model = new NewsInputModel()
+            {
+                Title = "Novina",
+                Content = "The best news in the universe now.",
+            };
+            var newsRepository = new EfDeletableEntityRepository<News>(this.Context);
+            var newsService = new NewsService(newsRepository);
+
+            await newsService.AddNewsAsync(model);
+
+            // Act
+            var news = newsService.GetNewsById<NewsViewModel>(1);
+            var expectedTitle = "Novina";
+            var expectedContent = "The best news in the universe now.";
+
+            // Assert
+            Assert.Equal(expectedTitle, news.Title);
+            Assert.Equal(expectedContent, news.Content);
+        }
+
+        [Fact] // 5. int GetCount()
         public async void GetCount_ShouldReturnNewsCount()
         {
             // Arrange
@@ -127,7 +153,7 @@
             Assert.Equal(expectedCount, resultCount);
         }
 
-        [Fact] // 5. async Task DeleteNewsByIdAsync(int id)
+        [Fact] // 6. async Task DeleteNewsByIdAsync(int id)
         public async void DeleteNewsByIdAsync_ShouldDeleteGivenNewsInDatabase()
         {
             // Arrange
