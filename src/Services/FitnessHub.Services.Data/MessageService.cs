@@ -16,11 +16,11 @@
             this.messagesRepository = messagesRepository;
         }
 
-        public async Task AddMessageAsync(MessageInputModel inputModel, string authorId)
+        public async Task AddMessageAsync(string messageContent, string authorId)
         {
             var message = new Message()
             {
-                Content = inputModel.Content,
+                Content = messageContent,
                 AuthorId = authorId,
             };
 

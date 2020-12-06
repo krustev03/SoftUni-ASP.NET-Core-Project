@@ -12,6 +12,7 @@
     using FitnessHub.Services.Data;
     using FitnessHub.Services.Mapping;
     using FitnessHub.Services.Messaging;
+    using FitnessHub.Web.Hubs;
     using FitnessHub.Web.ViewModels;
     using Hangfire;
     using Hangfire.SqlServer;
@@ -69,6 +70,8 @@
                     });
 
             services.Configure<MailSettings>(this.configuration.GetSection("MailSettings"));
+
+            services.AddSignalR();
 
             services.AddControllersWithViews(
                 options =>
@@ -138,6 +141,7 @@
             app.UseEndpoints(
                 endpoints =>
                     {
+                        endpoints.MapHub<ChatHub>("/chatter");
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();

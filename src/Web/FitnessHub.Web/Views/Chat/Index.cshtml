@@ -1,4 +1,7 @@
 ﻿@using FitnessHub.Web.ViewModels.Chat
+@using FitnessHub.Data.Models
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<ApplicationUser> userManager
 @model MessageInputModel
 
 @{
@@ -26,17 +29,58 @@
         <div class="row">
             <div class="col-lg-6 form-section text-center">
                 <div class="leave-comment">
-                    <form method="post" asp-action="Index" asp-controller="Chat">
                         <div>
-                            <textarea asp-for="@Model.Content" type="textarea" placeholder="Content"></textarea>
+                            <textarea asp-for="@Model.Content" type="textarea" id="messageInput" placeholder="Content"></textarea>
                             <span asp-validation-for="@Model.Content" class="text-danger"></span>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-orange">Send</button>
+                            <button type="submit" id="sendButton" class="btn btn-orange btn-send">Send</button>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+@section Scripts {
+    <script>
+        var connection =
+            new signalR.HubConnectionBuilder()
+                .withUrl("/chatter")
+                .build();
+
+        connection.on("NewMessage",
+            function () {
+                $('#messageInput').val('');
+                $("#view-all").load("/Chat/GetPartial");
+            });
+
+        $("#sendButton").click(function() {
+            var message = $("#messageInput").val();
+            connection.invoke("Send", message);
+        });
+
+        connection.on("DeletedMessage",
+            function () {
+                console.log("Successfully deleted.")
+            });
+
+        $("#deleteButton").click(function () {
+            var messageId = $("#message-id").val();
+            connection.invoke("Delete", messageId);
+        });
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+}

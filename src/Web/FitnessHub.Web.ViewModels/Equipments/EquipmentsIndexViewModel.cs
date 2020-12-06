@@ -5,5 +5,7 @@
     public class EquipmentsIndexViewModel : PagingViewModel
     {
         public IEnumerable<EquipmentViewModel> Equipments { get; set; }
+
+        public string SearchString { get; set; }
     }
 }

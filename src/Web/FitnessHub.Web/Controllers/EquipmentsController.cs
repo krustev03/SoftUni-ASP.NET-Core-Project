@@ -46,6 +46,26 @@
             return this.View(viewModel);
         }
 
+        //[HttpPost]
+        //[Authorize]
+        //public IActionResult Index()
+        //{
+        //    if (page <= 0)
+        //    {
+        //        return this.NotFound();
+        //    }
+
+        //    const int ItemsPerPage = 3;
+        //    var viewModel = new EquipmentsIndexViewModel
+        //    {
+        //        ItemsPerPage = ItemsPerPage,
+        //        PageNumber = page,
+        //        ItemsCount = this.equipmentService.GetCount(),
+        //        Equipments = this.equipmentService.GetAllForPaging<EquipmentViewModel>(page, ItemsPerPage),
+        //    };
+        //    return this.View(viewModel);
+        //}
+
         [Authorize(Roles = "Administrator")]
         public IActionResult Add()
         {

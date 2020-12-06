@@ -26,29 +26,9 @@
             return this.View();
         }
 
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> Index(MessageInputModel model)
+        public IActionResult GetPartial()
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(model);
-            }
-
-            var appUser = await this.userManager.GetUserAsync(this.User);
-
-            await this.messageService.AddMessageAsync(model, appUser.Id);
-
-            return this.View();
-        }
-
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> Delete(int messageId)
-        {
-            await this.messageService.DeleteMessageByIdAsync(messageId);
-
-            return this.RedirectToAction(nameof(this.Index));
+            return this.PartialView("_ViewAll");
         }
     }
 }

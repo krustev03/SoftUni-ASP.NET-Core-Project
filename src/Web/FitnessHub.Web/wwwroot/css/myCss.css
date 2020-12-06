@@ -260,3 +260,12 @@
 .reply-text {
     margin-bottom: 20px;
 }
+
+.search-field {
+    padding: 0;
+    padding-bottom: 50px;
+}
+
+.btn-send:focus {
+    box-shadow: none;
+}
