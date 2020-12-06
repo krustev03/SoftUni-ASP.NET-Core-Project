@@ -29,14 +29,5 @@
 
             await this.Clients.All.SendAsync("NewMessage");
         }
-
-        public async Task Delete(string messageId)
-        {
-            var id = Convert.ToInt32(messageId);
-
-            await this.messageService.DeleteMessageByIdAsync(id);
-
-            await this.Clients.All.SendAsync("DeletedMessage");
-        }
     }
 }

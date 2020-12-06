@@ -30,5 +30,14 @@
         {
             return this.PartialView("_ViewAll");
         }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Delete(int messageId)
+        {
+            await this.messageService.DeleteMessageByIdAsync(messageId);
+
+            return this.RedirectToAction(nameof(this.Index));
+        }
     }
 }
