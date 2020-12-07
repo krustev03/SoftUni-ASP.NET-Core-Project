@@ -47,6 +47,33 @@
             return this.View(viewModel);
         }
 
+        [HttpPost]
+        [Authorize]
+        public IActionResult Index(int page, string searchString, SuplementsIndexViewModel model)
+        {
+            if (model.SearchString == null)
+            {
+                model.SearchString = searchString;
+            }
+
+            if (page <= 0)
+            {
+                return this.NotFound();
+            }
+
+            const int ItemsPerPage = 3;
+            var viewModel = new SuplementsIndexViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = page,
+                ItemsCount = this.suplementService.GetFilteredCount(model.SearchString),
+                Suplements = this.suplementService.GetAllWithFilterForPaging<SuplementViewModel>(page, model.SearchString, ItemsPerPage),
+                IsFiltered = true,
+                SearchString = model.SearchString,
+            };
+            return this.View(viewModel);
+        }
+
         [Authorize(Roles = "Administrator")]
         public IActionResult Add()
         {

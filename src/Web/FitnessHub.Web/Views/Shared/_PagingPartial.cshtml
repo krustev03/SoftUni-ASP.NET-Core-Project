@@ -3,13 +3,33 @@
         <nav aria-label="...">
             <ul class="pagination justify-content-center">
                 <li class="page-item @if (!Model.HasPreviousPage) { <text>disabled</text> }">
-                    <a class="page-link paging-number" asp-action="Index" asp-route-page="@Model.PreviousPageNumber">Previous</a>
+                    @if (Model.IsFiltered)
+                    {
+                        <form class="asp-action="Index" asp-route-page="@Model.PreviousPageNumber" asp-route-searchString="@Model.SearchString" method="post">
+                            <button class="page-link paging-number">Previous</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a class="page-link paging-number" asp-action="Index" asp-route-page="@Model.PreviousPageNumber">Previous</a>
+                    }
                 </li>
                 @for (int i = Model.PageNumber - 4; i < Model.PageNumber; i++)
                 {
                     if (i > 0)
                     {
-                        <li class="page-item"><a class="page-link paging-number" asp-action="Index" asp-route-page="@i">@i</a></li>
+                        <li class="page-item">
+                            @if (Model.IsFiltered)
+                            {
+                                <form asp-action="Index" asp-route-page="@i" asp-route-searchString="my" method="post">
+                                    <button class="page-link paging-number">@i</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <a class="page-link paging-number" asp-action="Index" asp-route-page="@i">@i</a>
+                            }
+                        </li>
                     }
                 }
                 <li class="page-item active" aria-current="page">
@@ -22,11 +42,31 @@
                 {
                     if (i <= Model.PagesCount)
                     {
-                        <li class="page-item"><a class="page-link paging-number" asp-action="Index" asp-route-page="@i">@i</a></li>
+                        <li class="page-item">
+                            @if (Model.IsFiltered)
+                            {
+                                <form asp-action="Index" asp-route-page="@i" asp-route-searchString="my" method="post">
+                                    <button class="page-link paging-number">@i</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <a class="page-link paging-number" asp-action="Index" asp-route-page="@i">@i</a>
+                            }
+                        </li>
                     }
                 }
                 <li class="page-item @if (!Model.HasNextPage) { <text>disabled</text> }">
-                    <a class="page-link paging-number" asp-action="Index" asp-route-page="@Model.NextPageNumber">Next</a>
+                    @if (Model.IsFiltered)
+                    {
+                        <form asp-action="Index" asp-route-page="@Model.NextPageNumber" asp-route-searchString="@Model.SearchString" method="post">
+                            <button class="page-link paging-number">Next</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a class="page-link paging-number" asp-action="Index" asp-route-page="@Model.NextPageNumber">Next</a>
+                    }
                 </li>
             </ul>
         </nav>

@@ -7,13 +7,15 @@
 
     public interface ISuplementService
     {
-        IEnumerable<T> GetAllSuplements<T>();
-
         IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage);
+
+        IEnumerable<T> GetAllWithFilterForPaging<T>(int page, string searchString, int itemsPerPage = 3);
 
         T GetSuplementById<T>(int suplementId);
 
         int GetCount();
+
+        public int GetFilteredCount(string searchString);
 
         Task AddSuplementAsync(CreateSuplementInputModel model, string userId, string imagePath);
 

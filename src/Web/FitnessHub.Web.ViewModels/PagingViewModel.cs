@@ -6,6 +6,8 @@
     {
         public int PageNumber { get; set; }
 
+        public string SearchString { get; set; }
+
         public bool HasPreviousPage => this.PageNumber > 1;
 
         public int PreviousPageNumber => this.PageNumber - 1;
@@ -19,5 +21,7 @@
         public int ItemsCount { get; set; }
 
         public int ItemsPerPage { get; set; }
+
+        public bool IsFiltered { get; set; }
     }
 }

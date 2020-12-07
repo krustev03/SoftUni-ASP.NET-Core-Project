@@ -1,6 +1,7 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using FitnessHub.Data.Models;
@@ -42,29 +43,37 @@
                 PageNumber = page,
                 ItemsCount = this.equipmentService.GetCount(),
                 Equipments = this.equipmentService.GetAllForPaging<EquipmentViewModel>(page, ItemsPerPage),
+                IsFiltered = false,
             };
             return this.View(viewModel);
         }
 
-        //[HttpPost]
-        //[Authorize]
-        //public IActionResult Index()
-        //{
-        //    if (page <= 0)
-        //    {
-        //        return this.NotFound();
-        //    }
+        [HttpPost]
+        [Authorize]
+        public IActionResult Index(int page, string searchString, EquipmentsIndexViewModel model)
+        {
+            if (model.SearchString == null)
+            {
+                model.SearchString = searchString;
+            }
 
-        //    const int ItemsPerPage = 3;
-        //    var viewModel = new EquipmentsIndexViewModel
-        //    {
-        //        ItemsPerPage = ItemsPerPage,
-        //        PageNumber = page,
-        //        ItemsCount = this.equipmentService.GetCount(),
-        //        Equipments = this.equipmentService.GetAllForPaging<EquipmentViewModel>(page, ItemsPerPage),
-        //    };
-        //    return this.View(viewModel);
-        //}
+            if (page <= 0)
+            {
+                return this.NotFound();
+            }
+
+            const int ItemsPerPage = 3;
+            var viewModel = new EquipmentsIndexViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = page,
+                ItemsCount = this.equipmentService.GetFilteredCount(model.SearchString),
+                Equipments = this.equipmentService.GetAllWithFilterForPaging<EquipmentViewModel>(page, model.SearchString, ItemsPerPage),
+                IsFiltered = true,
+                SearchString = model.SearchString,
+            };
+            return this.View(viewModel);
+        }
 
         [Authorize(Roles = "Administrator")]
         public IActionResult Add()

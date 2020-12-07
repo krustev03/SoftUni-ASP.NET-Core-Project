@@ -87,6 +87,15 @@
             return suplements;
         }
 
+        public IEnumerable<T> GetAllWithFilterForPaging<T>(int page, string searchString, int itemsPerPage = 3)
+        {
+            return this.suplementsRepository.AllAsNoTracking()
+                .OrderByDescending(x => x.Id)
+                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                .Where(x => x.Name.ToLower().Contains(searchString.ToLower()))
+                .To<T>().ToList();
+        }
+
         public T GetSuplementById<T>(int suplementId)
         {
             var suplement = this.suplementsRepository.AllAsNoTracking()
@@ -95,14 +104,16 @@
             return suplement;
         }
 
-        public IEnumerable<T> GetAllSuplements<T>()
-        {
-            return this.suplementsRepository.All().To<T>();
-        }
-
         public int GetCount()
         {
             return this.suplementsRepository.All().Count();
+        }
+
+        public int GetFilteredCount(string searchString)
+        {
+            return this.suplementsRepository.All()
+                .Where(x => x.Name.ToLower().Contains(searchString.ToLower()))
+                .Count();
         }
 
         public async Task DeleteSuplementByIdAsync(int suplementId)

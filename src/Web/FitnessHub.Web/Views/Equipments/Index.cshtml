@@ -34,9 +34,9 @@
         <div class="row">
             <div class="col-lg-6 form-section text-center search-field">
                 <div class="leave-comment">
-                    <form method="post" asp-action="Index" asp-controller="Equipments" class="d-flex">
+                    <form method="post" asp-action="Index" asp-controller="Equipments" asp-route-page="1" asp-route-searchString="@Model.SearchString" class="d-flex">
                         <div class="w-75">
-                            <input asp-for="@Model.SearchString" type="text" placeholder="Search by name..." required>
+                            <input asp-for="@Model.SearchString" type="text" name="searchString" placeholder="Search by name..." required>
                             <span asp-validation-for="@Model.SearchString" class="text-danger"></span>
                         </div>
                         <div class="w-25">

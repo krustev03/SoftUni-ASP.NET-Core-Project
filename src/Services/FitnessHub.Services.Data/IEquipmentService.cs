@@ -9,9 +9,13 @@
     {
         IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage);
 
+        IEnumerable<T> GetAllWithFilterForPaging<T>(int page, string searchString, int itemsPerPage = 3);
+
         T GetEquipmentById<T>(int equipmentId);
 
         int GetCount();
+
+        public int GetFilteredCount(string searchString);
 
         Task AddEquipmentAsync(CreateEquipmentInputModel model, string userId, string imagePath);
 

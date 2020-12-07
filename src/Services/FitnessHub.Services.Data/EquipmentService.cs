@@ -85,6 +85,15 @@
             return equipments;
         }
 
+        public IEnumerable<T> GetAllWithFilterForPaging<T>(int page, string searchString, int itemsPerPage = 3)
+        {
+            return this.equipmentsRepository.AllAsNoTracking()
+                .OrderByDescending(x => x.Id)
+                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                .Where(x => x.Name.ToLower().Contains(searchString.ToLower()))
+                .To<T>().ToList();
+        }
+
         public T GetEquipmentById<T>(int equipmentId)
         {
             var equipment = this.equipmentsRepository.AllAsNoTracking()
@@ -96,6 +105,13 @@
         public int GetCount()
         {
             return this.equipmentsRepository.All().Count();
+        }
+
+        public int GetFilteredCount(string searchString)
+        {
+            return this.equipmentsRepository.All()
+                .Where(x => x.Name.ToLower().Contains(searchString.ToLower()))
+                .Count();
         }
 
         public async Task AddEquipmentToCart(int equipmentId, string userId)

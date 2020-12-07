@@ -30,6 +30,23 @@
     {
         <h3 class="display-4 text-white text-center m-5"><b>Page @Model.PageNumber of @Model.PagesCount</b></h3>
     }
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 form-section text-center search-field">
+                <div class="leave-comment">
+                    <form method="post" asp-action="Index" asp-controller="Suplements" asp-route-page="1" asp-route-searchString="@Model.SearchString" class="d-flex">
+                        <div class="w-75">
+                            <input asp-for="@Model.SearchString" type="text" name="searchString" placeholder="Search by name..." required>
+                            <span asp-validation-for="@Model.SearchString" class="text-danger"></span>
+                        </div>
+                        <div class="w-25">
+                            <button type="submit" class="btn btn-orange">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="services__content container d-flex flex-column">
         @foreach (var suplement in Model.Suplements)
         {
