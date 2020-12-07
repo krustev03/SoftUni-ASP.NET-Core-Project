@@ -51,14 +51,35 @@
                 .build();
 
         connection.on("NewMessage",
-            function () {
+            function (message, messageId, date, username) {
                 $('#messageInput').val('');
-                $("#view-all").load("/Chat/GetPartial");
-            });
+                $("#view-all").prepend(
+             '<div class="entity chat__box row align-items-center d-flex">' +
+                 '<div class="col-8">' +
+                    '<h4>' + username + ': ' + message + '</h4>' +
+                 '</div>' + 
+                    '<div class="col-2">' +
+                     '<button type="submit" id="' + messageId + '" value="Delete" class="btn btn-danger deleteButton">Delete</button>' +
+                 '</div>' +
+                    '<div class="col-2">' +
+                    '<h4>' + date + '</h4>' + 
+                 '</div>' +
+             '</div>')});
 
         $("#sendButton").click(function() {
             var message = $("#messageInput").val();
             connection.invoke("Send", message);
+        });
+
+        connection.on("DeletedMessage",
+            function (messageId) {
+                console.log("Successfully deleted" + messageId)
+            });
+
+        $(".deleteButton").click(function () {
+            var messageId = this.id;
+            $(this).parent().parent().remove();
+            connection.invoke("Delete", messageId);
         });
 
         connection.start().catch(function (err) {
