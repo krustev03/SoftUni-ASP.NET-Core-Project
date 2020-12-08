@@ -30,7 +30,7 @@
             var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.Context);
             var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.Context);
             var imagesRepository = new EfRepository<Image>(this.Context);
-            var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, imagesRepository);
+            var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, null);
             var myCartService = new MyCartService(equipmentsRepository, null, userEquipmentsRepository, null);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
@@ -146,7 +146,7 @@
             var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.Context);
             var userSuplementsRepository = new EfDeletableEntityRepository<UserSuplement>(this.Context);
             var imagesRepository = new EfRepository<Image>(this.Context);
-            var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, imagesRepository);
+            var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, null);
             var suplementService = new SuplementService(suplementsRepository, usersRepository, userSuplementsRepository, imagesRepository);
             var myCartService = new MyCartService(equipmentsRepository, suplementsRepository, userEquipmentsRepository, userSuplementsRepository);
 
@@ -206,7 +206,7 @@
             var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.Context);
             var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.Context);
             var imagesRepository = new EfRepository<Image>(this.Context);
-            var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, imagesRepository);
+            var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, null);
             var myCartService = new MyCartService(equipmentsRepository, null, userEquipmentsRepository, null);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");

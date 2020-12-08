@@ -21,17 +21,20 @@
         private readonly IDeletableEntityRepository<Equipment> equipmentsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IRepository<UserEquipment> userEquipmentRepository;
+        private readonly IRepository<Image> imagesRepository;
         private readonly Cloudinary cloudUtility;
 
         public EquipmentService(
             IDeletableEntityRepository<Equipment> equipmentsRepository,
             IDeletableEntityRepository<ApplicationUser> userRepository,
             IRepository<UserEquipment> userEquipmentRepository,
+            IRepository<Image> imagesRepository,
             Cloudinary cloudUtility)
         {
             this.equipmentsRepository = equipmentsRepository;
             this.userRepository = userRepository;
             this.userEquipmentRepository = userEquipmentRepository;
+            this.imagesRepository = imagesRepository;
             this.cloudUtility = cloudUtility;
         }
 
@@ -69,7 +72,6 @@
 
             using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
             await model.Image.CopyToAsync(fileStream);
-
             using (var ms = new MemoryStream(destinationData))
             {
                 ImageUploadParams uploadParams = new ImageUploadParams
@@ -79,7 +81,8 @@
                     Transformation = new Transformation().Crop("limit").Width(ImgWidth).Height(ImgHeight),
                 };
 
-                await this.cloudUtility.UploadAsync(uploadParams);
+                var img = await this.cloudUtility.UploadAsync(uploadParams);
+                equipment.Image.PublicId = img.PublicId;
             }
 
             await this.equipmentsRepository.AddAsync(equipment);
@@ -164,6 +167,17 @@
         public async Task DeleteEquipmentByIdAsync(int equipmentId)
         {
             var equipment = this.equipmentsRepository.All().Where(x => x.Id == equipmentId).FirstOrDefault();
+            var image = this.imagesRepository.All().Where(x => x.EquipmentId == equipmentId).FirstOrDefault();
+            var imagePublicId = image.PublicId;
+            string[] publicIds = { imagePublicId };
+            var delParams = new DelResParams
+            {
+                PublicIds = publicIds.ToList(),
+                Invalidate = true,
+            };
+
+            await this.cloudUtility.DeleteResourcesAsync(delParams);
+
             this.equipmentsRepository.Delete(equipment);
             var equipmentsInCart = this.userEquipmentRepository.All().Where(x => x.EquipmentId == equipmentId).ToList();
             foreach (var item in equipmentsInCart)

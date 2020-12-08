@@ -1,5 +1,6 @@
 ﻿namespace FitnessHub.Services.Data.Tests
 {
+    using CloudinaryDotNet;
     using FitnessHub.Data;
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Data.Tests.Mocks;
@@ -18,6 +19,7 @@
     {
         protected ApplicationDbContext Context;
         protected Mock<UserManager<ApplicationUser>> UserManager;
+        protected Mock<Cloudinary> CloudinaryUtility;
 
         protected BaseServiceTest()
         {

@@ -11,6 +11,8 @@
             this.Id = Guid.NewGuid().ToString();
         }
 
+        public string PublicId { get; set; }
+
         public int? EquipmentId { get; set; }
 
         public virtual Equipment Equipment { get; set; }
