@@ -7,10 +7,14 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
     using FitnessHub.Data.Common.Repositories;
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Mapping;
     using FitnessHub.Web.ViewModels.Suplements;
+
+    using static FitnessHub.Common.GlobalConstants;
 
     public class SuplementService : ISuplementService
     {
@@ -19,17 +23,20 @@
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IRepository<UserSuplement> userSuplementRepository;
         private readonly IRepository<Image> imagesRepository;
+        private readonly Cloudinary cloudUtility;
 
         public SuplementService(
             IDeletableEntityRepository<Suplement> suplementsRepository,
             IDeletableEntityRepository<ApplicationUser> userRepository,
             IRepository<UserSuplement> userSuplementRepository,
-            IRepository<Image> imagesRepository)
+            IRepository<Image> imagesRepository,
+            Cloudinary cloudUtility)
         {
             this.suplementsRepository = suplementsRepository;
             this.userRepository = userRepository;
             this.userSuplementRepository = userSuplementRepository;
             this.imagesRepository = imagesRepository;
+            this.cloudUtility = cloudUtility;
         }
 
         public async Task AddSuplementAsync(CreateSuplementInputModel model, string userId, string imagePath)
@@ -58,8 +65,32 @@
             suplement.Image = dbImage;
 
             var physicalPath = $"{imagePath}/suplements/{dbImage.Id}.{extension}";
-            using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
-            await model.Image.CopyToAsync(fileStream);
+
+            // For the unit tests
+            if (this.cloudUtility != null)
+            {
+                byte[] destinationData;
+                using (var ms = new MemoryStream())
+                {
+                    await model.Image.CopyToAsync(ms);
+                    destinationData = ms.ToArray();
+                }
+
+                using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
+                await model.Image.CopyToAsync(fileStream);
+                using (var ms = new MemoryStream(destinationData))
+                {
+                    ImageUploadParams uploadParams = new ImageUploadParams
+                    {
+                        Folder = CloudFolder,
+                        File = new FileDescription(physicalPath, ms),
+                        Transformation = new Transformation().Crop("limit").Width(ImgWidth).Height(ImgHeight),
+                    };
+
+                    var img = await this.cloudUtility.UploadAsync(uploadParams);
+                    suplement.Image.PublicId = img.PublicId;
+                }
+            }
 
             await this.suplementsRepository.AddAsync(suplement);
             await this.suplementsRepository.SaveChangesAsync();
@@ -119,6 +150,22 @@
         public async Task DeleteSuplementByIdAsync(int suplementId)
         {
             var suplement = this.suplementsRepository.All().Where(x => x.Id == suplementId).FirstOrDefault();
+
+            // For the unit tests
+            if (this.cloudUtility != null)
+            {
+                var image = this.imagesRepository.All().Where(x => x.SuplementId == suplementId).FirstOrDefault();
+                var imagePublicId = image.PublicId;
+                string[] publicIds = { imagePublicId };
+                var delParams = new DelResParams
+                {
+                    PublicIds = publicIds.ToList(),
+                    Invalidate = true,
+                };
+
+                await this.cloudUtility.DeleteResourcesAsync(delParams);
+            }
+
             this.suplementsRepository.Delete(suplement);
             var suplementsInCart = this.userSuplementRepository.All().Where(x => x.SuplementId == suplementId).ToList();
             foreach (var item in suplementsInCart)

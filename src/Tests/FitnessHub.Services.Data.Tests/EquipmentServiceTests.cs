@@ -44,7 +44,7 @@
             };
             var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
             var imagesRepository = new EfRepository<Image>(this.Context);
-            var equipmentService = new EquipmentService(equipmentsRepository, null, null, null);
+            var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository, null);
 
             // Act
             await equipmentService.AddEquipmentAsync(model, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
@@ -83,7 +83,7 @@
             };
             var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
             var imagesRepository = new EfRepository<Image>(this.Context);
-            var equipmentService = new EquipmentService(equipmentsRepository, null, null, null);
+            var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository, null);
 
             await equipmentService.AddEquipmentAsync(model1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
 
@@ -116,7 +116,7 @@
             // Arrange
             var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
             var imagesRepository = new EfRepository<Image>(this.Context);
-            var equipmentService = new EquipmentService(equipmentsRepository, null, null, null);
+            var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository, null);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
@@ -177,7 +177,7 @@
             // Arrange
             var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
             var imagesRepository = new EfRepository<Image>(this.Context);
-            var equipmentService = new EquipmentService(equipmentsRepository, null, null, null);
+            var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository, null);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
@@ -247,7 +247,7 @@
             };
             var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
             var imagesRepository = new EfRepository<Image>(this.Context);
-            var equipmentService = new EquipmentService(equipmentsRepository, null, null, null);
+            var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository, null);
 
             await equipmentService.AddEquipmentAsync(model, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
 
@@ -269,7 +269,7 @@
             // Arrange
             var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
             var imagesRepository = new EfRepository<Image>(this.Context);
-            var equipmentService = new EquipmentService(equipmentsRepository, null, null, null);
+            var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository, null);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
@@ -329,7 +329,8 @@
         {
             // Arrange
             var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
-            var equipmentService = new EquipmentService(equipmentsRepository, null, null, null);
+            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository, null);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
@@ -401,7 +402,7 @@
             var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.Context);
             var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.Context);
             var imagesRepository = new EfRepository<Image>(this.Context);
-            var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, null);
+            var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, imagesRepository, null);
 
             var user = new ApplicationUser()
             {
@@ -445,7 +446,8 @@
             var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
             var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.Context);
             var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.Context);
-            var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, null);
+            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, imagesRepository, null);
 
             var user = new ApplicationUser()
             {

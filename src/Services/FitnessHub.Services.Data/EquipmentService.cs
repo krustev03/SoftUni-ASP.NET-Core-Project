@@ -63,26 +63,31 @@
             equipment.Image = dbImage;
 
             var physicalPath = $"{imagePath}/equipments/{dbImage.Id}.{extension}";
-            byte[] destinationData;
-            using (var ms = new MemoryStream())
-            {
-                await model.Image.CopyToAsync(ms);
-                destinationData = ms.ToArray();
-            }
 
-            using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
-            await model.Image.CopyToAsync(fileStream);
-            using (var ms = new MemoryStream(destinationData))
+            // For the unit tests
+            if (this.cloudUtility != null)
             {
-                ImageUploadParams uploadParams = new ImageUploadParams
+                byte[] destinationData;
+                using (var ms = new MemoryStream())
                 {
-                    Folder = CloudFolder,
-                    File = new FileDescription(physicalPath, ms),
-                    Transformation = new Transformation().Crop("limit").Width(ImgWidth).Height(ImgHeight),
-                };
+                    await model.Image.CopyToAsync(ms);
+                    destinationData = ms.ToArray();
+                }
 
-                var img = await this.cloudUtility.UploadAsync(uploadParams);
-                equipment.Image.PublicId = img.PublicId;
+                using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
+                await model.Image.CopyToAsync(fileStream);
+                using (var ms = new MemoryStream(destinationData))
+                {
+                    ImageUploadParams uploadParams = new ImageUploadParams
+                    {
+                        Folder = CloudFolder,
+                        File = new FileDescription(physicalPath, ms),
+                        Transformation = new Transformation().Crop("limit").Width(ImgWidth).Height(ImgHeight),
+                    };
+
+                    var img = await this.cloudUtility.UploadAsync(uploadParams);
+                    equipment.Image.PublicId = img.PublicId;
+                }
             }
 
             await this.equipmentsRepository.AddAsync(equipment);
@@ -167,16 +172,21 @@
         public async Task DeleteEquipmentByIdAsync(int equipmentId)
         {
             var equipment = this.equipmentsRepository.All().Where(x => x.Id == equipmentId).FirstOrDefault();
-            var image = this.imagesRepository.All().Where(x => x.EquipmentId == equipmentId).FirstOrDefault();
-            var imagePublicId = image.PublicId;
-            string[] publicIds = { imagePublicId };
-            var delParams = new DelResParams
-            {
-                PublicIds = publicIds.ToList(),
-                Invalidate = true,
-            };
 
-            await this.cloudUtility.DeleteResourcesAsync(delParams);
+            // For the unit tests
+            if (this.cloudUtility != null)
+            {
+                var image = this.imagesRepository.All().Where(x => x.EquipmentId == equipmentId).FirstOrDefault();
+                var imagePublicId = image.PublicId;
+                string[] publicIds = { imagePublicId };
+                var delParams = new DelResParams
+                {
+                    PublicIds = publicIds.ToList(),
+                    Invalidate = true,
+                };
+
+                await this.cloudUtility.DeleteResourcesAsync(delParams);
+            }
 
             this.equipmentsRepository.Delete(equipment);
             var equipmentsInCart = this.userEquipmentRepository.All().Where(x => x.EquipmentId == equipmentId).ToList();

@@ -66,8 +66,8 @@
             var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
             var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.Context);
             var imagesRepository = new EfRepository<Image>(this.Context);
-            var suplementService = new SuplementService(suplementsRepository, usersRepository, userSuplementsRepository, imagesRepository);
-            var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, null);
+            var suplementService = new SuplementService(suplementsRepository, usersRepository, userSuplementsRepository, imagesRepository, null);
+            var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, imagesRepository, null);
             var ordersRepository = new EfDeletableEntityRepository<Order>(this.Context);
             var orderEquipmentsRepository = new EfDeletableEntityRepository<OrderEquipment>(this.Context);
             var orderSuplementsRepository = new EfDeletableEntityRepository<OrderSuplement>(this.Context);

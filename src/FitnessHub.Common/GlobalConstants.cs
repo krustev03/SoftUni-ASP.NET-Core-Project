@@ -2,16 +2,21 @@
 {
     public static class GlobalConstants
     {
-        // System and roles configuration
+        // System & Roles Configuration
         public const string SystemName = "FitnessHub";
         public const string AdministratorRoleName = "Administrator";
         public const string TrainerRoleName = "Trainer";
 
-        // MailKit configuration
+        // MailKit Configuration
         public const string SupportEmail = "fitnesshubofficial2020@gmail.com";
 
-        // SendGrid configuration
+        // SendGrid Configuration
         public const string SendGridKey = "API_KEY_HERE";
+
+        // Cloudinary Images Configuration
+        public const string CloudFolder = "FitnessHub";
+        public const int ImgWidth = 600;
+        public const int ImgHeight = 400;
 
         // Chat Page Validations
         public const int ChatMessageMinLength = 1;
