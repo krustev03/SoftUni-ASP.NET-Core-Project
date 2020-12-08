@@ -16,15 +16,12 @@
         public async void AddMessageAsync_ShouldAddMessageInDatabase()
         {
             // Arrange
-            var model = new MessageInputModel()
-            {
-                Content = "Some content for the test message.",
-            };
             var messagesRepository = new EfDeletableEntityRepository<Message>(this.Context);
             var messageService = new MessageService(messagesRepository);
+            var content = "Some content for the test message.";
 
             // Act
-            await messageService.AddMessageAsync(model, "24bf72c6-e348-40d1-a7b1-d28dfa033c80");
+            await messageService.AddMessageAsync(content, "24bf72c6-e348-40d1-a7b1-d28dfa033c80");
             var message = await messagesRepository.GetByIdWithDeletedAsync(1);
             var expectedContent = "Some content for the test message.";
             var expectedAuthorId = "24bf72c6-e348-40d1-a7b1-d28dfa033c80";
@@ -38,13 +35,12 @@
         public async void DeleteMessageByIdAsync_ShouldDeleteMessageInDatabase()
         {
             // Arrange
-            var model = new MessageInputModel()
-            {
-                Content = "Some content for the test message.",
-            };
             var messagesRepository = new EfDeletableEntityRepository<Message>(this.Context);
             var messageService = new MessageService(messagesRepository);
-            await messageService.AddMessageAsync(model, "24bf72c6-e348-40d1-a7b1-d28dfa033c80");
+
+            var content = "Some content for the test message.";
+
+            await messageService.AddMessageAsync(content, "24bf72c6-e348-40d1-a7b1-d28dfa033c80");
 
             // Act
             await messageService.DeleteMessageByIdAsync(1);

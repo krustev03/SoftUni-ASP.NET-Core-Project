@@ -269,3 +269,7 @@
 .btn-send:focus {
     box-shadow: none;
 }
+
+.search-page {
+    padding-top: 200px;
+}

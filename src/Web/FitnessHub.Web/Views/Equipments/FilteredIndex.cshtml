@@ -5,19 +5,7 @@
     int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
 }
 
-<section class="breadcrumb-section set-bg" data-setbg="images/equipments-banner.jpg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="breadcrumb-text">
-                    <h2>Equipments</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="contact-section spad items-section">
+<section class="contact-section spad items-section search-page">
     @if (Model.PagesCount == 0)
     {
         <h3 class="display-4 text-white text-center m-5"><b>No Equipments Available</b></h3>
@@ -28,7 +16,7 @@
     }
     else
     {
-        <h3 class="display-4 text-white text-center m-5"><b>Page @Model.PageNumber of @Model.PagesCount</b></h3>
+        <h3 class="display-4 text-white text-center m-5"><b>Results for "@Model.SearchString" @Model.PageNumber of @Model.PagesCount</b></h3>
     }
     <div class="container">
         <div class="row">

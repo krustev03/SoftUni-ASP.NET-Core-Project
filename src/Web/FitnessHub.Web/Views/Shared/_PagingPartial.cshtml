@@ -5,9 +5,7 @@
                 <li class="page-item @if (!Model.HasPreviousPage) { <text>disabled</text> }">
                     @if (Model.IsFiltered)
                     {
-                        <form class="asp-action="Index" asp-route-page="@Model.PreviousPageNumber" asp-route-searchString="@Model.SearchString" method="post">
-                            <button class="page-link paging-number">Previous</button>
-                        </form>
+                        <a class="page-link paging-number" asp-action="FilteredIndex" asp-route-page="@Model.PreviousPageNumber" asp-route-searchString="@Model.SearchString">Previous</a>
                     }
                     else
                     {
@@ -21,9 +19,7 @@
                         <li class="page-item">
                             @if (Model.IsFiltered)
                             {
-                                <form asp-action="Index" asp-route-page="@i" asp-route-searchString="my" method="post">
-                                    <button class="page-link paging-number">@i</button>
-                                </form>
+                                <a class="page-link paging-number" asp-action="FilteredIndex" asp-route-page="@i" asp-route-searchString="@Model.SearchString">@i</a>
                             }
                             else
                             {
@@ -45,9 +41,7 @@
                         <li class="page-item">
                             @if (Model.IsFiltered)
                             {
-                                <form asp-action="Index" asp-route-page="@i" asp-route-searchString="my" method="post">
-                                    <button class="page-link paging-number">@i</button>
-                                </form>
+                                <a class="page-link paging-number" asp-action="FilteredIndex" asp-route-page="@i" asp-route-searchString="@Model.SearchString">@i</a>
                             }
                             else
                             {
@@ -59,9 +53,7 @@
                 <li class="page-item @if (!Model.HasNextPage) { <text>disabled</text> }">
                     @if (Model.IsFiltered)
                     {
-                        <form asp-action="Index" asp-route-page="@Model.NextPageNumber" asp-route-searchString="@Model.SearchString" method="post">
-                            <button class="page-link paging-number">Next</button>
-                        </form>
+                        <a class="page-link paging-number" asp-action="FilteredIndex" asp-route-page="@Model.NextPageNumber" asp-route-searchString="@Model.SearchString">Next</a>
                     }
                     else
                     {

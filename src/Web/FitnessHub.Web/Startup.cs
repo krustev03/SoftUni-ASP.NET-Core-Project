@@ -2,7 +2,7 @@
 {
     using System;
     using System.Reflection;
-
+    using CloudinaryDotNet;
     using FitnessHub.Data;
     using FitnessHub.Data.Common;
     using FitnessHub.Data.Common.Repositories;
@@ -72,6 +72,14 @@
             services.Configure<MailSettings>(this.configuration.GetSection("MailSettings"));
 
             services.AddSignalR();
+
+            var account = new CloudinaryDotNet.Account(
+                this.configuration["Cloudinary:CloudName"],
+                this.configuration["Cloudinary:ApiKey"],
+                this.configuration["Cloudinary:ApiSecret"]);
+
+            var cloudUtility = new Cloudinary(account);
+            services.AddSingleton(cloudUtility);
 
             services.AddControllersWithViews(
                 options =>

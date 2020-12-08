@@ -1,7 +1,6 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
     using System;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using FitnessHub.Data.Models;
@@ -48,9 +47,8 @@
             return this.View(viewModel);
         }
 
-        [HttpPost]
         [Authorize]
-        public IActionResult Index(int page, string searchString, EquipmentsIndexViewModel model)
+        public IActionResult FilteredIndex(int page, string searchString, EquipmentsIndexViewModel model)
         {
             if (model.SearchString == null)
             {

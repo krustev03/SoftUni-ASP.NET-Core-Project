@@ -6,11 +6,14 @@
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
     using FitnessHub.Data.Common.Repositories;
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Mapping;
     using FitnessHub.Web.ViewModels.Equipments;
+
+    using static FitnessHub.Common.GlobalConstants;
 
     public class EquipmentService : IEquipmentService
     {
@@ -18,18 +21,18 @@
         private readonly IDeletableEntityRepository<Equipment> equipmentsRepository;
         private readonly IDeletableEntityRepository<ApplicationUser> userRepository;
         private readonly IRepository<UserEquipment> userEquipmentRepository;
-        private readonly IRepository<Image> imagesRepository;
+        private readonly Cloudinary cloudUtility;
 
         public EquipmentService(
             IDeletableEntityRepository<Equipment> equipmentsRepository,
             IDeletableEntityRepository<ApplicationUser> userRepository,
             IRepository<UserEquipment> userEquipmentRepository,
-            IRepository<Image> imagesRepository)
+            Cloudinary cloudUtility)
         {
             this.equipmentsRepository = equipmentsRepository;
             this.userRepository = userRepository;
             this.userEquipmentRepository = userEquipmentRepository;
-            this.imagesRepository = imagesRepository;
+            this.cloudUtility = cloudUtility;
         }
 
         public async Task AddEquipmentAsync(CreateEquipmentInputModel model, string userId, string imagePath)
@@ -57,8 +60,27 @@
             equipment.Image = dbImage;
 
             var physicalPath = $"{imagePath}/equipments/{dbImage.Id}.{extension}";
+            byte[] destinationData;
+            using (var ms = new MemoryStream())
+            {
+                await model.Image.CopyToAsync(ms);
+                destinationData = ms.ToArray();
+            }
+
             using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
             await model.Image.CopyToAsync(fileStream);
+
+            using (var ms = new MemoryStream(destinationData))
+            {
+                ImageUploadParams uploadParams = new ImageUploadParams
+                {
+                    Folder = CloudFolder,
+                    File = new FileDescription(physicalPath, ms),
+                    Transformation = new Transformation().Crop("limit").Width(ImgWidth).Height(ImgHeight),
+                };
+
+                await this.cloudUtility.UploadAsync(uploadParams);
+            }
 
             await this.equipmentsRepository.AddAsync(equipment);
             await this.equipmentsRepository.SaveChangesAsync();
@@ -89,8 +111,8 @@
         {
             return this.equipmentsRepository.AllAsNoTracking()
                 .OrderByDescending(x => x.Id)
-                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                 .Where(x => x.Name.ToLower().Contains(searchString.ToLower()))
+                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                 .To<T>().ToList();
         }
 

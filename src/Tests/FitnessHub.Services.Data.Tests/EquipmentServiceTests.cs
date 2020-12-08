@@ -16,9 +16,13 @@
 
     // IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
 
+    // IEnumerable<T> GetAllWithFilterForPaging<T>(int page, string searchString, int itemsPerPage = 3)
+
     // T GetEquipmentById<T>(int equipmentId)
 
     // int GetCount()
+
+    // int GetFilteredCount(string searchString)
 
     // async void AddEquipmentToCart()
 
@@ -167,7 +171,68 @@
             Assert.Equal(expectedCount, resultCount);
         }
 
-        [Fact] // 4. T GetEquipmentById<T>(int equipmentId)
+        [Fact] // 4. IEnumerable<T> GetAllWithFilterForPaging<T>(int page, string searchString, int itemsPerPage = 3)
+        public async void GetAllWithFilterForPaging_ShouldReturnFilteredEquipmentsInOnePage()
+        {
+            // Arrange
+            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
+            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository);
+
+            var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
+
+            var model1 = new CreateEquipmentInputModel()
+            {
+                Name = "Peika",
+                Price = "20.00",
+                Description = "The best equipment in the universe.",
+                Image = image1,
+            };
+
+            var image2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test2.png");
+
+            var model2 = new CreateEquipmentInputModel()
+            {
+                Name = "Lost",
+                Price = "21.00",
+                Description = "The best equipment in the world.",
+                Image = image2,
+            };
+
+            var image3 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test3.png");
+
+            var model3 = new CreateEquipmentInputModel()
+            {
+                Name = "Madara",
+                Price = "21.00",
+                Description = "The best equipment in the world.",
+                Image = image3,
+            };
+
+            var image4 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test4.png");
+
+            var model4 = new CreateEquipmentInputModel()
+            {
+                Name = "Lejanka",
+                Price = "21.00",
+                Description = "The best equipment in the world.",
+                Image = image4,
+            };
+
+            await equipmentService.AddEquipmentAsync(model1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+            await equipmentService.AddEquipmentAsync(model2, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+            await equipmentService.AddEquipmentAsync(model3, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+            await equipmentService.AddEquipmentAsync(model4, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+
+            // Act
+            var resultCount = equipmentService.GetAllWithFilterForPaging<EquipmentViewModel>(1, "ka", 3).Count();
+            var expectedCount = 2;
+
+            // Assert
+            Assert.Equal(expectedCount, resultCount);
+        }
+
+        [Fact] // 5. T GetEquipmentById<T>(int equipmentId)
         public async void GetEquipmentById_ShouldGetEquipmentByIdInDatabase()
         {
             // Arrange
@@ -198,8 +263,8 @@
             Assert.Equal(expectedDescription, equipment.Description);
         }
 
-        [Fact] // 5. int GetCount()
-        public async void GetCount_ShouldReturnEquipmentsCount()
+        [Fact] // 6. int GetCount()
+        public async void GetCount_ShouldReturnAllEquipmentsCount()
         {
             // Arrange
             var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
@@ -259,7 +324,68 @@
             Assert.Equal(expectedCount, resultCount);
         }
 
-        [Fact] // 6. async Task AddEquipmentToCart(int id, string userId)
+        [Fact] // 7. int GetFilteredCount(string searchString)
+        public async void GetFilteredCount_ShouldReturnFilteredEquipmentsCount()
+        {
+            // Arrange
+            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
+            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository);
+
+            var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
+
+            var model1 = new CreateEquipmentInputModel()
+            {
+                Name = "Peika",
+                Price = "20.00",
+                Description = "The best equipment in the universe.",
+                Image = image1,
+            };
+
+            var image2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test2.png");
+
+            var model2 = new CreateEquipmentInputModel()
+            {
+                Name = "Lost",
+                Price = "21.00",
+                Description = "The best equipment in the world.",
+                Image = image2,
+            };
+
+            var image3 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test3.png");
+
+            var model3 = new CreateEquipmentInputModel()
+            {
+                Name = "Makara",
+                Price = "21.00",
+                Description = "The best equipment in the world.",
+                Image = image3,
+            };
+
+            var image4 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test4.png");
+
+            var model4 = new CreateEquipmentInputModel()
+            {
+                Name = "Lejanka",
+                Price = "21.00",
+                Description = "The best equipment in the world.",
+                Image = image4,
+            };
+
+            await equipmentService.AddEquipmentAsync(model1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+            await equipmentService.AddEquipmentAsync(model2, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+            await equipmentService.AddEquipmentAsync(model3, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+            await equipmentService.AddEquipmentAsync(model4, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+
+            // Act
+            var resultCount = equipmentService.GetFilteredCount("ka");
+            var expectedCount = 3;
+
+            // Assert
+            Assert.Equal(expectedCount, resultCount);
+        }
+
+        [Fact] // 8. async Task AddEquipmentToCart(int id, string userId)
         public async void AddEquipmentToCart_ShouldAddEquipmentToCart()
         {
             // Arrange
@@ -304,7 +430,7 @@
             Assert.Equal(expectedQuantity, resultQuantity);
         }
 
-        [Fact] // 7. async Task DeleteEquipmentByIdAsync(int id)
+        [Fact] // 9. async Task DeleteEquipmentByIdAsync(int id)
         public async void DeleteEquipmentByIdAsync_ShouldDeleteEquipmentInCartAndInDatabase()
         {
             // Arrange

@@ -58,9 +58,25 @@
             return news;
         }
 
+        public IEnumerable<T> GetAllWithFilterForPaging<T>(int page, string searchString, int itemsPerPage = 3)
+        {
+            return this.newsRepository.AllAsNoTracking()
+                .OrderByDescending(x => x.Id)
+                .Where(x => x.Title.ToLower().Contains(searchString.ToLower()))
+                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                .To<T>().ToList();
+        }
+
         public int GetCount()
         {
             return this.newsRepository.All().Count();
+        }
+
+        public int GetFilteredCount(string searchString)
+        {
+            return this.newsRepository.All()
+                .Where(x => x.Title.ToLower().Contains(searchString.ToLower()))
+                .Count();
         }
 
         public async Task DeleteNewsByIdAsync(int newsId)

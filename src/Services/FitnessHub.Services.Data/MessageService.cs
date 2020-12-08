@@ -6,7 +6,6 @@
 
     using FitnessHub.Data.Common.Repositories;
     using FitnessHub.Data.Models;
-    using FitnessHub.Web.ViewModels.Chat;
 
     public class MessageService : IMessageService
     {

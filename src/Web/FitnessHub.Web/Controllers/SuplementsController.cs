@@ -47,9 +47,8 @@
             return this.View(viewModel);
         }
 
-        [HttpPost]
         [Authorize]
-        public IActionResult Index(int page, string searchString, SuplementsIndexViewModel model)
+        public IActionResult FilteredIndex(int page, string searchString, SuplementsIndexViewModel model)
         {
             if (model.SearchString == null)
             {

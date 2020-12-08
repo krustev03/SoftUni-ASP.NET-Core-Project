@@ -17,9 +17,13 @@
 
     // IEnumerable<T> GetAllForPaging<T>(int page, int itemsPerPage = 3)
 
+    // IEnumerable<T> GetAllWithFilterForPaging<T>(int page, string searchString, int itemsPerPage = 3)
+
     // T GetSuplementById<T>(int suplementId)
 
     // int GetCount()
+
+    // int GetFilteredCount(string searchString)
 
     // async void AddSuplementToCart()
 
@@ -127,7 +131,7 @@
                 Name = "Peika",
                 Weight = "100",
                 Price = "20.00",
-                Description = "The best equipment in the universe.",
+                Description = "The best suplement in the universe.",
                 Image = image1,
             };
 
@@ -138,7 +142,7 @@
                 Name = "Lost",
                 Weight = "200",
                 Price = "21.00",
-                Description = "The best equipment in the world.",
+                Description = "The best suplement in the world.",
                 Image = image2,
             };
 
@@ -149,7 +153,7 @@
                 Name = "Makara",
                 Weight = "300",
                 Price = "21.00",
-                Description = "The best equipment in the world.",
+                Description = "The best suplement in the world.",
                 Image = image3,
             };
 
@@ -160,7 +164,7 @@
                 Name = "Lejanka",
                 Weight = "400",
                 Price = "21.00",
-                Description = "The best equipment in the world.",
+                Description = "The best suplement in the world.",
                 Image = image4,
             };
 
@@ -177,7 +181,72 @@
             Assert.Equal(expectedCount, resultCount);
         }
 
-        [Fact] // 4. T GetSuplementById<T>(int suplementId)
+        [Fact] // 4. IEnumerable<T> GetAllWithFilterForPaging<T>(int page, string searchString, int itemsPerPage = 3)
+        public async void GetAllWithFilterForPaging_ShouldReturnFilteredSuplementsInOnePage()
+        {
+            // Arrange
+            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
+            var imagesRepository = new EfRepository<Image>(this.Context);
+            var suplementService = new SuplementService(suplementsRepository, null, null, imagesRepository);
+
+            var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
+
+            var model1 = new CreateSuplementInputModel()
+            {
+                Name = "Peika",
+                Weight = "100",
+                Price = "20.00",
+                Description = "The best suplement in the universe.",
+                Image = image1,
+            };
+
+            var image2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test2.png");
+
+            var model2 = new CreateSuplementInputModel()
+            {
+                Name = "Lost",
+                Weight = "200",
+                Price = "21.00",
+                Description = "The best suplement in the world.",
+                Image = image2,
+            };
+
+            var image3 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test3.png");
+
+            var model3 = new CreateSuplementInputModel()
+            {
+                Name = "Madara",
+                Weight = "300",
+                Price = "21.00",
+                Description = "The best suplement in the world.",
+                Image = image3,
+            };
+
+            var image4 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test4.png");
+
+            var model4 = new CreateSuplementInputModel()
+            {
+                Name = "Lejanka",
+                Weight = "400",
+                Price = "21.00",
+                Description = "The best suplement in the world.",
+                Image = image4,
+            };
+
+            await suplementService.AddSuplementAsync(model1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+            await suplementService.AddSuplementAsync(model2, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+            await suplementService.AddSuplementAsync(model3, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+            await suplementService.AddSuplementAsync(model4, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+
+            // Act
+            var resultCount = suplementService.GetAllWithFilterForPaging<SuplementViewModel>(1, "ka", 3).Count();
+            var expectedCount = 2;
+
+            // Assert
+            Assert.Equal(expectedCount, resultCount);
+        }
+
+        [Fact] // 5. T GetSuplementById<T>(int suplementId)
         public async void GetSuplementById_ShouldGetSuplementByIdInDatabase()
         {
             // Arrange
@@ -211,8 +280,8 @@
             Assert.Equal(expectedDescription, suplement.Description);
         }
 
-        [Fact] // 5. int GetCount()
-        public async void GetCount_ShouldReturnSuplementsCount()
+        [Fact] // 6. int GetCount()
+        public async void GetCount_ShouldReturnAllSuplementsCount()
         {
             // Arrange
             var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
@@ -226,7 +295,72 @@
                 Name = "Peika",
                 Weight = "100",
                 Price = "20.00",
-                Description = "The best equipment in the universe.",
+                Description = "The best suplement in the universe.",
+                Image = image1,
+            };
+
+            var image2 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test2.png");
+
+            var model2 = new CreateSuplementInputModel()
+            {
+                Name = "Lost",
+                Weight = "200",
+                Price = "21.00",
+                Description = "The best suplement in the world.",
+                Image = image2,
+            };
+
+            var image3 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test3.png");
+
+            var model3 = new CreateSuplementInputModel()
+            {
+                Name = "Makara",
+                Weight = "300",
+                Price = "21.00",
+                Description = "The best suplement in the world.",
+                Image = image3,
+            };
+
+            var image4 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test4.png");
+
+            var model4 = new CreateSuplementInputModel()
+            {
+                Name = "Lejanka",
+                Weight = "400",
+                Price = "21.00",
+                Description = "The best suplement in the world.",
+                Image = image4,
+            };
+
+            await suplementService.AddSuplementAsync(model1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+            await suplementService.AddSuplementAsync(model2, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+            await suplementService.AddSuplementAsync(model3, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+            await suplementService.AddSuplementAsync(model4, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
+
+            // Act
+            var resultCount = suplementService.GetCount();
+            var expectedCount = 4;
+
+            // Assert
+            Assert.Equal(expectedCount, resultCount);
+        }
+
+        [Fact] // 7. int GetFilteredCount(string searchString)
+        public async void GetFilteredCount_ShouldReturnFilteredSuplementsCount()
+        {
+            // Arrange
+            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
+            var imagesRepository = new EfRepository<Image>(this.Context);
+            var suplementService = new SuplementService(suplementsRepository, null, null, imagesRepository);
+
+            var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
+
+            var model1 = new CreateSuplementInputModel()
+            {
+                Name = "Peika",
+                Weight = "100",
+                Price = "20.00",
+                Description = "The best suplement in the universe.",
                 Image = image1,
             };
 
@@ -269,14 +403,14 @@
             await suplementService.AddSuplementAsync(model4, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
 
             // Act
-            var resultCount = suplementService.GetCount();
-            var expectedCount = 4;
+            var resultCount = suplementService.GetFilteredCount("ka");
+            var expectedCount = 3;
 
             // Assert
             Assert.Equal(expectedCount, resultCount);
         }
 
-        [Fact] // 6. async Task AddSuplementToCart(int id, string userId)
+        [Fact] // 8. async Task AddSuplementToCart(int id, string userId)
         public async void AddSuplementToCart_ShouldAddSuplementToCart()
         {
             // Arrange
@@ -322,7 +456,7 @@
             Assert.Equal(expectedQuantity, resultQuantity);
         }
 
-        [Fact] // 7. async Task DeleteSuplementByIdAsync(int id)
+        [Fact] // 9. async Task DeleteSuplementByIdAsync(int id)
         public async void DeleteSuplementByIdAsync_ShouldDeleteSuplementInCartAndInDatabase()
         {
             // Arrange

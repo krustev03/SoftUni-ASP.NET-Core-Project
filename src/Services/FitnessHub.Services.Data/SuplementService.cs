@@ -91,8 +91,8 @@
         {
             return this.suplementsRepository.AllAsNoTracking()
                 .OrderByDescending(x => x.Id)
-                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                 .Where(x => x.Name.ToLower().Contains(searchString.ToLower()))
+                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                 .To<T>().ToList();
         }
 

@@ -34,6 +34,31 @@
             return this.View(viewModel);
         }
 
+        public IActionResult FilteredIndex(int page, string searchString, NewsIndexViewModel model)
+        {
+            if (model.SearchString == null)
+            {
+                model.SearchString = searchString;
+            }
+
+            if (page <= 0)
+            {
+                return this.NotFound();
+            }
+
+            const int ItemsPerPage = 3;
+            var viewModel = new NewsIndexViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                PageNumber = page,
+                ItemsCount = this.newsService.GetFilteredCount(model.SearchString),
+                News = this.newsService.GetAllWithFilterForPaging<NewsViewModel>(page, model.SearchString, ItemsPerPage),
+                IsFiltered = true,
+                SearchString = model.SearchString,
+            };
+            return this.View(viewModel);
+        }
+
         [Authorize(Roles = "Administrator")]
         public IActionResult Add()
         {
