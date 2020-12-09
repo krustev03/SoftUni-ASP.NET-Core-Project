@@ -58,10 +58,10 @@
                  '<div class="col-8">' +
                     '<h4>' + username + ': ' + message + '</h4>' +
                  '</div>' + 
-                    '<div class="col-2">' +
+                 '<div class="col-2">' +
                      '<button type="submit" id="' + messageId + '" value="Delete" class="btn btn-danger deleteButton">Delete</button>' +
                  '</div>' +
-                    '<div class="col-2">' +
+                 '<div class="col-2">' +
                     '<h4>' + date + '</h4>' + 
                  '</div>' +
              '</div>')});
@@ -76,7 +76,7 @@
                 console.log("Successfully deleted" + messageId)
             });
 
-        $(".deleteButton").click(function () {
+        $(document).on('click', '.deleteButton', function () {
             var messageId = this.id;
             $(this).parent().parent().remove();
             connection.invoke("Delete", messageId);
