@@ -114,7 +114,8 @@
         <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="Home" asp-action="GoToHome">Go to home</a>
         @if (Model.TotalPrice > 0)
         {
-            <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="Orders" asp-action="CardDetails" asp-route-totalPrice="@Model.TotalPrice">Proceed to chechkout</a>
+            <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="Orders" asp-action="CardDetails" asp-route-totalPrice="@Model.TotalPrice">Proceed to checkout with card</a>
+            <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="Orders" asp-action="StripePaymentDetails" asp-route-totalPrice="@Model.TotalPrice">Proceed to checkout with stripe</a>
         }
         else
         {

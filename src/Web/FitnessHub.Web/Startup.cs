@@ -2,6 +2,7 @@
 {
     using System;
     using System.Reflection;
+
     using CloudinaryDotNet;
     using FitnessHub.Data;
     using FitnessHub.Data.Common;
@@ -13,6 +14,7 @@
     using FitnessHub.Services.Mapping;
     using FitnessHub.Services.Messaging;
     using FitnessHub.Web.Hubs;
+    using FitnessHub.Web.Infrastructure.Payment;
     using FitnessHub.Web.ViewModels;
     using Hangfire;
     using Hangfire.SqlServer;
@@ -24,6 +26,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Stripe;
 
     using static FitnessHub.Common.GlobalConstants;
 
@@ -69,6 +72,8 @@
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
 
+            services.Configure<StripeSettings>(this.configuration.GetSection("Stripe"));
+
             services.Configure<MailSettings>(this.configuration.GetSection("MailSettings"));
 
             services.AddSignalR();
@@ -104,7 +109,7 @@
             services.AddTransient<IMyCartService, MyCartService>();
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<IMailService, MailService>();
-            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IOrderService, Services.Data.OrderService>();
             services.AddTransient<ITrainingProgramService, TrainingProgramService>();
             services.AddTransient<ITrainingService, TrainingService>();
             services.AddTransient<IExerciseService, ExerciseService>();
@@ -113,6 +118,7 @@
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        [Obsolete]
         public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs, IWebHostEnvironment env)
         {
             AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
@@ -128,6 +134,7 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -145,6 +152,8 @@
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            StripeConfiguration.ApiKey = this.configuration.GetSection("Stripe")["SecretKey"];
 
             app.UseEndpoints(
                 endpoints =>

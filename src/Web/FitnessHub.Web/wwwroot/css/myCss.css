@@ -273,3 +273,22 @@
 .search-page {
     padding-top: 200px;
 }
+
+.stripe-section {
+    padding-top: 130px;
+    padding-bottom: 50px;
+}
+
+.stripe-heading {
+    margin-bottom: 70px;
+}
+
+.stripe-button-el:focus {
+    background: #f36100 !important;
+}
+
+.stripe-button-el span {
+    background: #f36100 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}

@@ -1,4 +1,4 @@
-﻿namespace FitnessHub.Web.Infrastructure
+﻿namespace FitnessHub.Web.Infrastructure.GoogleReCaptcha
 {
     using System;
     using System.Collections.Generic;

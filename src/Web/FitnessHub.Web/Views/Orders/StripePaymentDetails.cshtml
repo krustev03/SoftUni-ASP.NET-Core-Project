@@ -1,0 +1,31 @@
+﻿@{
+    this.ViewData["Title"] = "Stripe Payment Details";
+    var totalPrice = this.ViewContext.HttpContext.Request.Query["totalPrice"];
+}
+
+<section class="contact-section spad stripe-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 form-section text-center">
+                <div class="leave-comment">
+                    <h2 class="text-white form-heading-2 stripe-heading">Stripe Payment</h2>
+                    <form method="post" asp-action="StripePaymentDetails" asp-controller="Orders" asp-route-totalPrice="@totalPrice">
+                        <script src="//checkout.stripe.com/v2/checkout.js"
+                                class="stripe-button"
+                                data-key="@ViewBag.StripePublishKey"
+                                data-locale="auto"
+                                data-description="FitnessHub Product Payment"
+                                data-panel-label="Countinue">
+                        </script>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        $('.stripe-button-el span').text('Pay with Stripe');
+    </script>
+}

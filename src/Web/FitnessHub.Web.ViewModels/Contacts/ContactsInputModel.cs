@@ -2,7 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using FitnessHub.Web.Infrastructure;
+    using FitnessHub.Web.Infrastructure.GoogleReCaptcha;
 
     using static FitnessHub.Common.GlobalConstants;
 
