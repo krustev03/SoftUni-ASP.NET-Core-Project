@@ -61,7 +61,7 @@
                                         <form method="post" class="shop-item-button" asp-controller="TrainerPosts" asp-action="Delete" asp-route-trainerPostId="@trainerPost.Id" asp-route-page="@pageNum">
                                             <button type="submit" id="submit">Delete</button>
                                         </form>
-                                        <a class="shop-item-link" role="button" asp-area="" asp-controller="TrainerPosts" asp-action="Edit" asp-route-trainerPostId="@trainerPost.Id" asp-route-page="@pageNum"><b>Edit</b></a>
+                                        <a class="shop-item-link" role="button" asp-area="Trainer" asp-controller="TrainerPosts" asp-action="Edit" asp-route-trainerPostId="@trainerPost.Id" asp-route-page="@pageNum"><b>Edit</b></a>
                                     </div>
                                 }
                             </div>
@@ -75,7 +75,7 @@
     {
         <div class="d-flex justify-content-around">
             <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="Home" asp-action="GoToHome">Go to home</a>
-            <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="TrainerPosts" asp-action="Add">Add Post</a>
+            <a class="btn btn-orange w-25 add-item" role="button" asp-area="Trainer" asp-controller="TrainerPosts" asp-action="Add">Add Post</a>
         </div>
     }
     else 

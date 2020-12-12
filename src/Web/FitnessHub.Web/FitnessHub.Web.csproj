@@ -54,4 +54,9 @@
     <ProjectReference Include="..\FitnessHub.Web.Infrastructure\FitnessHub.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\FitnessHub.Web.ViewModels\FitnessHub.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Trainer\Data\" />
+    <Folder Include="Areas\Trainer\Models\" />
+  </ItemGroup>
 </Project>
