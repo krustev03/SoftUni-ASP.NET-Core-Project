@@ -13,7 +13,16 @@ ___
 * **Managing**
 * **Many more**
 
----
+___
+
+##### Website link: [FitnessHub](https://fitnesshub.azurewebsites.net/)
+
+___
+
+
+[![fitnesshub-multidevice-site](https://user-images.githubusercontent.com/44994566/102016996-be18f100-3d6c-11eb-85fd-abb4e169179d.jpg)](https://fitnesshub.azurewebsites.net/)
+
+___
 
 ## Database
 
@@ -40,7 +49,7 @@ ___
 ---
 
 ##### The web project contains:
-* **2 different areas: Identity and Administration**
+* **3 different areas: Identity, Administration and Trainer**
 * **60+ service methods**
 * **12 controllers**
 * **35 views**
@@ -84,12 +93,13 @@ ___
 8. [CSS](https://www.w3schools.com/css/)
 9. [MS Visual Studio 2019](https://visualstudio.microsoft.com/vs/)
 10. [MS SQL Server Management Studio 2017](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
-11. [Theme - GymLife By ThemeWagon](https://themewagon.com/themes/free-bootstrap-4-html5-gym-website-template-gymlife/)
-12. [Cloudinary API](https://cloudinary.com/documentation/image_upload_api_reference)
-13. [Sendgrid API](https://sendgrid.com/docs/API_Reference/api_v3.html)
-14. [MailKit](https://www.mailkit.com/resources/api/api-introduction)
-15. [Google reCAPTCHA v3 API](https://developers.google.com/recaptcha/docs/v3)
-16. [Stripe API](https://stripe.com/docs/api)
-17. [SignalR](https://docs.microsoft.com/en-us/aspnet/signalr/overview/guide-to-the-api/)
+11. [Microsoft Azure](https://azure.microsoft.com/en-us/)
+12. [Theme - GymLife By ThemeWagon](https://themewagon.com/themes/free-bootstrap-4-html5-gym-website-template-gymlife/)
+13. [Cloudinary API](https://cloudinary.com/documentation/image_upload_api_reference)
+14. [Sendgrid API](https://sendgrid.com/docs/API_Reference/api_v3.html)
+15. [MailKit](https://www.mailkit.com/resources/api/api-introduction)
+16. [Google reCAPTCHA v3 API](https://developers.google.com/recaptcha/docs/v3)
+17. [Stripe API](https://stripe.com/docs/api)
+18. [SignalR](https://docs.microsoft.com/en-us/aspnet/signalr/overview/guide-to-the-api/)
 
 ---
