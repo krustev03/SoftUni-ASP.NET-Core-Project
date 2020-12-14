@@ -1,4 +1,4 @@
-﻿namespace FitnessHub.Web.ViewModels.MyCart
+﻿namespace FitnessHub.Web.ViewModels.Cart
 {
     using System.Collections.Generic;
 

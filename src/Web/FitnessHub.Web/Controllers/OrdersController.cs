@@ -36,28 +36,17 @@
         [Authorize]
         public IActionResult CardDetails(decimal totalPrice)
         {
-            this.ViewBag.StripePublishKey = this.configuration["Stripe:PublishableKey"];
             return this.View();
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult CardDetails(string totalPrice, CardValidationModel model, string stripeToken, string stripeEmail)
+        public IActionResult CardDetails(string totalPrice, CardValidationModel model)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
-
-            var myCharge = new Stripe.ChargeCreateOptions();
-            myCharge.Amount = Convert.ToInt64(totalPrice) * 100;
-            myCharge.Currency = "BGN";
-            myCharge.ReceiptEmail = stripeEmail;
-            myCharge.Description = "Sample Charge";
-            myCharge.Source = stripeToken;
-            myCharge.Capture = true;
-            var chargeService = new Stripe.ChargeService();
-            Charge stripeCharge = chargeService.Create(myCharge);
 
             return this.RedirectToAction($"UserDetails", new { totalPrice });
         }

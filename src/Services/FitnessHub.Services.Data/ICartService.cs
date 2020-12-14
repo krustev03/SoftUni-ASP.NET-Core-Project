@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using FitnessHub.Web.ViewModels.MyCart;
+    using FitnessHub.Web.ViewModels.Cart;
 
-    public interface IMyCartService
+    public interface ICartService
     {
         IEnumerable<EquipmentCartViewModel> GetUserEquipments(string userId);
 

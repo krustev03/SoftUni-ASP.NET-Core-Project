@@ -1,16 +1,18 @@
-﻿namespace FitnessHub.Web.ViewModels.MyCart
+﻿namespace FitnessHub.Web.ViewModels.Cart
 {
     using AutoMapper;
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Mapping;
 
-    public class EquipmentCartViewModel : IMapFrom<Equipment>, IHaveCustomMappings
+    public class SuplementCartViewModel : IMapFrom<Suplement>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
 
         public decimal Price { get; set; }
+
+        public int Weight { get; set; }
 
         public string Description { get; set; }
 
@@ -20,12 +22,12 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Equipment, EquipmentCartViewModel>()
+            configuration.CreateMap<Suplement, SuplementCartViewModel>()
                 .ForMember(x => x.ImageUrl, opt =>
                     opt.MapFrom(x =>
                         x.Image.RemoteImageUrl != null ?
                         x.Image.RemoteImageUrl :
-                        "/images/equipments/" + x.Image.Id + "." + x.Image.Extension));
+                        "/images/suplements/" + x.Image.Id + "." + x.Image.Extension));
         }
     }
 }

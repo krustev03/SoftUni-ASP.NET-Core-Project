@@ -90,7 +90,7 @@
             services.AddTransient<ISuplementService, SuplementService>();
             services.AddTransient<IEquipmentService, EquipmentService>();
             services.AddTransient<IMessageService, MessageService>();
-            services.AddTransient<IMyCartService, MyCartService>();
+            services.AddTransient<ICartService, CartService>();
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<IMailService, MailService>();
             services.AddTransient<IOrderService, Services.Data.OrderService>();

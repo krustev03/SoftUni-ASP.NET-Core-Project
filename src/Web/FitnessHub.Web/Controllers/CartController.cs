@@ -4,21 +4,21 @@
 
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Data;
-    using FitnessHub.Web.ViewModels.MyCart;
+    using FitnessHub.Web.ViewModels.Cart;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-    public class MyCartController : Controller
+    public class CartController : Controller
     {
-        private readonly IMyCartService myCartService;
+        private readonly ICartService cartService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public MyCartController(
-            IMyCartService myCartService,
+        public CartController(
+            ICartService cartService,
             UserManager<ApplicationUser> userManager)
         {
-            this.myCartService = myCartService;
+            this.cartService = cartService;
             this.userManager = userManager;
         }
 
@@ -29,9 +29,9 @@
 
             var viewModel = new CartItemsViewModel
             {
-                Equipments = this.myCartService.GetUserEquipments(appUser.Id),
-                Suplements = this.myCartService.GetUserSuplements(appUser.Id),
-                TotalPrice = this.myCartService.GetTotalPrice(appUser.Id),
+                Equipments = this.cartService.GetUserEquipments(appUser.Id),
+                Suplements = this.cartService.GetUserSuplements(appUser.Id),
+                TotalPrice = this.cartService.GetTotalPrice(appUser.Id),
             };
 
             return this.View(viewModel);
@@ -44,7 +44,7 @@
             var user = await this.userManager.GetUserAsync(this.User);
             string userId = user.Id;
 
-            await this.myCartService.RemoveEquipmentFromCartAsync(equipmentId, userId);
+            await this.cartService.RemoveEquipmentFromCartAsync(equipmentId, userId);
 
             return this.RedirectToAction(nameof(this.Index));
         }
@@ -56,7 +56,7 @@
             var user = await this.userManager.GetUserAsync(this.User);
             string userId = user.Id;
 
-            await this.myCartService.RemoveSuplementFromCartAsync(suplementId, userId);
+            await this.cartService.RemoveSuplementFromCartAsync(suplementId, userId);
 
             return this.RedirectToAction(nameof(this.Index));
         }

@@ -7,16 +7,16 @@
     using FitnessHub.Data.Common.Repositories;
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Mapping;
-    using FitnessHub.Web.ViewModels.MyCart;
+    using FitnessHub.Web.ViewModels.Cart;
 
-    public class MyCartService : IMyCartService
+    public class CartService : ICartService
     {
         private readonly IDeletableEntityRepository<Equipment> equipmentsRepository;
         private readonly IDeletableEntityRepository<Suplement> suplementsRepository;
         private readonly IRepository<UserEquipment> userEquipmentRepository;
         private readonly IRepository<UserSuplement> userSuplementRepository;
 
-        public MyCartService(
+        public CartService(
             IDeletableEntityRepository<Equipment> equipmentsRepository,
             IDeletableEntityRepository<Suplement> suplementsRepository,
             IRepository<UserEquipment> userEquipmentRepository,
