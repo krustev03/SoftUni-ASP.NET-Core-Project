@@ -1,7 +1,7 @@
 # Fitness Hub Online Platform
 ___
 
-![alt text](https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSf_5OAbMQR4QTlOqL_6zDukuF3TJ2OORVcHA&usqp=CAU)
+![alt text](https://user-images.githubusercontent.com/44994566/102201660-15cf6d80-3ecf-11eb-8d8e-846c131577ed.png)
 
 ## About my web project:
 
@@ -63,7 +63,7 @@ ___
 ##### This web platform is created and designed for the lovers of the fitness and training.
 
 ##### Here a user can do many things:
-* Go to the shop and order supplements or equipments for fitness, or both
+* Go to the shop and order supplements or equipments for fitness, or both (If you do the payment with Stripe, use this card code: 5555 5555 5555 4444)
 * Simple and easy make his own training program/s with the Training Schedular
 * See the latest news about fitness industry
 * Chat in real time with other people that are interested in fitness
