@@ -44,6 +44,8 @@ ___
 * MuscleGroups
 * Images
 
+##### See the Schema here: [Database Diagram](https://user-images.githubusercontent.com/44994566/102174156-7053d400-3ea5-11eb-8afe-f1dc89349ef0.jpg)
+
 ## Backend
 
 ---
