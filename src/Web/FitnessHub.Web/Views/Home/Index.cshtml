@@ -1,4 +1,6 @@
-﻿@using FitnessHub.Common
+﻿@using FitnessHub.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
 @{
     this.ViewData["Title"] = "Home Page";
 }
@@ -48,7 +50,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="class-item">
                     <div class="ci-pic">
-                        <img src="images/classes/class-1.jpg" alt="">
+                        <img src="images/classes/class-supplements.jpg" alt="">
                     </div>
                     <div class="ci-text">
                         <span>FITNESS</span>
@@ -60,7 +62,7 @@
             <div class="col-lg-4 col-md-6">
                 <div class="class-item">
                     <div class="ci-pic">
-                        <img src="images/classes/class-2.jpg" alt="">
+                        <img src="images/classes/class-2.png" alt="">
                     </div>
                     <div class="ci-text">
                         <span>FITNESS</span>
@@ -96,7 +98,7 @@
             <div class="col-lg-6">
                 <div class="class-item">
                     <div class="ci-pic">
-                        <img src="images/classes/class-5.jpg" alt="">
+                        <img src="images/classes/class-training-schedular.jpg" alt="">
                     </div>
                     <div class="ci-text">
                         <span>TRAINING</span>
@@ -109,15 +111,33 @@
     </div>
 </section>
 
-<section class="banner-section set-bg" data-setbg="images/banner-bg.jpg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="bs-text">
-                    <h2>register now to get started</h2>
-                    <a asp-area="Identity" asp-page="/Account/Register" class="primary-btn  btn-normal">Register</a>
+@if (this.SignInManager.IsSignedIn(this.User))
+{
+    <section class="banner-section set-bg" data-setbg="images/banner-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="bs-text">
+                        <h2>Thank you for your registration</h2>
+                        <h2>Now you are one of us!</h2>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+}
+else
+{
+    <section class="banner-section set-bg" data-setbg="images/banner-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="bs-text">
+                        <h2>register now to get started</h2>
+                        <a asp-area="Identity" asp-page="/Account/Register" class="primary-btn  btn-normal">Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

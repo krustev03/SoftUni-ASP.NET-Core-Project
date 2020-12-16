@@ -1,5 +1,8 @@
 ﻿@using FitnessHub.Common
+@using FitnessHub.Data.Models
+@using Microsoft.AspNetCore.Identity
 @inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@inject SignInManager<ApplicationUser> SignInManager
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,18 +61,43 @@
                 <li>
                     <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 </li>
-                <li>
+                <li class="shop-list-item">
                     <a href="" onclick="return false;">Shop</a>
                     <ul class="dropdown">
                         <li><a asp-area="" asp-controller="Suplements" asp-action="Index" asp-route-page="1">Suplements</a></li>
                         <li><a asp-area="" asp-controller="Equipments" asp-action="Index" asp-route-page="1">Equipments</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a asp-area="" asp-controller="Contacts" asp-action="Index">Contacts</a>
-                </li>
+                @if (this.SignInManager.IsSignedIn(this.User))
+                {
+                    <li>
+                        <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @(this.User.Identity.Name)!</a>
+                    </li>
+                    if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                    {
+                        <li>
+                            <a asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
+                        </li>
+                    }
+                    <li class="shop-icon mt-2">
+                        <a class="shop-icon-link" asp-area="" asp-controller="Cart" asp-action="Index"><i class="fas fa-shopping-cart"></i></a>
+                    </li>
+                    <li>
+                        <form class="text-center mt-3" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@(this.Url.Action("Index", "Home", new { area = string.Empty }))">
+                            <button type="submit" class="primary-btn btn-logout">Logout</button>
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-area="Identity" asp-page="/Account/Register">Register</a>
+                    </li>
+                    <li>
+                        <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+                    </li>
+                }
             </ul>
-            <partial name="_LoginPartial" />
         </nav>
         <div id="mobile-menu-wrap"></div>
     </div>

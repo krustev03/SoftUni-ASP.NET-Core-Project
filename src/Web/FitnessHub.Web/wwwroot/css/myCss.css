@@ -312,3 +312,17 @@
 .close {
     text-shadow: 0 1px 0 black;
 }
+
+.shop-list-item {
+    margin-bottom: 35px;
+}
+
+.shop-icon {
+    text-align: center;
+}
+
+.shop-icon a {
+    margin: 0 auto !important;
+    width: 10%;
+    border-bottom: none !important;
+}
