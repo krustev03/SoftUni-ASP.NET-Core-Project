@@ -26,12 +26,12 @@
         public async void GetUserEquipments_ShouldGetAllTheEquipmentsInTheCartOfAUser()
         {
             // Arrange
-            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
-            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.Context);
-            var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.context);
+            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.context);
+            var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, imagesRepository, null);
-            var myCartService = new CartService(equipmentsRepository, null, userEquipmentsRepository, null);
+            var cartService = new CartService(equipmentsRepository, null, userEquipmentsRepository, null);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
@@ -70,7 +70,7 @@
             await equipmentService.AddEquipmentToCart(2, user.Id);
 
             // Act
-            var result = myCartService.GetUserEquipments(user.Id);
+            var result = cartService.GetUserEquipments(user.Id);
             var resultCount = result.Count();
             var expectedCount = 2;
 
@@ -82,12 +82,12 @@
         public async void GetUserSuplements_ShouldGetAllTheSuplementsInTheCartOfAUser()
         {
             // Arrange
-            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
-            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.Context);
-            var userSuplementsRepository = new EfDeletableEntityRepository<UserSuplement>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.context);
+            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.context);
+            var userSuplementsRepository = new EfDeletableEntityRepository<UserSuplement>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var suplementService = new SuplementService(suplementsRepository, usersRepository, userSuplementsRepository, imagesRepository, null);
-            var myCartService = new CartService(null, suplementsRepository, null, userSuplementsRepository);
+            var cartService = new CartService(null, suplementsRepository, null, userSuplementsRepository);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
@@ -128,7 +128,7 @@
             await suplementService.AddSuplementToCart(2, user.Id);
 
             // Act
-            var result = myCartService.GetUserSuplements(user.Id);
+            var result = cartService.GetUserSuplements(user.Id);
             var resultCount = result.Count();
             var expectedCount = 2;
 
@@ -140,15 +140,15 @@
         public async void GetTotalPrice_ShouldGetTheTotalPriceOfTheItemsInTheCart()
         {
             // Arrange
-            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
-            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
-            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.Context);
-            var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.Context);
-            var userSuplementsRepository = new EfDeletableEntityRepository<UserSuplement>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.context);
+            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.context);
+            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.context);
+            var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.context);
+            var userSuplementsRepository = new EfDeletableEntityRepository<UserSuplement>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, imagesRepository, null);
             var suplementService = new SuplementService(suplementsRepository, usersRepository, userSuplementsRepository, imagesRepository, null);
-            var myCartService = new CartService(equipmentsRepository, suplementsRepository, userEquipmentsRepository, userSuplementsRepository);
+            var cartService = new CartService(equipmentsRepository, suplementsRepository, userEquipmentsRepository, userSuplementsRepository);
 
             var imageEquipment = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
@@ -191,7 +191,7 @@
             await suplementService.AddSuplementToCart(1, user.Id);
 
             // Act
-            var result = myCartService.GetTotalPrice(user.Id);
+            var result = cartService.GetTotalPrice(user.Id);
             var expected = 80.00m;
 
             // Assert
@@ -202,12 +202,12 @@
         public async void RemoveEquipmentFromCartAsync_ShouldRemoveTheEquipmentFromTheCar()
         {
             // Arrange
-            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
-            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.Context);
-            var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.context);
+            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.context);
+            var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, imagesRepository, null);
-            var myCartService = new CartService(equipmentsRepository, null, userEquipmentsRepository, null);
+            var cartService = new CartService(equipmentsRepository, null, userEquipmentsRepository, null);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
@@ -246,8 +246,8 @@
             await equipmentService.AddEquipmentToCart(2, user.Id);
 
             // Act
-            await myCartService.RemoveEquipmentFromCartAsync(1, user.Id);
-            var resultCount = myCartService.GetUserEquipments(user.Id).Count();
+            await cartService.RemoveEquipmentFromCartAsync(1, user.Id);
+            var resultCount = cartService.GetUserEquipments(user.Id).Count();
             var expectedCount = 1;
 
             // Assert
@@ -258,12 +258,12 @@
         public async void RemoveSuplementFromCartAsync_ShouldRemoveTheSuplementFromTheCar()
         {
             // Arrange
-            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
-            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.Context);
-            var userSuplementsRepository = new EfDeletableEntityRepository<UserSuplement>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.context);
+            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.context);
+            var userSuplementsRepository = new EfDeletableEntityRepository<UserSuplement>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var suplementService = new SuplementService(suplementsRepository, usersRepository, userSuplementsRepository, imagesRepository, null);
-            var myCartService = new CartService(null, suplementsRepository, null, userSuplementsRepository);
+            var cartService = new CartService(null, suplementsRepository, null, userSuplementsRepository);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
 
@@ -304,8 +304,8 @@
             await suplementService.AddSuplementToCart(2, user.Id);
 
             // Act
-            await myCartService.RemoveSuplementFromCartAsync(1, user.Id);
-            var resultCount = myCartService.GetUserSuplements(user.Id).Count();
+            await cartService.RemoveSuplementFromCartAsync(1, user.Id);
+            var resultCount = cartService.GetUserSuplements(user.Id).Count();
             var expectedCount = 1;
 
             // Assert

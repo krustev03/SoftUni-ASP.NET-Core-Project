@@ -1,11 +1,7 @@
 ﻿namespace FitnessHub.Web.Areas.Administration.Controllers
 {
-    using System.Threading.Tasks;
-
-    using FitnessHub.Data.Models;
     using FitnessHub.Services.Data;
     using FitnessHub.Web.ViewModels.Administration.Dashboard;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class DashboardController : AdministrationController

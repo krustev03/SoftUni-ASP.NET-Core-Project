@@ -11,11 +11,11 @@
 
     public class MailService : IMailService
     {
-        private readonly MailSettings _mailSettings;
+        private readonly MailSettings mailSettings;
 
-        public MailService(IOptions<MailSettings> mailSettings)
+        public MailService(IOptions<MailSettings> mailSettingsOptions)
         {
-            _mailSettings = mailSettings.Value;
+            this.mailSettings = mailSettingsOptions.Value;
         }
 
         public async Task SendEmailAsync(ApplicationUser applicationUser)
@@ -29,8 +29,8 @@
             builder.HtmlBody = "<p>Congratulations! Your order is on the way, " + applicationUser.UserName + ". Thanks that you chose us!</p>";
             email.Body = builder.ToMessageBody();
             using var smtp = new SmtpClient();
-            smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
-            smtp.Authenticate(_mailSettings.Mail, _mailSettings.Password);
+            smtp.Connect(this.mailSettings.Host, this.mailSettings.Port, SecureSocketOptions.StartTls);
+            smtp.Authenticate(this.mailSettings.Mail, this.mailSettings.Password);
             await smtp.SendAsync(email);
             smtp.Dispose();
         }

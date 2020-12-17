@@ -18,9 +18,9 @@
         public async void AddTrainingAsync_ShouldAddTrainingToTrainingProgramInDatabase()
         {
             // Arrange
-            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.Context);
+            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.context);
             var trainingProgramService = new TrainingProgramService(trainingProgramsRepository);
-            var trainingsRepository = new EfDeletableEntityRepository<Training>(this.Context);
+            var trainingsRepository = new EfDeletableEntityRepository<Training>(this.context);
             var trainingService = new TrainingService(trainingsRepository, trainingProgramsRepository);
 
             var model1 = new TrainingProgramInputModel()
@@ -45,10 +45,10 @@
         public async void GetTraining_ShouldGetTheTrainingWithTheGivenId()
         {
             // Arrange
-            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.Context);
+            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.context);
             var trainingProgramService = new TrainingProgramService(trainingProgramsRepository);
-            var trainingsRepository = new EfDeletableEntityRepository<Training>(this.Context);
-            var trainingService = new TrainingService(trainingsRepository,trainingProgramsRepository);
+            var trainingsRepository = new EfDeletableEntityRepository<Training>(this.context);
+            var trainingService = new TrainingService(trainingsRepository, trainingProgramsRepository);
 
             var model1 = new TrainingProgramInputModel()
             {
@@ -70,9 +70,9 @@
         public async void DeleteTrainingByIdAsync_ShouldDeleteTrainingInDatabase()
         {
             // Arrange
-            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.Context);
+            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.context);
             var trainingProgramService = new TrainingProgramService(trainingProgramsRepository);
-            var trainingsRepository = new EfDeletableEntityRepository<Training>(this.Context);
+            var trainingsRepository = new EfDeletableEntityRepository<Training>(this.context);
             var trainingService = new TrainingService(trainingsRepository, trainingProgramsRepository);
 
             var model1 = new TrainingProgramInputModel()

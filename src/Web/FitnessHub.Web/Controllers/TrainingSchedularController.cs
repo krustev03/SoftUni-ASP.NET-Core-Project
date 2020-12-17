@@ -46,7 +46,7 @@
             {
                 ItemsPerPage = ItemsPerPage,
                 PageNumber = page,
-                ItemsCount = this.trainingProgramService.GetCount(),
+                ItemsCount = this.trainingProgramService.GetCount(userId),
                 TrainingPrograms = this.trainingProgramService.GetAllForPaging<TrainingProgramViewModel>(page, userId, ItemsPerPage),
             };
 

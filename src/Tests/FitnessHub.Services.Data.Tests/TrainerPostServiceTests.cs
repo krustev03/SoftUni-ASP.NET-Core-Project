@@ -24,7 +24,7 @@
         public async void AddPostAsync_ShouldAddTrainerPostInDatabase()
         {
             // Arrange
-            var trainerPostsRepository = new EfDeletableEntityRepository<TrainerPost>(this.Context);
+            var trainerPostsRepository = new EfDeletableEntityRepository<TrainerPost>(this.context);
             var trainerPostService = new TrainerPostService(trainerPostsRepository);
 
             var model1 = new TrainerPostInputModel()
@@ -51,7 +51,7 @@
         public async void EditPost_ShouldEditTrainerPostInDatabase()
         {
             // Arrange
-            var trainerPostsRepository = new EfDeletableEntityRepository<TrainerPost>(this.Context);
+            var trainerPostsRepository = new EfDeletableEntityRepository<TrainerPost>(this.context);
             var trainerPostService = new TrainerPostService(trainerPostsRepository);
 
             var model1 = new TrainerPostInputModel()
@@ -88,7 +88,7 @@
         public async void GetAllForPaging_ShouldReturnAllTrainerPostsInOnePage()
         {
             // Arrange
-            var trainerPostsRepository = new EfDeletableEntityRepository<TrainerPost>(this.Context);
+            var trainerPostsRepository = new EfDeletableEntityRepository<TrainerPost>(this.context);
             var trainerPostService = new TrainerPostService(trainerPostsRepository);
 
             var model1 = new TrainerPostInputModel()
@@ -136,7 +136,7 @@
         public async void GetPostById_ShouldGetPostByIdInDatabase()
         {
             // Arrange
-            var trainerPostsRepository = new EfDeletableEntityRepository<TrainerPost>(this.Context);
+            var trainerPostsRepository = new EfDeletableEntityRepository<TrainerPost>(this.context);
             var trainerPostService = new TrainerPostService(trainerPostsRepository);
 
             var model = new TrainerPostInputModel()
@@ -164,7 +164,7 @@
         public async void GetCount_ShouldReturnTrainerPostsCount()
         {
             // Arrange
-            var trainerPostsRepository = new EfDeletableEntityRepository<TrainerPost>(this.Context);
+            var trainerPostsRepository = new EfDeletableEntityRepository<TrainerPost>(this.context);
             var trainerPostService = new TrainerPostService(trainerPostsRepository);
 
             var model1 = new TrainerPostInputModel()
@@ -219,7 +219,7 @@
                 Description = "The best trainer in the universe.",
             };
 
-            var trainerPostsRepository = new EfDeletableEntityRepository<TrainerPost>(this.Context);
+            var trainerPostsRepository = new EfDeletableEntityRepository<TrainerPost>(this.context);
             var trainerPostService = new TrainerPostService(trainerPostsRepository);
 
             await trainerPostService.AddPostAsync(model1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80");

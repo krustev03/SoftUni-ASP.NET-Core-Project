@@ -1,7 +1,6 @@
 ﻿namespace FitnessHub.Web.Areas.Administration.Controllers
 {
     using FitnessHub.Common;
-    using FitnessHub.Web.Controllers;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;

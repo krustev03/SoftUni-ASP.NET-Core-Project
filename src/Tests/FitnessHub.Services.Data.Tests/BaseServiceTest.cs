@@ -1,13 +1,12 @@
 ﻿namespace FitnessHub.Services.Data.Tests
 {
-    using CloudinaryDotNet;
     using FitnessHub.Data;
     using FitnessHub.Data.Models;
     using FitnessHub.Services.Data.Tests.Mocks;
     using FitnessHub.Services.Mapping;
     using FitnessHub.Web.ViewModels.Administration.Dashboard;
+    using FitnessHub.Web.ViewModels.Cart;
     using FitnessHub.Web.ViewModels.Equipments;
-    using FitnessHub.Web.ViewModels.MyCart;
     using FitnessHub.Web.ViewModels.News;
     using FitnessHub.Web.ViewModels.Suplements;
     using FitnessHub.Web.ViewModels.TrainerPosts;
@@ -17,14 +16,13 @@
 
     public class BaseServiceTest
     {
-        protected ApplicationDbContext Context;
-        protected Mock<UserManager<ApplicationUser>> UserManager;
-        protected Mock<Cloudinary> CloudinaryUtility;
+        protected ApplicationDbContext context;
+        protected Mock<UserManager<ApplicationUser>> userManager;
 
         protected BaseServiceTest()
         {
-            this.Context = InMemoryDatabase.Get();
-            this.UserManager = UserManagerMock.New;
+            this.context = InMemoryDatabase.Get();
+            this.userManager = UserManagerMock.New;
             AutoMapperConfig.RegisterMappings(
                 typeof(EquipmentViewModel).Assembly,
                 typeof(EquipmentCartViewModel).Assembly,

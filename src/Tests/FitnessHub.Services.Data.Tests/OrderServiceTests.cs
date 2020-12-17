@@ -60,17 +60,17 @@
                 Description = "The best equipment in the universe.",
                 Image = imageEquipment2,
             };
-            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.Context);
-            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
-            var userSuplementsRepository = new EfDeletableEntityRepository<UserSuplement>(this.Context);
-            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
-            var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.context);
+            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.context);
+            var userSuplementsRepository = new EfDeletableEntityRepository<UserSuplement>(this.context);
+            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.context);
+            var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var suplementService = new SuplementService(suplementsRepository, usersRepository, userSuplementsRepository, imagesRepository, null);
             var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, imagesRepository, null);
-            var ordersRepository = new EfDeletableEntityRepository<Order>(this.Context);
-            var orderEquipmentsRepository = new EfDeletableEntityRepository<OrderEquipment>(this.Context);
-            var orderSuplementsRepository = new EfDeletableEntityRepository<OrderSuplement>(this.Context);
+            var ordersRepository = new EfDeletableEntityRepository<Order>(this.context);
+            var orderEquipmentsRepository = new EfDeletableEntityRepository<OrderEquipment>(this.context);
+            var orderSuplementsRepository = new EfDeletableEntityRepository<OrderSuplement>(this.context);
             var orderService = new OrderService(
                 ordersRepository,
                 userEquipmentsRepository,

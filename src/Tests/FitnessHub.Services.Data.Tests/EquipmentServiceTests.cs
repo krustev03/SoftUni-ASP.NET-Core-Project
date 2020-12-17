@@ -42,8 +42,8 @@
                 Description = "The best equipment in the universe.",
                 Image = image,
             };
-            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository, null);
 
             // Act
@@ -81,8 +81,8 @@
                 Description = "The best equipment in the universe.",
                 Image = image1,
             };
-            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository, null);
 
             await equipmentService.AddEquipmentAsync(model1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
@@ -114,8 +114,8 @@
         public async void GetAllForPaging_ShouldReturnAllEquipmentsInOnePage()
         {
             // Arrange
-            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository, null);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
@@ -175,8 +175,8 @@
         public async void GetAllWithFilterForPaging_ShouldReturnFilteredEquipmentsInOnePage()
         {
             // Arrange
-            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository, null);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
@@ -245,8 +245,8 @@
                 Description = "The best equipment in the universe.",
                 Image = image,
             };
-            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository, null);
 
             await equipmentService.AddEquipmentAsync(model, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
@@ -267,8 +267,8 @@
         public async void GetCount_ShouldReturnAllEquipmentsCount()
         {
             // Arrange
-            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository, null);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
@@ -328,8 +328,8 @@
         public async void GetFilteredCount_ShouldReturnFilteredEquipmentsCount()
         {
             // Arrange
-            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var equipmentService = new EquipmentService(equipmentsRepository, null, null, imagesRepository, null);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
@@ -398,10 +398,10 @@
                 Description = "The best equipment in the universe.",
                 Image = image1,
             };
-            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
-            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.Context);
-            var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.context);
+            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.context);
+            var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, imagesRepository, null);
 
             var user = new ApplicationUser()
@@ -443,10 +443,10 @@
                 Description = "The best equipment in the universe.",
                 Image = image1,
             };
-            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.Context);
-            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.Context);
-            var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var equipmentsRepository = new EfDeletableEntityRepository<Equipment>(this.context);
+            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.context);
+            var userEquipmentsRepository = new EfDeletableEntityRepository<UserEquipment>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var equipmentService = new EquipmentService(equipmentsRepository, usersRepository, userEquipmentsRepository, imagesRepository, null);
 
             var user = new ApplicationUser()

@@ -13,7 +13,7 @@
         public async void GetAllAsKeyValuePairs_ShouldReturnMuscleGroupsAsKeyValuePairs()
         {
             // Arrange
-            var muscleGrousRepository = new EfRepository<MuscleGroup>(this.Context);
+            var muscleGrousRepository = new EfRepository<MuscleGroup>(this.context);
             var muscleGroupService = new MuscleGroupService(muscleGrousRepository);
             await muscleGrousRepository.AddAsync(new MuscleGroup { Name = "Chest" });
             await muscleGrousRepository.AddAsync(new MuscleGroup { Name = "Back" });

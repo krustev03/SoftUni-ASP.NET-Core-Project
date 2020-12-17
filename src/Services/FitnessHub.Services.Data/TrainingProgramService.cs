@@ -59,9 +59,9 @@
             return program;
         }
 
-        public int GetCount()
+        public int GetCount(string userId)
         {
-            return this.trainingProgramsRepository.All().Count();
+            return this.trainingProgramsRepository.All().Where(x => x.CreatorId == userId).Count();
         }
 
         public async Task DeleteProgramByIdAsync(int programId)

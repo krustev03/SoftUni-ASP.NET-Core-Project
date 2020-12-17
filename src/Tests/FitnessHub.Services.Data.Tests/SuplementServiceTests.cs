@@ -44,8 +44,8 @@
                 Description = "The best suplement in the universe.",
                 Image = image,
             };
-            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var suplementService = new SuplementService(suplementsRepository, null, null, imagesRepository, null);
 
             // Act
@@ -94,8 +94,8 @@
                 Price = "25.00",
                 Description = "The best creatin in the universe.",
             };
-            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var suplementService = new SuplementService(suplementsRepository, null, null, imagesRepository, null);
 
             await suplementService.AddSuplementAsync(model1, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
@@ -120,8 +120,8 @@
         public async void GetAllForPaging_ShouldReturnAllSuplementsInOnePage()
         {
             // Arrange
-            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var suplementService = new SuplementService(suplementsRepository, null, null, imagesRepository, null);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
@@ -185,8 +185,8 @@
         public async void GetAllWithFilterForPaging_ShouldReturnFilteredSuplementsInOnePage()
         {
             // Arrange
-            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var suplementService = new SuplementService(suplementsRepository, null, null, imagesRepository, null);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
@@ -260,8 +260,8 @@
                 Description = "The best suplement in the universe.",
                 Image = image,
             };
-            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var suplementService = new SuplementService(suplementsRepository, null, null, imagesRepository, null);
 
             await suplementService.AddSuplementAsync(model, "24bf72c6-e348-40d1-a7b1-d28dfa033c80", "~/images");
@@ -284,8 +284,8 @@
         public async void GetCount_ShouldReturnAllSuplementsCount()
         {
             // Arrange
-            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var suplementService = new SuplementService(suplementsRepository, null, null, imagesRepository, null);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
@@ -349,8 +349,8 @@
         public async void GetFilteredCount_ShouldReturnFilteredSuplementsCount()
         {
             // Arrange
-            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var suplementService = new SuplementService(suplementsRepository, null, null, imagesRepository, null);
 
             var image1 = new FormFile(new MemoryStream(Encoding.UTF8.GetBytes("This is a dummy file")), 0, 0, "Data", "test1.jpg");
@@ -424,10 +424,10 @@
                 Description = "The best suplement in the universe.",
                 Image = image1,
             };
-            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
-            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.Context);
-            var userSuplementsRepository = new EfDeletableEntityRepository<UserSuplement>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.context);
+            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.context);
+            var userSuplementsRepository = new EfDeletableEntityRepository<UserSuplement>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var suplementsService = new SuplementService(suplementsRepository, usersRepository, userSuplementsRepository, imagesRepository, null);
 
             var user = new ApplicationUser()
@@ -470,10 +470,10 @@
                 Description = "The best suplement in the universe.",
                 Image = image1,
             };
-            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.Context);
-            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.Context);
-            var userSuplementsRepository = new EfDeletableEntityRepository<UserSuplement>(this.Context);
-            var imagesRepository = new EfRepository<Image>(this.Context);
+            var suplementsRepository = new EfDeletableEntityRepository<Suplement>(this.context);
+            var usersRepository = new EfDeletableEntityRepository<ApplicationUser>(this.context);
+            var userSuplementsRepository = new EfDeletableEntityRepository<UserSuplement>(this.context);
+            var imagesRepository = new EfRepository<Image>(this.context);
             var suplementsService = new SuplementService(suplementsRepository, usersRepository, userSuplementsRepository, imagesRepository, null);
 
             var user = new ApplicationUser()

@@ -17,14 +17,14 @@
 
         // T GetProgramById<T>(int programId)
 
-        // int GetCount()
+        // int GetCount(string userId)
 
         // async Task DeleteProgramByIdAsync(int programId)
         [Fact] // 1. async Task AddTrainingProgramAsync(TrainingProgramInputModel programModel, string userId)
         public async void AddTrainingProgramAsync_ShouldAddTrainingProgramInDatabase()
         {
             // Arrange
-            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.Context);
+            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.context);
             var trainingProgramService = new TrainingProgramService(trainingProgramsRepository);
 
             var model1 = new TrainingProgramInputModel()
@@ -45,7 +45,7 @@
         public async void ChangeName_ShouldChangeTrainingProgramName()
         {
             // Arrange
-            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.Context);
+            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.context);
             var trainingProgramService = new TrainingProgramService(trainingProgramsRepository);
 
             var model1 = new TrainingProgramInputModel()
@@ -74,7 +74,7 @@
         public async void GetAllForPaging_ShouldReturnAllTrainingProgramsInOnePage()
         {
             // Arrange
-            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.Context);
+            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.context);
             var trainingProgramService = new TrainingProgramService(trainingProgramsRepository);
 
             var model1 = new TrainingProgramInputModel()
@@ -114,7 +114,7 @@
         public async void GetProgramById_ShouldGetTrainingProgramByIdInDatabase()
         {
             // Arrange
-            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.Context);
+            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.context);
             var trainingProgramService = new TrainingProgramService(trainingProgramsRepository);
 
             var model1 = new TrainingProgramInputModel()
@@ -132,11 +132,11 @@
             Assert.Equal(expectedName, trainingProgram.Name);
         }
 
-        [Fact] // 5. int GetCount()
+        [Fact] // 5. int GetCount(string userId)
         public async void GetCount_ShouldReturnTrainingProgramsCount()
         {
             // Arrange
-            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.Context);
+            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.context);
             var trainingProgramService = new TrainingProgramService(trainingProgramsRepository);
 
             var model1 = new TrainingProgramInputModel()
@@ -165,7 +165,7 @@
             await trainingProgramService.AddTrainingProgramAsync(model4, "24bf72c6-e348-40d1-a7b1-d28dfa033c80");
 
             // Act
-            var resultCount = trainingProgramService.GetCount();
+            var resultCount = trainingProgramService.GetCount("24bf72c6-e348-40d1-a7b1-d28dfa033c80");
             var expectedCount = 4;
 
             // Assert
@@ -176,7 +176,7 @@
         public async void DeleteProgramByIdAsync_ShouldDeleteTrainingProgramInDatabase()
         {
             // Arrange
-            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.Context);
+            var trainingProgramsRepository = new EfDeletableEntityRepository<TrainingProgram>(this.context);
             var trainingProgramService = new TrainingProgramService(trainingProgramsRepository);
 
             var model1 = new TrainingProgramInputModel()

@@ -1,5 +1,7 @@
 ﻿@model FitnessHub.Web.ViewModels.TrainerPosts.TrainerPostsIndexViewModel
-
+@using FitnessHub.Data.Models
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<ApplicationUser> userManager
 @{
     this.ViewData["Title"] = "Trainers";
     int pageNum = Convert.ToInt32(this.ViewContext.HttpContext.Request.Query["page"]);
@@ -55,7 +57,7 @@
                                         <h4 class="text-white">Posted: @trainerPost.CreatedOn.ToString("dd'/'MM'/'yyyy HH:mm")</h4>
                                     </div>
                                 </div>
-                                @if (this.User.IsInRole("Administrator") || this.User.Identity.Name == trainerPost.Author.Id)
+                                @if (this.User.IsInRole("Administrator") || this.userManager.GetUserId(this.User) == trainerPost.Author.Id)
                                 {
                                     <div class="leave-comment">
                                         <form method="post" class="shop-item-button" asp-controller="TrainerPosts" asp-action="Delete" asp-route-trainerPostId="@trainerPost.Id" asp-route-page="@pageNum">
@@ -78,12 +80,12 @@
             <a class="btn btn-orange w-25 add-item" role="button" asp-area="Trainer" asp-controller="TrainerPosts" asp-action="Add">Add Post</a>
         </div>
     }
-    else 
+    else
     {
         <div class="d-flex justify-content-center">
             <a class="btn btn-orange w-25 add-item" role="button" asp-area="" asp-controller="Home" asp-action="GoToHome">Go to home</a>
         </div>
-    } 
+    }
 </section>
 
 <partial name="_PagingPartial" model="@Model" />

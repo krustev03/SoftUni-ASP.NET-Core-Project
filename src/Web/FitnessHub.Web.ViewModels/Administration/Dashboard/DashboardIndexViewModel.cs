@@ -15,6 +15,5 @@
         public int NewsCount { get; set; }
 
         public int TrainerPostsCount { get; set; }
-
     }
 }

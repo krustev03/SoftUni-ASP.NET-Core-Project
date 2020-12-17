@@ -1,7 +1,6 @@
 ﻿namespace FitnessHub.Web.Controllers
 {
     using System;
-    using System.Configuration;
     using System.Threading.Tasks;
 
     using FitnessHub.Data.Models;
@@ -63,15 +62,15 @@
         public IActionResult StripePaymentDetails(string totalPrice, string stripeToken, string stripeEmail)
         {
             var price = Convert.ToDecimal(totalPrice);
-            var myCharge = new Stripe.ChargeCreateOptions();
-            myCharge.Amount = Convert.ToInt64(price) * 100;
-            myCharge.Currency = "BGN";
-            myCharge.ReceiptEmail = stripeEmail;
-            myCharge.Description = "Sample Charge";
-            myCharge.Source = stripeToken;
-            myCharge.Capture = true;
+            var charge = new Stripe.ChargeCreateOptions();
+            charge.Amount = Convert.ToInt64(price) * 100;
+            charge.Currency = "BGN";
+            charge.ReceiptEmail = stripeEmail;
+            charge.Description = "Sample Charge";
+            charge.Source = stripeToken;
+            charge.Capture = true;
             var chargeService = new Stripe.ChargeService();
-            Charge stripeCharge = chargeService.Create(myCharge);
+            Charge stripeCharge = chargeService.Create(charge);
 
             return this.RedirectToAction($"UserDetails", new { totalPrice });
         }

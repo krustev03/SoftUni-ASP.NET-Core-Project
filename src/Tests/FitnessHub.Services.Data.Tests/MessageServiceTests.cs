@@ -4,7 +4,6 @@
 
     using FitnessHub.Data.Models;
     using FitnessHub.Data.Repositories;
-    using FitnessHub.Web.ViewModels.Chat;
     using Xunit;
 
     // async Task AddMessageAsync(MessageInputModel inputModel, string authorId)
@@ -16,7 +15,7 @@
         public async void AddMessageAsync_ShouldAddMessageInDatabase()
         {
             // Arrange
-            var messagesRepository = new EfDeletableEntityRepository<Message>(this.Context);
+            var messagesRepository = new EfDeletableEntityRepository<Message>(this.context);
             var messageService = new MessageService(messagesRepository);
             var content = "Some content for the test message.";
 
@@ -35,7 +34,7 @@
         public async void DeleteMessageByIdAsync_ShouldDeleteMessageInDatabase()
         {
             // Arrange
-            var messagesRepository = new EfDeletableEntityRepository<Message>(this.Context);
+            var messagesRepository = new EfDeletableEntityRepository<Message>(this.context);
             var messageService = new MessageService(messagesRepository);
 
             var content = "Some content for the test message.";

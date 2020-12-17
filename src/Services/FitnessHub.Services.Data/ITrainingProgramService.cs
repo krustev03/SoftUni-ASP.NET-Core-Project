@@ -15,7 +15,7 @@
 
         T GetProgramById<T>(int programId);
 
-        int GetCount();
+        int GetCount(string userId);
 
         Task DeleteProgramByIdAsync(int programId);
     }

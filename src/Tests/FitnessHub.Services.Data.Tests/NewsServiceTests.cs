@@ -33,7 +33,7 @@
                 Title = "Novina",
                 Content = "The best news in the universe now.",
             };
-            var newsRepository = new EfDeletableEntityRepository<News>(this.Context);
+            var newsRepository = new EfDeletableEntityRepository<News>(this.context);
             var newsService = new NewsService(newsRepository);
 
             // Act
@@ -62,7 +62,7 @@
                 Title = "Nova Novina",
                 Content = "The best news in the universe now and ever.",
             };
-            var newsRepository = new EfDeletableEntityRepository<News>(this.Context);
+            var newsRepository = new EfDeletableEntityRepository<News>(this.context);
             var newsService = new NewsService(newsRepository);
             await newsService.AddNewsAsync(model1);
 
@@ -92,7 +92,7 @@
                 Title = "Nova Novina",
                 Content = "The best news in the universe now and ever.",
             };
-            var newsRepository = new EfDeletableEntityRepository<News>(this.Context);
+            var newsRepository = new EfDeletableEntityRepository<News>(this.context);
             var newsService = new NewsService(newsRepository);
             await newsService.AddNewsAsync(model1);
             await newsService.AddNewsAsync(model2);
@@ -132,7 +132,7 @@
                 Title = "Kostenurka",
                 Content = "The best news in the universe now and ever.",
             };
-            var newsRepository = new EfDeletableEntityRepository<News>(this.Context);
+            var newsRepository = new EfDeletableEntityRepository<News>(this.context);
             var newsService = new NewsService(newsRepository);
             await newsService.AddNewsAsync(model1);
             await newsService.AddNewsAsync(model2);
@@ -156,7 +156,7 @@
                 Title = "Novina",
                 Content = "The best news in the universe now.",
             };
-            var newsRepository = new EfDeletableEntityRepository<News>(this.Context);
+            var newsRepository = new EfDeletableEntityRepository<News>(this.context);
             var newsService = new NewsService(newsRepository);
 
             await newsService.AddNewsAsync(model);
@@ -186,7 +186,7 @@
                 Title = "Nova Novina",
                 Content = "The best news in the universe now and ever.",
             };
-            var newsRepository = new EfDeletableEntityRepository<News>(this.Context);
+            var newsRepository = new EfDeletableEntityRepository<News>(this.context);
             var newsService = new NewsService(newsRepository);
             await newsService.AddNewsAsync(model1);
             await newsService.AddNewsAsync(model2);
@@ -214,7 +214,7 @@
                 Title = "Kovid",
                 Content = "The best news in the universe now and ever.",
             };
-            var newsRepository = new EfDeletableEntityRepository<News>(this.Context);
+            var newsRepository = new EfDeletableEntityRepository<News>(this.context);
             var newsService = new NewsService(newsRepository);
             await newsService.AddNewsAsync(model1);
             await newsService.AddNewsAsync(model2);
@@ -242,7 +242,7 @@
                 Title = "Nova Novina",
                 Content = "The best news in the universe now and ever.",
             };
-            var newsRepository = new EfDeletableEntityRepository<News>(this.Context);
+            var newsRepository = new EfDeletableEntityRepository<News>(this.context);
             var newsService = new NewsService(newsRepository);
             await newsService.AddNewsAsync(model1);
             await newsService.AddNewsAsync(model2);
