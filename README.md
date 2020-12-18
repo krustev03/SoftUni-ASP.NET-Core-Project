@@ -80,7 +80,7 @@ ___
 
 ##### If you have questions or problem with the site, you can always contact us in the contacts page.
 
-<g-emoji class="g-emoji" alias="gear">⚙</g-emoji>## Technologies used:
+<g-emoji class="g-emoji" alias="gear">⚙</g-emoji> ## Technologies used:
 
 ---
 
