@@ -54,7 +54,7 @@ ___
 * **3 different areas: Identity, Administration and Trainer**
 * **60+ service methods**
 * **12 controllers**
-* **35 views**
+* **35+ views**
 
 ## Features
 
@@ -80,7 +80,7 @@ ___
 
 ##### If you have questions or problem with the site, you can always contact us in the contacts page.
 
-## Technologies used
+<g-emoji class="g-emoji" alias="gear">⚙</g-emoji>## Technologies used:
 
 ---
 
@@ -89,6 +89,7 @@ ___
 2. [ASP.NET Core 3.1](https://en.wikipedia.org/wiki/ASP.NET_Core)
 3. [Entity Framework Core 3.1](https://en.wikipedia.org/wiki/Entity_Framework)
 4. [MS SQL Server](https://en.wikipedia.org/wiki/Microsoft_SQL_Server)
+5. [xUnit.net](https://xunit.net/)
 5. [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
 6. [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
 7. [HTML5](https://en.wikipedia.org/wiki/HTML)
