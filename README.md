@@ -10,7 +10,7 @@ ___
 ##### Fitness Hub is an online platform for:
 * **Shopping**
 * **Communications**
-* **Managing**
+* **Management**
 * **Many more**
 
 ___
@@ -32,6 +32,7 @@ ___
 
 ##### Database entities:
 * Users
+* Roles
 * Equipments
 * Suplements
 * Trainer Posts
@@ -55,6 +56,7 @@ ___
 * **60+ service methods**
 * **12 controllers**
 * **35+ views**
+* **100% Unit Tests Coverage**
 
 ## Features
 
@@ -80,7 +82,7 @@ ___
 
 ##### If you have questions or problem with the site, you can always contact us in the contacts page.
 
-<g-emoji class="g-emoji" alias="gear">⚙</g-emoji> ## Technologies used:
+## <g-emoji class="g-emoji" alias="gear">⚙</g-emoji> Technologies used:
 
 ---
 
@@ -90,19 +92,19 @@ ___
 3. [Entity Framework Core 3.1](https://en.wikipedia.org/wiki/Entity_Framework)
 4. [MS SQL Server](https://en.wikipedia.org/wiki/Microsoft_SQL_Server)
 5. [xUnit.net](https://xunit.net/)
-5. [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
-6. [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
-7. [HTML5](https://en.wikipedia.org/wiki/HTML)
-8. [CSS](https://www.w3schools.com/css/)
-9. [MS Visual Studio 2019](https://visualstudio.microsoft.com/vs/)
-10. [MS SQL Server Management Studio 2017](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
-11. [Microsoft Azure](https://azure.microsoft.com/en-us/)
-12. [Theme - GymLife By ThemeWagon](https://themewagon.com/themes/free-bootstrap-4-html5-gym-website-template-gymlife/)
-13. [Cloudinary API](https://cloudinary.com/documentation/image_upload_api_reference)
-14. [Sendgrid API](https://sendgrid.com/docs/API_Reference/api_v3.html)
-15. [MailKit](https://www.mailkit.com/resources/api/api-introduction)
-16. [Google reCAPTCHA v3 API](https://developers.google.com/recaptcha/docs/v3)
-17. [Stripe API](https://stripe.com/docs/api)
-18. [SignalR](https://docs.microsoft.com/en-us/aspnet/signalr/overview/guide-to-the-api/)
+6. [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
+7. [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
+8. [HTML5](https://en.wikipedia.org/wiki/HTML)
+9. [CSS](https://www.w3schools.com/css/)
+10. [MS Visual Studio 2019](https://visualstudio.microsoft.com/vs/)
+11. [MS SQL Server Management Studio 2017](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms?view=sql-server-ver15)
+12. [Microsoft Azure](https://azure.microsoft.com/en-us/)
+13. [Theme - GymLife By ThemeWagon](https://themewagon.com/themes/free-bootstrap-4-html5-gym-website-template-gymlife/)
+14. [Cloudinary API](https://cloudinary.com/documentation/image_upload_api_reference)
+15. [Sendgrid API](https://sendgrid.com/docs/API_Reference/api_v3.html)
+16. [MailKit](https://www.mailkit.com/resources/api/api-introduction)
+17. [Google reCAPTCHA v3 API](https://developers.google.com/recaptcha/docs/v3)
+18. [Stripe API](https://stripe.com/docs/api)
+19. [SignalR](https://docs.microsoft.com/en-us/aspnet/signalr/overview/guide-to-the-api/)
 
 ---

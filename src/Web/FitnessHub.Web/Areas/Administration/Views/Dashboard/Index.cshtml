@@ -58,11 +58,17 @@
                         <tbody>
                             @foreach (var user in Model.Users.OrderByDescending(x => x.CreatedOn))
                             {
-                                <tr>
-                                    <td class="class-time">@user.Id</td>
+                            <tr>
+                                <td class="class-time">@user.Id</td>
 
-                                    <td class="hover-bg ts-meta text-white" data-tsmeta="fitness">@user.UserName</td>
+                                <td class="hover-bg ts-meta text-white" data-tsmeta="fitness">@user.UserName</td>
 
+                                @if (await this.userManager.IsInRoleAsync(await this.userManager.FindByIdAsync(user.Id), "Administrator"))
+                                {
+                                    <td class="dark-bg hover-bg ts-meta text-white" data-tsmeta="fitness">Administrator</td>
+                                }
+                                else
+                                {
                                     @if (await this.userManager.IsInRoleAsync(await this.userManager.FindByIdAsync(user.Id), "Trainer"))
                                     {
                                         <td class="dark-bg hover-bg ts-meta text-white" data-tsmeta="fitness">Trainer</td>
@@ -71,11 +77,12 @@
                                     {
                                         <td class="dark-bg hover-bg ts-meta text-white" data-tsmeta="fitness">Client</td>
                                     }
+                                }
 
-                                    <td class="hover-bg ts-meta text-white" data-tsmeta="workout">@user.Orders.ToList().Count</td>
+                                <td class="hover-bg ts-meta text-white" data-tsmeta="workout">@user.Orders.ToList().Count</td>
 
-                                    <td class="dark-bg hover-bg ts-meta text-white" data-tsmeta="workout">@user.CreatedOn.ToString("dd'/'MM'/'yyyy HH:mm")</td>
-                                </tr>
+                                <td class="dark-bg hover-bg ts-meta text-white" data-tsmeta="workout">@user.CreatedOn.ToString("dd'/'MM'/'yyyy HH:mm")</td>
+                            </tr>
                             }
                         </tbody>
                     </table>
