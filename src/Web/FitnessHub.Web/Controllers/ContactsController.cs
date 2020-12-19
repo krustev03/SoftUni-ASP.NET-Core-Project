@@ -9,6 +9,7 @@
 
     using static FitnessHub.Common.GlobalConstants;
 
+    [Authorize]
     public class ContactsController : Controller
     {
         private readonly IEmailSender emailSender;
@@ -19,14 +20,12 @@
             this.emailSender = emailSender;
         }
 
-        [Authorize]
         public IActionResult Index()
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Index(ContactsInputModel model)
         {
             if (!this.ModelState.IsValid)
@@ -41,10 +40,9 @@
 
             await this.emailSender.SendPlainEmailAsync(email, name, SupportEmail, subject, content, null);
 
-            return this.RedirectToAction("ThankYou");
+            return this.RedirectToAction(nameof(this.ThankYou));
         }
 
-        [Authorize]
         public IActionResult ThankYou()
         {
             return this.View();

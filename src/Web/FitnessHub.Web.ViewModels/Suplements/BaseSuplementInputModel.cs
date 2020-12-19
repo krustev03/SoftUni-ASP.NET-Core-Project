@@ -7,21 +7,21 @@
     public class BaseSuplementInputModel
     {
         [Required]
-        [MinLength(SuplementNameMinLength, ErrorMessage = "The name must be at least 5 characters.")]
+        [MinLength(SuplementNameMinLength, ErrorMessage = ShopItemNameMinLengthErrorMessage)]
         [MaxLength(SuplementNameMaxLength)]
-        [RegularExpression(SuplementNameRegex, ErrorMessage = "The name must start with capital letter.")]
+        [RegularExpression(SuplementNameRegex, ErrorMessage = CapitalLetterNameRegexErrorMessage)]
         public string Name { get; set; }
 
         [Required]
-        [RegularExpression(SuplementWeightRegex, ErrorMessage = "The weight must be positive and whole number.")]
+        [RegularExpression(SuplementWeightRegex, ErrorMessage = SuplementWeightRegexErrorMessage)]
         public string Weight { get; set; }
 
         [Required]
-        [RegularExpression(SuplementPriceRegex, ErrorMessage = "The price must be positive.")]
+        [RegularExpression(SuplementPriceRegex, ErrorMessage = ShopItemPriceRegexErrorMessage)]
         public string Price { get; set; }
 
         [Required]
-        [MinLength(SuplementDescriptionMinLength, ErrorMessage = "The description must be at least 20 characters.")]
+        [MinLength(SuplementDescriptionMinLength, ErrorMessage = GeneralDescriptionMinLengthErrorMessage)]
         [MaxLength(SuplementDescriptionMaxLength)]
         public string Description { get; set; }
     }

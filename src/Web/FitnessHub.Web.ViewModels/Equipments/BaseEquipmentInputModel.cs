@@ -7,17 +7,17 @@
     public class BaseEquipmentInputModel
     {
         [Required]
-        [MinLength(EquipmentNameMinLength, ErrorMessage = "The name must be at least 5 characters.")]
+        [MinLength(EquipmentNameMinLength, ErrorMessage = ShopItemNameMinLengthErrorMessage)]
         [MaxLength(EquipmentNameMaxLength)]
-        [RegularExpression(EquipmentNameRegex, ErrorMessage = "The name must start with capital letter.")]
+        [RegularExpression(EquipmentNameRegex, ErrorMessage = CapitalLetterNameRegexErrorMessage)]
         public string Name { get; set; }
 
         [Required]
-        [RegularExpression(EquipmentPriceRegex, ErrorMessage = "The price must be positive.")]
+        [RegularExpression(EquipmentPriceRegex, ErrorMessage = ShopItemPriceRegexErrorMessage)]
         public string Price { get; set; }
 
         [Required]
-        [MinLength(EquipmentDescriptionMinLength, ErrorMessage = "The description must be at least 20 characters.")]
+        [MinLength(EquipmentDescriptionMinLength, ErrorMessage = GeneralDescriptionMinLengthErrorMessage)]
         [MaxLength(EquipmentDescriptionMaxLength)]
         public string Description { get; set; }
     }

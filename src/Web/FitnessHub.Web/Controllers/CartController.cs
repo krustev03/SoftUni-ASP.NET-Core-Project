@@ -9,6 +9,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     public class CartController : Controller
     {
         private readonly ICartService cartService;
@@ -22,7 +23,6 @@
             this.userManager = userManager;
         }
 
-        [Authorize]
         public async Task<IActionResult> Index()
         {
             var appUser = await this.userManager.GetUserAsync(this.User);
@@ -38,7 +38,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> RemoveEquipmentFromCart(int equipmentId)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -50,7 +49,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> RemoveSuplementFromCart(int suplementId)
         {
             var user = await this.userManager.GetUserAsync(this.User);

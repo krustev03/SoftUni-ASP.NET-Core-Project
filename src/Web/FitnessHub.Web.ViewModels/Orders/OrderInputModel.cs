@@ -9,13 +9,13 @@
     public class OrderInputModel
     {
         [Required]
-        [MinLength(BuyerNameMinLength, ErrorMessage = "The first name must be at least 2 characters.")]
-        [RegularExpression(BuyerNameRegex, ErrorMessage = "The first name must start with capital letter.")]
+        [MinLength(BuyerNameMinLength, ErrorMessage = GeneralNameMinLengthErrorMessage)]
+        [RegularExpression(BuyerNameRegex, ErrorMessage = CapitalLetterNameRegexErrorMessage)]
         public string FirstName { get; set; }
 
         [Required]
-        [MinLength(BuyerNameMinLength, ErrorMessage = "The last name must be at least 2 characters.")]
-        [RegularExpression(BuyerNameRegex, ErrorMessage = "The last name must start with capital letter.")]
+        [MinLength(BuyerNameMinLength, ErrorMessage = GeneralNameMinLengthErrorMessage)]
+        [RegularExpression(BuyerNameRegex, ErrorMessage = CapitalLetterNameRegexErrorMessage)]
         public string LastName { get; set; }
 
         public string BirthDay { get; set; }
@@ -27,15 +27,15 @@
         public DateTime BirthDate => DateTime.ParseExact($"{this.BirthDay}/{this.BirthMonth}/{this.BirthYear}", @"d/M/yyyy", CultureInfo.InvariantCulture);
 
         [Required]
-        [MinLength(CityMinLength, ErrorMessage = "The city name must be at least 2 characters.")]
+        [MinLength(CityMinLength, ErrorMessage = CityNameMinLengthErrorMessage)]
         public string City { get; set; }
 
         [Required]
-        [RegularExpression(CityCodeRegex, ErrorMessage = "The city code is invalid.")]
+        [RegularExpression(CityCodeRegex, ErrorMessage = CityCodeRegexErrorMessage)]
         public string CityCode { get; set; }
 
         [Required]
-        [MinLength(AdressMinLength, ErrorMessage = "The adress must be at least 5 characters.")]
+        [MinLength(AdressMinLength, ErrorMessage = AdressMinLengthErrorMessage)]
         public string Adress { get; set; }
 
         public decimal TotalPrice { get; set; }

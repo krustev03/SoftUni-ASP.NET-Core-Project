@@ -7,16 +7,16 @@
     public class CardValidationModel
     {
         [Required]
-        [MinLength(CardNameMinLength, ErrorMessage = "The name is too short.")]
-        [RegularExpression(CardNameRegex, ErrorMessage = "This isn't a valid name.")]
+        [MinLength(CardNameMinLength, ErrorMessage = CardNameMinLengthErrorMessage)]
+        [RegularExpression(CardNameRegex, ErrorMessage = CardNameRegexErrorMessage)]
         public string Name { get; set; }
 
         [Required]
-        [RegularExpression(CardNumberRegex, ErrorMessage = "This isn't a valid card number.")]
+        [RegularExpression(CardNumberRegex, ErrorMessage = CardNumberRegexErrorMessage)]
         public string CardNumber { get; set; }
 
         [Required]
-        [RegularExpression(SecurityCodeRegex, ErrorMessage = "This isn't a valid security code.")]
+        [RegularExpression(SecurityCodeRegex, ErrorMessage = SecurityCodeRegexErrorMessage)]
         public string SecurityCode { get; set; }
     }
 }

@@ -9,6 +9,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     public class TrainingSchedularController : Controller
     {
         private readonly ITrainingProgramService trainingProgramService;
@@ -31,7 +32,6 @@
             this.userManager = userManager;
         }
 
-        [Authorize]
         public async Task<IActionResult> Index(int page = 1)
         {
             if (page <= 0)
@@ -53,14 +53,12 @@
             return this.View(viewModel);
         }
 
-        [Authorize]
         public IActionResult AddTrainingProgram()
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> AddTrainingProgram(TrainingProgramInputModel model)
         {
             if (!this.ModelState.IsValid)
@@ -73,19 +71,17 @@
             await this.trainingProgramService.AddTrainingProgramAsync(model, appUser.Id);
             var page = 1;
 
-            return this.RedirectToAction("Index", new { page });
+            return this.RedirectToAction(nameof(this.Index), new { page });
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> DeleteProgram(int programId, int page)
         {
             await this.trainingProgramService.DeleteProgramByIdAsync(programId);
 
-            return this.RedirectToAction("Index", new { page });
+            return this.RedirectToAction(nameof(this.Index), new { page });
         }
 
-        [Authorize]
         public IActionResult ChangeProgramName(int programId)
         {
             var model = this.trainingProgramService.GetProgramById<TrainingProgramInputModel>(programId);
@@ -93,7 +89,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> ChangeProgramName(int programId, int page, TrainingProgramInputModel model)
         {
             if (!this.ModelState.IsValid)
@@ -103,25 +98,22 @@
 
             await this.trainingProgramService.ChangeName(programId, model);
 
-            return this.RedirectToAction("AllTrainings", new { programId, page });
+            return this.RedirectToAction(nameof(this.AllTrainings), new { programId, page });
         }
 
-        [Authorize]
         public IActionResult AllTrainings(int programId)
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> AddTraining(string dayOfWeek, int programId, int page)
         {
             await this.trainingService.AddTrainingAsync(programId, dayOfWeek);
 
-            return this.RedirectToAction("AllTrainings", new { programId,  page });
+            return this.RedirectToAction(nameof(this.AllTrainings), new { programId,  page });
         }
 
-        [Authorize]
         public IActionResult TrainingDetails(int programId, int trainingId, int page)
         {
             var trainingModel = this.trainingService.GetTraining<TrainingDetailsViewModel>(trainingId);
@@ -130,15 +122,13 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> DeleteTraining(int programId, int trainingId, int page)
         {
             await this.trainingService.DeleteTrainingByIdAsync(trainingId, programId);
 
-            return this.RedirectToAction("AllTrainings", new { programId, page });
+            return this.RedirectToAction(nameof(this.AllTrainings), new { programId, page });
         }
 
-        [Authorize]
         public IActionResult AddExercise(int programId, int trainingId, int page)
         {
             var viewModel = new ExerciseInputModel
@@ -149,15 +139,13 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> AddExercise(int programId, int trainingId, int page, ExerciseInputModel model)
         {
             await this.exerciseService.AddExerciseToTrainingAsync(trainingId, model);
 
-            return this.RedirectToAction("TrainingDetails", new { programId, trainingId, page });
+            return this.RedirectToAction(nameof(this.TrainingDetails), new { programId, trainingId, page });
         }
 
-        [Authorize]
         public IActionResult EditExercise(int programId, int trainingId, int exerciseId, int page)
         {
             var model = this.exerciseService.GetExerciseById<ExerciseInputModel>(exerciseId);
@@ -166,7 +154,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> EditExercise(int programId, int trainingId, int exerciseId, int page, ExerciseInputModel model)
         {
             if (!this.ModelState.IsValid)
@@ -176,28 +163,25 @@
 
             await this.exerciseService.EditExercise(exerciseId, model);
 
-            return this.RedirectToAction("TrainingDetails", new { programId, trainingId, page });
+            return this.RedirectToAction(nameof(this.TrainingDetails), new { programId, trainingId, page });
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> DeleteExercise(int programId, int trainingId, int exerciseId, int page)
         {
             await this.exerciseService.DeleteExerciseByIdAsync(exerciseId);
 
-            return this.RedirectToAction("TrainingDetails", new { programId, trainingId, page });
+            return this.RedirectToAction(nameof(this.TrainingDetails), new { programId, trainingId, page });
         }
 
-        [Authorize]
         public IActionResult ReturnToProgram(int programId, int page)
         {
-            return this.RedirectToAction("AllTrainings", new { programId, page });
+            return this.RedirectToAction(nameof(this.AllTrainings), new { programId, page });
         }
 
-        [Authorize]
         public IActionResult ReturnToAllPrograms(int page)
         {
-            return this.RedirectToAction("Index", new { page });
+            return this.RedirectToAction(nameof(this.Index), new { page });
         }
     }
 }

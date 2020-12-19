@@ -11,6 +11,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     public class SuplementsController : Controller
     {
         private readonly ISuplementService suplementService;
@@ -27,7 +28,6 @@
             this.environment = environment;
         }
 
-        [Authorize]
         public IActionResult Index(int page = 1)
         {
             if (page <= 0)
@@ -47,7 +47,6 @@
             return this.View(viewModel);
         }
 
-        [Authorize]
         public IActionResult FilteredIndex(int page, string searchString, SuplementsIndexViewModel model)
         {
             if (model.SearchString == null)
@@ -102,7 +101,7 @@
 
             var page = 1;
 
-            return this.RedirectToAction("Index", new { page });
+            return this.RedirectToAction(nameof(this.Index), new { page });
         }
 
         [Authorize(Roles = "Administrator")]
@@ -133,11 +132,10 @@
                 return this.View(model);
             }
 
-            return this.RedirectToAction("Index", new { page });
+            return this.RedirectToAction(nameof(this.Index), new { page });
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> AddToCart(int suplementId, int page)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -154,7 +152,7 @@
         {
             await this.suplementService.DeleteSuplementByIdAsync(suplementId);
 
-            return this.RedirectToAction("Index", new { page });
+            return this.RedirectToAction(nameof(this.Index), new { page });
         }
     }
 }

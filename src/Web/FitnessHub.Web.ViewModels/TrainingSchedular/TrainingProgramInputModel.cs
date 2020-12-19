@@ -10,7 +10,7 @@
     public class TrainingProgramInputModel : IMapFrom<TrainingProgram>
     {
         [Required]
-        [MinLength(TrainingProgramNameMinLength, ErrorMessage = "The program name must be at least 3 characters.")]
+        [MinLength(TrainingProgramNameMinLength, ErrorMessage = TrainingProgramNameMinLengthErrorMessage)]
         [MaxLength(TrainingProgramNameMaxLength)]
         public string Name { get; set; }
     }

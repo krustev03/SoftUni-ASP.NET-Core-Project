@@ -7,7 +7,7 @@
     public class MessageInputModel
     {
         [Required]
-        [MinLength(ChatMessageMinLength, ErrorMessage = "You cannot send empty messages.")]
+        [MinLength(ChatMessageMinLength, ErrorMessage = ChatMessageMinLengthErrorMessage)]
         [MaxLength(ChatMessageMaxLength)]
         public string Content { get; set; }
     }

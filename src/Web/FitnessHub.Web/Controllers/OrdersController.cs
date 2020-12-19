@@ -13,6 +13,7 @@
     using Microsoft.Extensions.Configuration;
     using Stripe;
 
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly IMailService mailService;
@@ -32,14 +33,12 @@
             this.configuration = configuration;
         }
 
-        [Authorize]
         public IActionResult CardDetails(decimal totalPrice)
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult CardDetails(string totalPrice, CardValidationModel model)
         {
             if (!this.ModelState.IsValid)
@@ -47,10 +46,9 @@
                 return this.View(model);
             }
 
-            return this.RedirectToAction($"UserDetails", new { totalPrice });
+            return this.RedirectToAction(nameof(this.UserDetails), new { totalPrice });
         }
 
-        [Authorize]
         public IActionResult StripePaymentDetails(decimal totalPrice)
         {
             this.ViewBag.StripePublishKey = this.configuration["Stripe:PublishableKey"];
@@ -58,7 +56,6 @@
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult StripePaymentDetails(string totalPrice, string stripeToken, string stripeEmail)
         {
             var price = Convert.ToDecimal(totalPrice);
@@ -72,17 +69,15 @@
             var chargeService = new Stripe.ChargeService();
             Charge stripeCharge = chargeService.Create(charge);
 
-            return this.RedirectToAction($"UserDetails", new { totalPrice });
+            return this.RedirectToAction(nameof(this.UserDetails), new { totalPrice });
         }
 
-        [Authorize]
         public IActionResult UserDetails(decimal totalPrice)
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> UserDetails(OrderInputModel model)
         {
             if (!this.ModelState.IsValid)
@@ -97,10 +92,9 @@
             await this.mailService.SendEmailAsync(appUser);
             await this.userManager.UpdateAsync(appUser);
 
-            return this.RedirectToAction("ThankYou");
+            return this.RedirectToAction(nameof(this.ThankYou));
         }
 
-        [Authorize]
         public IActionResult ThankYou()
         {
             return this.View();

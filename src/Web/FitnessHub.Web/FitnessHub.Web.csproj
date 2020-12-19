@@ -50,7 +50,6 @@
     <ProjectReference Include="..\..\Services\FitnessHub.Services.Data\FitnessHub.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\FitnessHub.Services.Mapping\FitnessHub.Services.Mapping.csproj" />
     <ProjectReference Include="..\..\Services\FitnessHub.Services.Messaging\FitnessHub.Services.Messaging.csproj" />
-    <ProjectReference Include="..\..\Services\FitnessHub.Services\FitnessHub.Services.csproj" />
     <ProjectReference Include="..\FitnessHub.Web.Infrastructure\FitnessHub.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\FitnessHub.Web.ViewModels\FitnessHub.Web.ViewModels.csproj" />
   </ItemGroup>

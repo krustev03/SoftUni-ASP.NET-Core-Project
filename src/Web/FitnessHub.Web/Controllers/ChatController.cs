@@ -3,9 +3,9 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     public class ChatController : Controller
     {
-        [Authorize]
         public IActionResult Index()
         {
             return this.View();

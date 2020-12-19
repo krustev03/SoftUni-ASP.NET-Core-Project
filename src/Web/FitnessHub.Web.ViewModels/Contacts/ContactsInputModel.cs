@@ -11,7 +11,7 @@
         [Required]
         [StringLength(
             ContactsNameInputMaxLength,
-            ErrorMessage = "The username must be between 3 and 45 characters.",
+            ErrorMessage = ContactsNameInputErrorMessage,
             MinimumLength = ContactsNameInputMinLength)]
         public string Name { get; set; }
 
@@ -25,7 +25,7 @@
         [Required]
         [StringLength(
             EmailMessageMaxLength,
-            ErrorMessage = "The username must be between 3 and 45 characters.",
+            ErrorMessage = ContactsMessageInputErrorMessage,
             MinimumLength = EmailMessageMinLength)]
         public string Message { get; set; }
 

@@ -78,7 +78,7 @@
 
             var page = 1;
 
-            return this.RedirectToAction("Index", new { page });
+            return this.RedirectToAction(nameof(this.Index), new { page });
         }
 
         [Authorize(Roles = "Administrator")]
@@ -99,7 +99,7 @@
 
             await this.newsService.EditNews(newsId, model);
 
-            return this.RedirectToAction("Index", new { page });
+            return this.RedirectToAction(nameof(this.Index), new { page });
         }
 
         [HttpPost]
@@ -108,7 +108,7 @@
         {
             await this.newsService.DeleteNewsByIdAsync(newsId);
 
-            return this.RedirectToAction("Index", new { page });
+            return this.RedirectToAction(nameof(this.Index), new { page });
         }
     }
 }

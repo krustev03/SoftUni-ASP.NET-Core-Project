@@ -11,16 +11,16 @@
     public class ExerciseInputModel : IMapFrom<Exercise>
     {
         [Required]
-        [MinLength(ExerciseNameMinLength, ErrorMessage = "The name must be at least 2 characters")]
+        [MinLength(ExerciseNameMinLength, ErrorMessage = GeneralNameMinLengthErrorMessage)]
         [MaxLength(ExerciseNameMaxLength)]
         public string Name { get; set; }
 
         [Required]
-        [Range(ExerciseSetsMinLength, ExerciseSetsMaxLength, ErrorMessage = "The sets should be between 1 and 30")]
+        [Range(ExerciseSetsMinLength, ExerciseSetsMaxLength, ErrorMessage = ExerciseSetsLengthErrorMessage)]
         public int Sets { get; set; }
 
         [Required]
-        [Range(ExerciseRepsMinLength, ExerciseRepsMaxLength, ErrorMessage = "The reps should be between 1 and 100")]
+        [Range(ExerciseRepsMinLength, ExerciseRepsMaxLength, ErrorMessage = ExerciseRepsLengthErrorMessage)]
         public int Reps { get; set; }
 
         public int MuscleGroupId { get; set; }

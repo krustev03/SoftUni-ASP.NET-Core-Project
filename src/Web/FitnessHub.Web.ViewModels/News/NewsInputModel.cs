@@ -10,13 +10,13 @@
     public class NewsInputModel : IMapFrom<News>
     {
         [Required]
-        [MinLength(NewsTitleMinLength, ErrorMessage = "The title must be at least 5 characters.")]
+        [MinLength(NewsTitleMinLength, ErrorMessage = NewsTitleMinLengthErrorMessage)]
         [MaxLength(NewsTitleMaxLength)]
-        [RegularExpression(NewsTitleRegex, ErrorMessage = "The title must start with capital letter.")]
+        [RegularExpression(NewsTitleRegex, ErrorMessage = NewsTitleRegexErrorMessage)]
         public string Title { get; set; }
 
         [Required]
-        [MinLength(NewsContentMinLength, ErrorMessage = "The content must be at least 20 characters.")]
+        [MinLength(NewsContentMinLength, ErrorMessage = NewsContentMinLengthErrorMessage)]
         [MaxLength(NewsContentMaxLength)]
         public string Content { get; set; }
     }
